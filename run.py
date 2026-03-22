@@ -16,7 +16,7 @@ import subprocess
 # ==================== 配置参数 ====================
 
 # 搜索关键词
-SEARCH_QUERY = 'AI工程师'
+SEARCH_QUERY = '软件开发'
 
 # 城市代码
 # 100010000 - 北京
@@ -25,13 +25,13 @@ SEARCH_QUERY = 'AI工程师'
 # 101210100 - 杭州
 # 101280100 - 广州
 # 101270100 - 成都
-CITY_CODE = '101020100'
+CITY_CODE = '101280100'
 
 # 滚动次数（每次滚动会加载约15条数据）
 MAX_SCROLLS = 20
 
 # 是否启用大模型深度分析
-USE_LLM_ANALYSIS = True
+USE_LLM_ANALYSIS = False
 
 # ==================================================
 
@@ -67,7 +67,7 @@ def update_config():
     print("\n📝 正在更新配置...")
 
     # 更新 boss_spider.py 的配置
-    with open('boss_spider.py', 'r', encoding='utf-8') as f:
+    with open('batch_spider_improved.py', 'r', encoding='utf-8') as f:
         content = f.read()
 
     # 替换搜索关键词

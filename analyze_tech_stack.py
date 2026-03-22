@@ -25,7 +25,7 @@ OUTPUT_FILE = 'tech_stack_analysis.json'
 MARKDOWN_FILE = 'tech_stack_analysis.md'  # Markdown报告文件
 
 # 大模型配置
-USE_LLM = True  # 是否使用大模型分析（需要 API Key）
+USE_LLM = False
 LLM_PROVIDER = 'qwen'  # 可选: 'qwen'(通义千问), 'openai', 'deepseek'
 
 # API Key 配置（从环境变量读取，更安全）
