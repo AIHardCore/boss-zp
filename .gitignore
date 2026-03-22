@@ -18,3 +18,4 @@ venv/
 # Data files
 *.csv
 !data.csv.example
+boss_progress.json
