@@ -424,8 +424,10 @@ def dom_mode(dp, keyword):
         try:
             cards = None
             selectors = [
-                '.job-card', '.job-item',
-                '.search-job .job-item', '.job-card-wrapper'
+                '.job-card-wrap',
+                '.job-card',
+                '.job-list-box',
+                'ul.rec-job-list > li',
             ]
             for sel in selectors:
                 try:

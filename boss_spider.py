@@ -20,11 +20,13 @@ Settings.set_singleton_tab_obj(False)
 # 多种CSS选择器（适配不同页面版本）
 SELECTORS = {
     'job_card': [
+        '.job-card-wrap',
         '.job-card',
         '.job-card-wrapper',
         '.job-list .job-card',
         '.search-job .job-item',
-        '.job-item',
+        '.job-list-box',
+        'ul.rec-job-list > li',
     ],
     'job_title': [
         '.job-title',
@@ -94,8 +96,8 @@ def create_csv(output_file):
 def build_search_url(keyword, page=1):
     """构建搜索URL"""
     city = config.CITY_CODE
-    job_type = '2' if config.JOB_TYPE == 'parttime' else '1'
-    return f'https://www.zhipin.com/web/geek/job?query={keyword}&city={city}&jobType={job_type}&page={page}'
+    job_type = '1903' if config.JOB_TYPE == 'parttime' else '1902'
+    return f'https://www.zhipin.com/web/geek/job?query={keyword}&city={city}&jobType={job_type}'
 
 
 def extract_job_card(card):
