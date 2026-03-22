@@ -938,8 +938,9 @@ def main():
                 all_jobs = []  # 清空已写入
 
             # ---- 保存进度状态 ----
-            # 只有实际采集到数据才标记为完成（避免0数据时关键词被误标记）
-            if INCREMENTAL_MODE and new_count > 0:
+            # 只有当前关键词实际采集到数据才标记为完成
+            # 注意：用 len(jobs) > 0 而不是 new_count > 0，因为 new_count 是跨关键词累计
+            if INCREMENTAL_MODE and len(jobs) > 0:
                 state = load_progress_state()
                 if 'completed_keywords' not in state:
                     state['completed_keywords'] = []
