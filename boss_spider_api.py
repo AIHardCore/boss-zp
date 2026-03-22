@@ -190,7 +190,7 @@ def create_csv(output_file, mode='w'):
 def build_search_url(keyword, page=1):
     """构建URL"""
     city = config.CITY_CODE
-    job_type = '2' if config.JOB_TYPE == 'parttime' else '1'
+    job_type = '1903' if config.JOB_TYPE == 'parttime' else '1902'
     return (f'https://www.zhipin.com/web/geek/job?query={keyword}'
             f'&city={city}&jobType={job_type}&page={page}')
 
@@ -312,7 +312,7 @@ def wait_for_captcha(dp):
 def _wait_manual(dp):
     """手动模式：检测到验证码后等待用户按 Enter 继续"""
     log.warning("=" * 50)
-    log.warning("  ⚠️  检测到验证码，请手动在浏览器中完成验证  ⚠️")
+    log.warning("  [WARNING]  检测到验证码，请手动在浏览器中完成验证  [WARNING]")
     log.warning("=" * 50)
     log.info("完成后按 Enter 键继续...")
     try:
@@ -327,7 +327,7 @@ def _wait_manual(dp):
 def _wait_auto(dp):
     """自动模式：轮询等待验证码消失"""
     log.warning("=" * 50)
-    log.warning("  ⚠️  检测到验证码，自动等待验证通过  ⚠️")
+    log.warning("  [WARNING]  检测到验证码，自动等待验证通过  [WARNING]")
     log.warning("=" * 50)
 
     start_time = time.time()
@@ -357,7 +357,7 @@ def _wait_auto(dp):
 def _wait_skip(dp):
     """跳过模式：超时后跳过"""
     log.warning("=" * 50)
-    log.warning("  ⚠️  检测到验证码，超时后跳过  ⚠️")
+    log.warning("  [WARNING]  检测到验证码，超时后跳过  [WARNING]")
     log.warning("=" * 50)
 
     start_time = time.time()
@@ -382,67 +382,141 @@ def _wait_skip(dp):
 
 
 def api_listen_mode(dp, keyword):
-    """API拦截模式（支持多页翻页）"""
+    """
+    API拦截模式（支持多页翻页）
+    2026-03-23: DrissionPage 4.x listen API 不稳定，改用DOM直接提取
+    """
     global _global_csv_file, _global_csv_writer, _global_all_jobs
 
     jobs_list = []
 
-    log.info(f"启动 API 监听模式: {keyword}")
+    log.info(f"启动 DOM 提取模式: {keyword}")
 
     # 获取配置的页数限制，默认为3页
     max_pages = getattr(config, 'MAX_API_PAGES', 3)
-    log.info(f"API 模式最大翻页数: {max_pages} 页")
+    log.info(f"最大翻页数: {max_pages} 页")
 
     try:
         for page in range(1, max_pages + 1):
-            dp.listen.start('zpgeek/search/joblist.json')
-            log.debug(f"API 监听已启动，第 {page}/{max_pages} 页")
+            if page == 1:
+                url = build_search_url(keyword, page=1)
+            else:
+                url = build_search_url(keyword, page=page)
 
-            url = build_search_url(keyword, page=page)
-            _fetch_with_retry(dp, url)
+            log.info(f"正在访问第 {page}/{max_pages} 页...")
+            dp.get(url, timeout=30)
+            time.sleep(3)  # 等待页面渲染
 
-            # 验证码等待策略
+            # 验证码检查
             captcha_passed = wait_for_captcha(dp)
             if not captcha_passed:
                 log.warning(f"验证码未通过，停止翻页")
                 break
 
-            page_jobs = []
-            packets_received = 0
-            for i in range(15):  # 等待足够多的数据包
-                try:
-                    packet = dp.listen.wait(3)
-                    if packet:
-                        data = packet.response.body
-                        if data:
-                            packets_received += 1
-                            extract_from_api_response(data, page_jobs)
-                except Exception as e:
-                    log.debug(f"等待数据包 #{i + 1}: {e}")
-                    break
-
-            log.info(f"第 {page} 页收到 {packets_received} 个数据包，提取 {len(page_jobs)} 条数据")
+            # 直接从DOM提取数据
+            page_jobs = _extract_jobs_from_dom(dp)
+            log.info(f"第 {page} 页提取 {len(page_jobs)} 条数据")
             jobs_list.extend(page_jobs)
 
-            # 如果本页数据少于10条，说明已到最后一页
-            if len(page_jobs) < 10:
-                log.info(f"第 {page} 页数据不足10条，已到最后一页，停止翻页")
+            # 如果本页数据少于5条，说明已到最后一页
+            if len(page_jobs) < 5:
+                log.info(f"第 {page} 页数据不足5条，已到最后一页")
                 break
 
-            # 页间延迟，防止请求过快
+            # 页间延迟
             time.sleep(1)
 
-        log.info(f"API 模式共获取 {len(jobs_list)} 条数据（{max_pages} 页）")
+        log.info(f"共获取 {len(jobs_list)} 条数据（{max_pages} 页）")
 
     except Exception as e:
-        log.error(f"API 监听异常: {e}")
+        log.error(f"提取异常: {e}")
 
-    # API 模式无数据时回退 DOM 模式
+    # 无数据时回退到备用DOM模式
     if not jobs_list:
-        log.warning("API 模式无数据，回退到 DOM 模式")
+        log.warning("DOM模式无数据，回退到 DOM 模式")
         jobs_list = dom_mode(dp, keyword)
 
     return jobs_list
+
+
+def _extract_jobs_from_dom(dp):
+    """从当前页面DOM提取职位数据（新版BOSS直聘结构）"""
+    jobs = []
+
+    selectors = ['.job-card-wrap', '.job-card', '.job-list-box']
+    cards = None
+    for sel in selectors:
+        try:
+            cards = dp.eles(f'css:{sel}')
+            if cards:
+                break
+        except Exception:
+            continue
+
+    if not cards:
+        return jobs
+
+    for card in cards:
+        try:
+            info = {
+                '公司名称': '', '岗位名称': '', '城市': '',
+                '区域': '', '商圈': '', '薪资': '', '经验': '',
+                '学历': '', '领域': '', '性质': '', '规模': '',
+                '技能标签': '', '福利标签': '', '岗位详情': '',
+                '发布日期': '', '发布人名称': '', '发布人职称': '',
+                '发布人电话': '', '发布人活跃状态': '',
+                '公司类型': '', '公司规模': '', '公司阶段': '',
+                '公司人数': '', '公司简介': '', '公司地址': '',
+                '公司官网': '',
+            }
+
+            # 岗位名称
+            try:
+                el = card.ele('css:.job-title .job-name', timeout=2)
+                info['岗位名称'] = el.text.strip() if el else ''
+            except Exception:
+                pass
+
+            # 薪资
+            try:
+                el = card.ele('css:.job-salary', timeout=2)
+                info['薪资'] = el.text.strip() if el else ''
+            except Exception:
+                pass
+
+            # 公司/boss名称
+            try:
+                el = card.ele('css:.boss-name', timeout=2)
+                info['公司名称'] = el.text.strip() if el else ''
+            except Exception:
+                pass
+
+            # 城市/区域
+            try:
+                el = card.ele('css:.company-location', timeout=2)
+                info['城市'] = el.text.strip() if el else ''
+            except Exception:
+                pass
+
+            # 经验/学历
+            try:
+                tag_list = card.ele('css:.tag-list', timeout=2)
+                if tag_list:
+                    tags = [li.text.strip() for li in tag_list.eles('css:li', timeout=1) if li.text.strip()]
+                    if len(tags) >= 1:
+                        info['经验'] = tags[0]
+                    if len(tags) >= 2:
+                        info['学历'] = tags[1]
+            except Exception:
+                pass
+
+            if info.get('岗位名称'):
+                jobs.append(info)
+
+        except Exception:
+            continue
+
+    return jobs
 
 
 def dom_mode(dp, keyword):
@@ -496,80 +570,58 @@ def dom_mode(dp, keyword):
 
                     # 提取岗位名称（标题）
                     try:
-                        title_elem = card.ele('css:.job-title', timeout=2)
+                        title_elem = card.ele('css:.job-title .job-name', timeout=2)
                         if title_elem:
                             info['岗位名称'] = title_elem.text.strip()
                         else:
-                            # fallback: 从整体文本提取
-                            lines = [l.strip() for l in card.text.split('\n') if l.strip()]
-                            for line in lines:
-                                if line and len(line) < 30 and '招聘' not in line:
-                                    info['岗位名称'] = line
-                                    break
+                            # fallback: .job-title 整体文本
+                            title_elem = card.ele('css:.job-title', timeout=2)
+                            if title_elem:
+                                info['岗位名称'] = title_elem.text.strip()
                     except Exception:
                         pass
 
-                    # 提取薪资
+                    # 提取薪资（BOSS直聘新版用 .job-salary）
                     try:
-                        salary_elem = card.ele('css:.salary', timeout=2)
+                        salary_elem = card.ele('css:.job-salary', timeout=2)
                         if salary_elem:
                             info['薪资'] = salary_elem.text.strip()
                     except Exception:
                         pass
 
-                    # 提取公司名称
+                    # 提取公司/boss名称（新版在 .boss-name）
                     try:
-                        company_elem = card.ele('css:.company-name', timeout=2)
-                        if not company_elem:
-                            # 尝试其他常见选择器
-                            company_elem = card.ele('css:.name', timeout=2)
+                        company_elem = card.ele('css:.boss-name', timeout=2)
                         if company_elem:
                             info['公司名称'] = company_elem.text.strip()
                     except Exception:
                         pass
 
-                    # 提取区域/商圈
+                    # 提取区域/城市（新版在 .company-location）
                     try:
-                        area_elem = card.ele('css:.area', timeout=2)
-                        if area_elem:
-                            area_text = area_elem.text.strip()
-                            parts = area_text.split('-')
-                            if len(parts) >= 2:
-                                info['城市'] = parts[0]
-                                info['区域'] = parts[1] if parts[1] else ''
-                                info['商圈'] = parts[2] if len(parts) > 2 else ''
-                            else:
-                                info['城市'] = area_text
+                        loc_elem = card.ele('css:.company-location', timeout=2)
+                        if loc_elem:
+                            info['城市'] = loc_elem.text.strip()
                     except Exception:
                         pass
 
-                    # 提取经验/学历要求
+                    # 提取经验/学历要求（新版在 .tag-list li）
                     try:
-                        require_elem = card.ele('css:.job-info', timeout=2)
-                        if require_elem:
-                            require_text = require_elem.text.strip()
-                            # 通常格式：经验·学历
-                            parts = require_text.split('·')
-                            if len(parts) >= 1:
-                                info['经验'] = parts[0].strip()
-                            if len(parts) >= 2:
-                                info['学历'] = parts[1].strip()
+                        tag_list = card.ele('css:.tag-list', timeout=2)
+                        if tag_list:
+                            tags = [li.text.strip() for li in tag_list.eles('css:li', timeout=1) if li.text.strip()]
+                            if len(tags) >= 1:
+                                info['经验'] = tags[0]
+                            if len(tags) >= 2:
+                                info['学历'] = tags[1]
                     except Exception:
                         pass
 
-                    # 提取发布人名称
+                    # 提取发布人名称（新版在 .boss-name）
                     try:
                         boss_elem = card.ele('css:.boss-name', timeout=2)
                         if boss_elem:
                             info['发布人名称'] = boss_elem.text.strip()
-                    except Exception:
-                        pass
-
-                    # 提取发布人职称
-                    try:
-                        boss_title_elem = card.ele('css:.boss-title', timeout=2)
-                        if boss_title_elem:
-                            info['发布人职称'] = boss_title_elem.text.strip()
                     except Exception:
                         pass
 
@@ -691,10 +743,16 @@ def main():
             dp = ChromiumPage(addr_or_opts=co)
             log.info("浏览器启动成功（配置文件模式）")
 
+            # 先跳转到BOSS直聘网站，让Cookie生效，再检查登录状态
+            log.info("正在加载BOSS直聘网站...")
+            dp.get("https://www.zhipin.com/web/geek/job", timeout=30)
+            time.sleep(3)
+            log.info(f"当前 URL: {dp.url}")
+
             # 检查登录状态
             if not check_login_status(dp):
                 log.warning("=" * 60)
-                log.warning("  ⚠️  检测到未登录，请在浏览器中手动登录 BOSS 直聘  ⚠️")
+                log.warning("  [WARNING]  检测到未登录，请在浏览器中手动登录 BOSS 直聘  [WARNING]")
                 log.warning("  登录后按 Enter 键继续程序执行...")
                 log.warning("=" * 60)
                 try:
@@ -766,7 +824,8 @@ def main():
                 all_jobs = []  # 清空已写入
 
             # ---- 保存进度状态 ----
-            if INCREMENTAL_MODE:
+            # 只有实际采集到数据才标记为完成（避免0数据时关键词被误标记）
+            if INCREMENTAL_MODE and new_count > 0:
                 state = load_progress_state()
                 if 'completed_keywords' not in state:
                     state['completed_keywords'] = []

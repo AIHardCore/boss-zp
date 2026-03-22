@@ -29,7 +29,7 @@ CITY_CODE = '101280100'  # 广州
 JOB_TYPE = 'parttime'  # fulltime:全职 | parttime:兼职
 
 # 滚动次数（每次滚动会加载约15条数据）
-MAX_SCROLLS = 20
+MAX_SCROLLS = 3
 
 # 详情页获取数量（太多会很慢）
 MAX_DETAIL_COUNT = 10
@@ -76,7 +76,7 @@ REQUEST_DELAY = 2
 USE_LLLM_ANALYSIS = False
 
 # ==================== 增量更新配置 ====================
-INCREMENTAL_MODE = True  # 开启增量更新，自动跳过已采集记录
+INCREMENTAL_MODE = False  # 临时关闭增量模式以排查问题
 
 # ==================== 日志配置 ====================
 LOG_ENABLED = True                    # 是否启用日志（True/False）
