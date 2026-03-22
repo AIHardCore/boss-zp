@@ -60,3 +60,49 @@ REQUEST_DELAY = 2
 
 # 是否使用大模型深度分析
 USE_LLLM_ANALYSIS = False
+
+# ==================== 增量更新配置 ====================
+INCREMENTAL_MODE = True  # 开启增量更新，自动跳过已采集记录
+
+# ==================== 日志配置 ====================
+LOG_ENABLED = True                    # 是否启用日志（True/False）
+LOG_LEVEL = 'DEBUG'                  # 日志级别：DEBUG / INFO / WARNING / ERROR
+LOG_TO_FILE = True                   # 是否写入文件
+LOG_TO_CONSOLE = True                # 是否输出到控制台
+LOG_FILE_DIR = 'logs'                # 日志目录
+LOG_FILE_PREFIX = 'boss_spider'      # 日志文件前缀
+
+# ==================== 重试配置 ====================
+RETRY_MAX_RETRIES = 3                # 最大重试次数
+RETRY_DELAY = 2                      # 重试间隔（秒）
+RETRY_ON_NETWORK_ERROR = True        # 网络错误是否重试
+RETRY_ON_CAPTCHA = True              # 遇到验证码是否重试
+
+# ==================== 验证码配置 ====================
+# 验证码检测策略：
+#   manual - 检测到验证码后等待用户手动处理（检测到后打印醒目提示，按 Enter 继续）
+#   auto   - 自动等待验证码消失（每5秒轮询检测一次）
+#   skip   - 超时后跳过该关键词
+CAPTCHA_STRATEGY = 'manual'
+
+# 验证码最大等待时间（秒）
+CAPTCHA_TIMEOUT = 60
+
+# 验证码检测 CSS 选择器（按优先级尝试）
+CAPTCHA_SELECTORS = [
+    '.geetest_radar_tip',        # 滑动验证提示
+    '.geetest_widget',           # 图形验证码
+    '.verify-container',          # 人机验证弹窗
+    '.geetest_panel',            # 极验验证码面板
+    '.nc_wrapper',               # 阿里云验证
+    '#nc_1_n1z',                 # 滑块缺口
+    '.verification-code',         # 通用验证码
+]
+
+# ==================== AI 分析配置 ====================
+AI_BATCH_SIZE = 20                 # 每批分析多少条（可配置）
+AI_MODEL = 'qwen-turbo'           # 模型选择：qwen-turbo / qwen-max / gpt-4o-mini / gpt-4
+AI_PROGRESS_STEP = 5               # 每多少条显示一次进度
+AI_PROVIDER = 'qwen'              # AI 服务提供商：openai / qwen / ernie
+AI_OUTPUT_FILE = 'data_ai_analysis.json'  # 分析结果输出文件（JSON，支持增量追加）
+AI_SAVE_INTERVAL = 10             # 每分析多少条保存一次结果（防止中断丢失）
