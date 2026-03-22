@@ -322,7 +322,7 @@ def collect_jobs_improved(keyword, city_name, city_code):
     time.sleep(3)
 
     # 访问搜索页面
-    search_url = f'https://www.zhipin.com/web/geek/job?query={keyword}&city={city_code}'
+    search_url = f'https://www.zhipin.com/web/geek/job?query={keyword}&city={city_code}&jobType=1903'
     print(f"访问搜索页面: {search_url}")
     dp.get(search_url)
 
