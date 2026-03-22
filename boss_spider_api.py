@@ -199,13 +199,34 @@ def extract_from_api_response(data, jobs_list):
     """从API响应中提取数据"""
     try:
         if isinstance(data, dict):
-            # 正确检查 dict key 路径（不再用错误字符串匹配）
             zpgeek_data = data.get('zpgeek', {})
             if zpgeek_data and isinstance(zpgeek_data, dict):
                 job_list_data = zpgeek_data.get('searchJobList', {})
                 if job_list_data and isinstance(job_list_data, dict):
                     reslist = job_list_data.get('jobList', [])
                     for job in reslist:
+                        # 提取公司详情字段
+                        company_info = job.get('brandJobTagList', []) or []
+                        company_type = ''
+                        company_stage = ''
+                        for tag in company_info:
+                            if isinstance(tag, dict):
+                                tag_name = tag.get('tagName', '')
+                                if '上市' in tag_name:
+                                    company_type = tag_name
+                                elif '融资' in tag_name or '轮' in tag_name:
+                                    company_stage = tag_name
+
+                        # 提取福利标签
+                        welfare_list = job.get('welfareTagList', []) or []
+                        welfare_tags = ','.join(
+                            w.get('tagName', '') if isinstance(w, dict) else str(w)
+                            for w in welfare_list
+                        )
+
+                        # 提取发布日期
+                        post_time = job.get('postTime', '') or job.get('lastLoginTime', '')
+
                         jobs_list.append({
                             '公司名称': job.get('brandName', ''),
                             '岗位名称': job.get('jobName', ''),
@@ -218,17 +239,17 @@ def extract_from_api_response(data, jobs_list):
                             '领域': job.get('industryName', ''),
                             '性质': job.get('financingStateName', ''),
                             '规模': job.get('scaleName', ''),
-                            '技能标签': ','.join(job.get('skillTagList', [])),
+                            '技能标签': ','.join(str(s) for s in job.get('skillTagList', []) or []),
                             '发布人名称': job.get('bossName', ''),
                             '发布人职称': job.get('bossTitle', ''),
                             '发布人活跃状态': job.get('activeTimeDesc', ''),
                             '岗位详情': '',
-                            '福利标签': '',
-                            '发布日期': '',
+                            '福利标签': welfare_tags,
+                            '发布日期': post_time,
                             '发布人电话': '',
-                            '公司类型': '',
-                            '公司规模': '',
-                            '公司阶段': '',
+                            '公司类型': company_type,
+                            '公司规模': job.get('scaleName', ''),
+                            '公司阶段': company_stage,
                             '公司人数': '',
                             '公司简介': '',
                             '公司地址': '',
@@ -361,39 +382,57 @@ def _wait_skip(dp):
 
 
 def api_listen_mode(dp, keyword):
-    """API拦截模式"""
+    """API拦截模式（支持多页翻页）"""
     global _global_csv_file, _global_csv_writer, _global_all_jobs
 
     jobs_list = []
 
     log.info(f"启动 API 监听模式: {keyword}")
 
+    # 获取配置的页数限制，默认为3页
+    max_pages = getattr(config, 'MAX_API_PAGES', 3)
+    log.info(f"API 模式最大翻页数: {max_pages} 页")
+
     try:
-        dp.listen.start('zpgeek/search/joblist.json')
-        log.debug("API 监听已启动")
+        for page in range(1, max_pages + 1):
+            dp.listen.start('zpgeek/search/joblist.json')
+            log.debug(f"API 监听已启动，第 {page}/{max_pages} 页")
 
-        url = build_search_url(keyword)
-        _fetch_with_retry(dp, url)
+            url = build_search_url(keyword, page=page)
+            _fetch_with_retry(dp, url)
 
-        # 验证码等待策略（固定等待改为智能检测）
-        captcha_passed = wait_for_captcha(dp)
-        if not captcha_passed:
-            log.warning(f"验证码未通过，跳过关键词: {keyword}")
-            return []
-
-        for i in range(10):
-            try:
-                packet = dp.listen.wait(5)
-                if packet:
-                    data = packet.response.body
-                    if data:
-                        log.debug(f"收到 API 响应 #{i + 1}")
-                        extract_from_api_response(data, jobs_list)
-            except Exception as e:
-                log.debug(f"等待数据包 #{i + 1}: {e}")
+            # 验证码等待策略
+            captcha_passed = wait_for_captcha(dp)
+            if not captcha_passed:
+                log.warning(f"验证码未通过，停止翻页")
                 break
 
-        log.info(f"API 模式获取 {len(jobs_list)} 条数据")
+            page_jobs = []
+            packets_received = 0
+            for i in range(15):  # 等待足够多的数据包
+                try:
+                    packet = dp.listen.wait(3)
+                    if packet:
+                        data = packet.response.body
+                        if data:
+                            packets_received += 1
+                            extract_from_api_response(data, page_jobs)
+                except Exception as e:
+                    log.debug(f"等待数据包 #{i + 1}: {e}")
+                    break
+
+            log.info(f"第 {page} 页收到 {packets_received} 个数据包，提取 {len(page_jobs)} 条数据")
+            jobs_list.extend(page_jobs)
+
+            # 如果本页数据少于10条，说明已到最后一页
+            if len(page_jobs) < 10:
+                log.info(f"第 {page} 页数据不足10条，已到最后一页，停止翻页")
+                break
+
+            # 页间延迟，防止请求过快
+            time.sleep(1)
+
+        log.info(f"API 模式共获取 {len(jobs_list)} 条数据（{max_pages} 页）")
 
     except Exception as e:
         log.error(f"API 监听异常: {e}")
@@ -407,7 +446,7 @@ def api_listen_mode(dp, keyword):
 
 
 def dom_mode(dp, keyword):
-    """DOM解析模式"""
+    """DOM解析模式（增强字段提取）"""
     jobs_list = []
 
     log.info(f"DOM 解析模式: {keyword}")
@@ -454,14 +493,108 @@ def dom_mode(dp, keyword):
                         '公司人数': '', '公司简介': '', '公司地址': '',
                         '公司官网': '',
                     }
+
+                    # 提取岗位名称（标题）
                     try:
-                        info['岗位名称'] = card.text.split('\n')[0] if card.text else ''
+                        title_elem = card.ele('css:.job-title', timeout=2)
+                        if title_elem:
+                            info['岗位名称'] = title_elem.text.strip()
+                        else:
+                            # fallback: 从整体文本提取
+                            lines = [l.strip() for l in card.text.split('\n') if l.strip()]
+                            for line in lines:
+                                if line and len(line) < 30 and '招聘' not in line:
+                                    info['岗位名称'] = line
+                                    break
+                    except Exception:
+                        pass
+
+                    # 提取薪资
+                    try:
+                        salary_elem = card.ele('css:.salary', timeout=2)
+                        if salary_elem:
+                            info['薪资'] = salary_elem.text.strip()
+                    except Exception:
+                        pass
+
+                    # 提取公司名称
+                    try:
+                        company_elem = card.ele('css:.company-name', timeout=2)
+                        if not company_elem:
+                            # 尝试其他常见选择器
+                            company_elem = card.ele('css:.name', timeout=2)
+                        if company_elem:
+                            info['公司名称'] = company_elem.text.strip()
+                    except Exception:
+                        pass
+
+                    # 提取区域/商圈
+                    try:
+                        area_elem = card.ele('css:.area', timeout=2)
+                        if area_elem:
+                            area_text = area_elem.text.strip()
+                            parts = area_text.split('-')
+                            if len(parts) >= 2:
+                                info['城市'] = parts[0]
+                                info['区域'] = parts[1] if parts[1] else ''
+                                info['商圈'] = parts[2] if len(parts) > 2 else ''
+                            else:
+                                info['城市'] = area_text
+                    except Exception:
+                        pass
+
+                    # 提取经验/学历要求
+                    try:
+                        require_elem = card.ele('css:.job-info', timeout=2)
+                        if require_elem:
+                            require_text = require_elem.text.strip()
+                            # 通常格式：经验·学历
+                            parts = require_text.split('·')
+                            if len(parts) >= 1:
+                                info['经验'] = parts[0].strip()
+                            if len(parts) >= 2:
+                                info['学历'] = parts[1].strip()
+                    except Exception:
+                        pass
+
+                    # 提取发布人名称
+                    try:
+                        boss_elem = card.ele('css:.boss-name', timeout=2)
+                        if boss_elem:
+                            info['发布人名称'] = boss_elem.text.strip()
+                    except Exception:
+                        pass
+
+                    # 提取发布人职称
+                    try:
+                        boss_title_elem = card.ele('css:.boss-title', timeout=2)
+                        if boss_title_elem:
+                            info['发布人职称'] = boss_title_elem.text.strip()
+                    except Exception:
+                        pass
+
+                    # 提取技能标签
+                    try:
+                        tag_elems = card.eles('css:.tag-list > span', timeout=2)
+                        if tag_elems:
+                            info['技能标签'] = ','.join(t.text.strip() for t in tag_elems if t.text.strip())
+                    except Exception:
+                        pass
+
+                    # 提取福利标签
+                    try:
+                        welfare_elems = card.eles('css:.welfare-tag', timeout=2)
+                        if not welfare_elems:
+                            welfare_elems = card.eles('css:.tag', timeout=2)
+                        if welfare_elems:
+                            info['福利标签'] = ','.join(w.text.strip() for w in welfare_elems if w.text.strip())
                     except Exception:
                         pass
 
                     if info['岗位名称']:
                         jobs_list.append(info)
-                except Exception:
+                except Exception as e:
+                    log.debug(f"解析卡片字段失败: {e}")
                     continue
 
             log.info(f"第 {scroll_idx + 1}/{config.MAX_SCROLLS} 次滚动: "
@@ -488,6 +621,23 @@ def _save_partial_results(csv_file, csv_writer, all_jobs, reason=''):
         log.info(f"[保存] {reason} 当前 {len(_global_all_jobs)} 条记录已落盘")
     except Exception as e:
         log.error(f"[保存] flush 失败: {e}")
+
+
+def check_login_status(dp):
+    """
+    检查是否已登录 BOSS 直聘
+    已登录会跳转到 zpgeek 主页，未登录会跳转到登录页
+    """
+    try:
+        current_url = dp.url
+        if 'login' in current_url or '/user/' in current_url:
+            log.warning(f"检测到未登录，当前 URL: {current_url}")
+            return False
+        log.info(f"登录状态正常，当前 URL: {current_url}")
+        return True
+    except Exception as e:
+        log.warning(f"登录状态检测异常: {e}")
+        return False
 
 
 def main():
@@ -524,8 +674,45 @@ def main():
     # ==================== 启动浏览器 ====================
     log.info("启动浏览器...")
     try:
-        dp = ChromiumPage()
-        log.info("浏览器启动成功")
+        chrome_user_data = getattr(config, 'CHROME_USER_DATA_PATH', '')
+
+        if chrome_user_data:
+            # 使用 Chrome 配置文件（保持登录状态）
+            log.info(f"使用 Chrome 配置文件: {chrome_user_data}")
+            # 保持原路径不变（包含 Default），DrissionPage 直接使用
+            user_data = chrome_user_data.rstrip('\\/')
+            co = ChromiumOptions()
+            co.set_user_data_path(user_data)
+            # 显式指定 chrome 程序路径，避免 DrissionPage 找到 CentBrowser 等其他chromium内核浏览器
+            chrome_browser_path = getattr(config, 'CHROME_BROWSER_PATH', '')
+            if chrome_browser_path:
+                co.set_browser_path(chrome_browser_path)
+                log.info(f"使用指定浏览器: {chrome_browser_path}")
+            dp = ChromiumPage(addr_or_opts=co)
+            log.info("浏览器启动成功（配置文件模式）")
+
+            # 检查登录状态
+            if not check_login_status(dp):
+                log.warning("=" * 60)
+                log.warning("  ⚠️  检测到未登录，请在浏览器中手动登录 BOSS 直聘  ⚠️")
+                log.warning("  登录后按 Enter 键继续程序执行...")
+                log.warning("=" * 60)
+                try:
+                    input()
+                    log.info("继续执行...")
+                except (EOFError, KeyboardInterrupt):
+                    log.warning("用户取消")
+                    return
+                # 登录后再次检查
+                if not check_login_status(dp):
+                    log.error("登录验证失败，请检查登录状态")
+                    return
+        else:
+            # 使用匿名模式（默认行为）
+            log.info("使用匿名模式启动浏览器")
+            dp = ChromiumPage()
+            log.info("浏览器启动成功（匿名模式）")
+
     except Exception as e:
         log.error(f"浏览器启动失败: {e}")
         return

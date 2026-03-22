@@ -55,6 +55,20 @@ MERGED_OUTPUT_FILE = 'data_merged.csv'
 # 浏览器配置
 HEADLESS = False  # 是否无头模式运行
 
+# Chrome 程序路径（留空则让 DrissionPage 自动查找，可能找到 CentBrowser 等其他 Chromium 内核浏览器）
+# Windows 示例：CHROME_BROWSER_PATH = 'C:/Program Files/Google/Chrome/Application/chrome.exe'
+#              CHROME_BROWSER_PATH = 'D:/CentBrowser/Application/chrome.exe'
+CHROME_BROWSER_PATH = 'C:/Program Files/Google/Chrome/Application/chrome.exe'
+
+# Chrome 配置文件路径（留空则使用匿名模式，浏览器不保存任何数据）
+# 设置后使用本地 Chrome 已登录状态，无需每次扫码登录
+# 示例（Windows）：CHROME_USER_DATA_PATH = 'C:/Users/HardCore/AppData/Local/Google/Chrome/User Data/Default'
+# 注意：使用配置文件时 Chrome 不能正在运行，请先关闭所有 Chrome 窗口
+CHROME_USER_DATA_PATH = 'C:/Users/HardCore/AppData/Local/Google/Chrome/User Data/Default'
+
+# API 模式最大翻页数（每页约15条）
+MAX_API_PAGES = 3
+
 # 请求间隔（秒）
 REQUEST_DELAY = 2
 
