@@ -31,7 +31,7 @@ Settings.set_singleton_tab_obj(False)
 
 # ==================== 增量更新配置 ====================
 INCREMENTAL_MODE = getattr(config, 'INCREMENTAL_MODE', True)
-PROGRESS_FILE = 'boss_progress.json'
+PROGRESS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'boss_progress.json')
 
 # ==================== 验证码配置 ====================
 CAPTCHA_STRATEGY = getattr(config, 'CAPTCHA_STRATEGY', 'manual')
@@ -112,7 +112,7 @@ def load_progress_state():
     if not os.path.exists(PROGRESS_FILE):
         return {}
     try:
-        with open(PROGRESS_FILE, 'r', encoding='utf-8') as f:
+        with open(PROGRESS_FILE, 'r', encoding='utf-8-sig') as f:
             return json.load(f)
     except Exception as e:
         log.error(f"加载进度文件失败: {e}")
