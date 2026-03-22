@@ -17,6 +17,7 @@ import re
 import os
 import signal
 import sys
+import random
 
 import DrissionPage
 from DrissionPage import ChromiumPage, ChromiumOptions
@@ -445,8 +446,9 @@ def api_listen_mode(dp, keyword):
             # 滚动左侧岗位列表
             _scroll_job_list(dp)
 
-            # 等待新数据加载
-            time.sleep(2)
+            # 随机间隔2-5秒，防风控
+            sleep_time = random.uniform(2, 5)
+            time.sleep(sleep_time)
 
             # 提取当前所有卡片
             page_jobs = _extract_jobs_from_dom(dp)
@@ -471,10 +473,10 @@ def api_listen_mode(dp, keyword):
                     jobs_list.append(job)
                     seen_keys.add(key)
 
-            # 判断是否继续滚动
+            # 判断是否继续滚动（连续3次无新数据才停止）
             if new_count <= 0:
                 no_new_count += 1
-                if no_new_count >= 2:
+                if no_new_count >= 3:
                     log.info(f"连续 {no_new_count} 次无新数据，停止滚动")
                     break
             else:

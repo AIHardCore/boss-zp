@@ -55,6 +55,10 @@ def get_logger(module_name: str) -> logging.Logger:
     # ---- 文件输出 ----
     if getattr(config, 'LOG_TO_FILE', True):
         log_dir = getattr(config, 'LOG_FILE_DIR', 'logs')
+        # 如果是相对路径，基于脚本所在目录解析为绝对路径
+        if not os.path.isabs(log_dir):
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            log_dir = os.path.join(script_dir, log_dir)
         log_prefix = getattr(config, 'LOG_FILE_PREFIX', 'boss_spider')
         today = datetime.now().strftime('%Y-%m-%d')
 
