@@ -667,10 +667,11 @@ def dom_mode(dp, keyword):
 
             log.info(f"第 {scroll_idx + 1}/{config.MAX_SCROLLS} 次滚动: "
                      f"累计 {len(jobs_list)} 条")
-            # 快速滚动：原生JS滚动，不等待网络请求
-            for _ in range(3):
-                dp.run_js('window.scrollBy(0, window.innerHeight * 2)')
-                time.sleep(0.8)
+            # 增量滚动：每次滚一屏，等待内容加载，再滚，再等
+            # 这样能触发懒加载的分段触发点
+            for _ in range(4):
+                dp.run_js('window.scrollBy(0, window.innerHeight)')
+                time.sleep(1)
 
         except Exception as e:
             log.warning(f"滚动失败: {e}")

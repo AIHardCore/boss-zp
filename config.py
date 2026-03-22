@@ -1,5 +1,7 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+import os
+
 """
 配置文件
 统一管理所有配置参数
