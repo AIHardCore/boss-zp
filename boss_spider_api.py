@@ -311,6 +311,12 @@ def wait_for_captcha(dp):
 
 def _wait_manual(dp):
     """手动模式：检测到验证码后等待用户按 Enter 继续"""
+    # 先检查是否真的有验证码，避免误报
+    captcha_found, selector = check_captcha(dp)
+    if not captcha_found:
+        log.debug("无验证码，继续执行")
+        return True
+
     log.warning("=" * 50)
     log.warning("  [WARNING]  检测到验证码，请手动在浏览器中完成验证  [WARNING]")
     log.warning("=" * 50)
@@ -326,6 +332,12 @@ def _wait_manual(dp):
 
 def _wait_auto(dp):
     """自动模式：轮询等待验证码消失"""
+    # 先检查是否真的有验证码，避免误报
+    captcha_found, selector = check_captcha(dp)
+    if not captcha_found:
+        log.debug("无验证码，继续执行")
+        return True
+
     log.warning("=" * 50)
     log.warning("  [WARNING]  检测到验证码，自动等待验证通过  [WARNING]")
     log.warning("=" * 50)
@@ -356,6 +368,12 @@ def _wait_auto(dp):
 
 def _wait_skip(dp):
     """跳过模式：超时后继续"""
+    # 先检查是否真的有验证码，避免误报
+    captcha_found, selector = check_captcha(dp)
+    if not captcha_found:
+        log.debug("无验证码，继续执行")
+        return True
+
     log.warning("=" * 50)
     log.warning("  [WARNING]  检测到验证码，超时后继续  [WARNING]")
     log.warning("=" * 50)

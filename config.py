@@ -29,13 +29,13 @@ CITY_CODE = '101280100'  # 广州
 JOB_TYPE = 'parttime'  # fulltime:全职 | parttime:兼职
 
 # 滚动次数（每次滚动会加载约15条数据）
-MAX_SCROLLS = 3
+MAX_SCROLLS = 5
 
 # 详情页获取数量（太多会很慢）
 MAX_DETAIL_COUNT = 10
 
 # 输出文件名
-BOSS_OUTPUT_FILE = 'data_boss.csv'
+BOSS_OUTPUT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data_boss.csv')
 
 # ==================== 企查查爬虫配置 ====================
 
@@ -76,7 +76,7 @@ REQUEST_DELAY = 2
 USE_LLLM_ANALYSIS = False
 
 # ==================== 增量更新配置 ====================
-INCREMENTAL_MODE = False  # 临时关闭增量模式以排查问题
+INCREMENTAL_MODE = True  # 开启增量更新，自动跳过已采集记录
 
 # ==================== 日志配置 ====================
 LOG_ENABLED = True                    # 是否启用日志（True/False）
