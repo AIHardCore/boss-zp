@@ -338,8 +338,8 @@ def _wait_auto(dp):
         remaining = CAPTCHA_TIMEOUT - elapsed
 
         if remaining <= 0:
-            log.error(f"验证码等待超时（{CAPTCHA_TIMEOUT}秒），跳过该关键词")
-            return False
+            log.warning(f"验证码等待超时（{CAPTCHA_TIMEOUT}秒），继续执行（可能只采集到部分数据）")
+            return True  # 超时后继续，不中断
 
         # 检测验证码是否还在
         captcha_found, selector = check_captcha(dp)
@@ -355,9 +355,9 @@ def _wait_auto(dp):
 
 
 def _wait_skip(dp):
-    """跳过模式：超时后跳过"""
+    """跳过模式：超时后继续"""
     log.warning("=" * 50)
-    log.warning("  [WARNING]  检测到验证码，超时后跳过  [WARNING]")
+    log.warning("  [WARNING]  检测到验证码，超时后继续  [WARNING]")
     log.warning("=" * 50)
 
     start_time = time.time()
@@ -367,18 +367,16 @@ def _wait_skip(dp):
         remaining = CAPTCHA_TIMEOUT - elapsed
 
         if remaining <= 0:
-            log.error(f"验证码等待超时（{CAPTCHA_TIMEOUT}秒），跳过该关键词")
-            return False
+            log.warning(f"验证码等待超时（{CAPTCHA_TIMEOUT}秒），继续执行（可能只采集到部分数据）")
+            return True  # 超时后继续，不中断翻页
 
         captcha_found, selector = check_captcha(dp)
         if not captcha_found:
             log.info("验证码已通过，继续执行...")
             return True
 
-        log.warning(f"验证码仍在显示，剩余 {int(remaining)} 秒后跳过...")
+        log.warning(f"验证码仍在显示，剩余 {int(remaining)} 秒后继续...")
         time.sleep(5)
-
-    return False
 
 
 def api_listen_mode(dp, keyword):
@@ -651,8 +649,10 @@ def dom_mode(dp, keyword):
 
             log.info(f"第 {scroll_idx + 1}/{config.MAX_SCROLLS} 次滚动: "
                      f"累计 {len(jobs_list)} 条")
-            dp.scroll.to_bottom()
-            time.sleep(2)
+            # 快速滚动：原生JS滚动，不等待网络请求
+            for _ in range(3):
+                dp.run_js('window.scrollBy(0, window.innerHeight * 2)')
+                time.sleep(0.8)
 
         except Exception as e:
             log.warning(f"滚动失败: {e}")

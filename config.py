@@ -97,7 +97,7 @@ RETRY_ON_CAPTCHA = True              # 遇到验证码是否重试
 #   manual - 检测到验证码后等待用户手动处理（检测到后打印醒目提示，按 Enter 继续）
 #   auto   - 自动等待验证码消失（每5秒轮询检测一次）
 #   skip   - 超时后跳过该关键词
-CAPTCHA_STRATEGY = 'manual'
+CAPTCHA_STRATEGY = 'skip'
 
 # 验证码最大等待时间（秒）
 CAPTCHA_TIMEOUT = 60
