@@ -199,42 +199,42 @@ def extract_from_api_response(data, jobs_list):
     """从API响应中提取数据"""
     try:
         if isinstance(data, dict):
-            if 'zpgeek/search/joblist' in str(data):
-                reslist = (
-                    data.get('zpgeek', {})
-                    .get('searchJobList', {})
-                    .get('jobList', [])
-                )
-                for job in reslist:
-                    jobs_list.append({
-                        '公司名称': job.get('brandName', ''),
-                        '岗位名称': job.get('jobName', ''),
-                        '城市': job.get('cityName', ''),
-                        '区域': job.get('areaName', ''),
-                        '商圈': job.get('bizName', ''),
-                        '薪资': job.get('salaryDesc', ''),
-                        '经验': job.get('expName', ''),
-                        '学历': job.get('degreeName', ''),
-                        '领域': job.get('industryName', ''),
-                        '性质': job.get('financingStateName', ''),
-                        '规模': job.get('scaleName', ''),
-                        '技能标签': ','.join(job.get('skillTagList', [])),
-                        '发布人名称': job.get('bossName', ''),
-                        '发布人职称': job.get('bossTitle', ''),
-                        '发布人活跃状态': job.get('activeTimeDesc', ''),
-                        '岗位详情': '',
-                        '福利标签': '',
-                        '发布日期': '',
-                        '发布人电话': '',
-                        '公司类型': '',
-                        '公司规模': '',
-                        '公司阶段': '',
-                        '公司人数': '',
-                        '公司简介': '',
-                        '公司地址': '',
-                        '公司官网': '',
-                    })
-                log.debug(f"API解析出 {len(reslist)} 条数据")
+            # 正确检查 dict key 路径（不再用错误字符串匹配）
+            zpgeek_data = data.get('zpgeek', {})
+            if zpgeek_data and isinstance(zpgeek_data, dict):
+                job_list_data = zpgeek_data.get('searchJobList', {})
+                if job_list_data and isinstance(job_list_data, dict):
+                    reslist = job_list_data.get('jobList', [])
+                    for job in reslist:
+                        jobs_list.append({
+                            '公司名称': job.get('brandName', ''),
+                            '岗位名称': job.get('jobName', ''),
+                            '城市': job.get('cityName', ''),
+                            '区域': job.get('areaName', ''),
+                            '商圈': job.get('bizName', ''),
+                            '薪资': job.get('salaryDesc', ''),
+                            '经验': job.get('expName', ''),
+                            '学历': job.get('degreeName', ''),
+                            '领域': job.get('industryName', ''),
+                            '性质': job.get('financingStateName', ''),
+                            '规模': job.get('scaleName', ''),
+                            '技能标签': ','.join(job.get('skillTagList', [])),
+                            '发布人名称': job.get('bossName', ''),
+                            '发布人职称': job.get('bossTitle', ''),
+                            '发布人活跃状态': job.get('activeTimeDesc', ''),
+                            '岗位详情': '',
+                            '福利标签': '',
+                            '发布日期': '',
+                            '发布人电话': '',
+                            '公司类型': '',
+                            '公司规模': '',
+                            '公司阶段': '',
+                            '公司人数': '',
+                            '公司简介': '',
+                            '公司地址': '',
+                            '公司官网': '',
+                        })
+                    log.debug(f"API解析出 {len(reslist)} 条数据")
     except Exception as e:
         log.warning(f"解析API数据失败: {e}")
 
