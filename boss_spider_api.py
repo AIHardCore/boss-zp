@@ -187,12 +187,16 @@ def create_csv(output_file, mode='w'):
     return f, csv_writer
 
 
-def build_search_url(keyword, page=1):
-    """构建URL"""
+def build_search_url(keyword, page=None):
+    """构建URL，滚动模式下不需要page参数"""
     city = config.CITY_CODE
     job_type = '1903' if config.JOB_TYPE == 'parttime' else '1902'
-    return (f'https://www.zhipin.com/web/geek/job?query={keyword}'
-            f'&city={city}&jobType={job_type}&page={page}')
+    if page:
+        return (f'https://www.zhipin.com/web/geek/job?query={keyword}'
+                f'&city={city}&jobType={job_type}&page={page}')
+    else:
+        return (f'https://www.zhipin.com/web/geek/job?query={keyword}'
+                f'&city={city}&jobType={job_type}')
 
 
 def extract_from_api_response(data, jobs_list):
@@ -399,60 +403,151 @@ def _wait_skip(dp):
 
 def api_listen_mode(dp, keyword):
     """
-    API拦截模式（支持多页翻页）
-    2026-03-23: DrissionPage 4.x listen API 不稳定，改用DOM直接提取
+    滚动加载模式：通过滚动左侧岗位列表触发懒加载，无需翻页
     """
     global _global_csv_file, _global_csv_writer, _global_all_jobs
 
     jobs_list = []
 
-    log.info(f"启动 DOM 提取模式: {keyword}")
+    log.info(f"启动滚动加载模式: {keyword}")
 
-    # 获取配置的页数限制，默认为3页
-    max_pages = getattr(config, 'MAX_API_PAGES', 3)
-    log.info(f"最大翻页数: {max_pages} 页")
+    # 获取滚动配置
+    max_scrolls = getattr(config, 'MAX_SCROLLS', 5)
+    log.info(f"最大滚动次数: {max_scrolls} 次")
 
     try:
-        for page in range(1, max_pages + 1):
-            if page == 1:
-                url = build_search_url(keyword, page=1)
-            else:
-                url = build_search_url(keyword, page=page)
+        # 访问搜索页（无page参数）
+        url = build_search_url(keyword, page=1)
+        log.info(f"正在访问: {url}")
+        dp.get(url, timeout=30)
+        time.sleep(3)  # 等待初始数据加载
 
-            log.info(f"正在访问第 {page}/{max_pages} 页...")
-            dp.get(url, timeout=30)
-            time.sleep(3)  # 等待页面渲染
+        # 验证码检查
+        captcha_passed = wait_for_captcha(dp)
+        if not captcha_passed:
+            log.warning(f"验证码未通过，可能只采集到部分数据")
 
-            # 验证码检查
-            captcha_passed = wait_for_captcha(dp)
-            if not captcha_passed:
-                log.warning(f"验证码未通过，停止翻页")
-                break
+        # 初始提取
+        page_jobs = _extract_jobs_from_dom(dp)
+        log.info(f"初始加载: {len(page_jobs)} 条数据")
+        jobs_list.extend(page_jobs)
 
-            # 直接从DOM提取数据
+        if len(page_jobs) == 0:
+            log.warning("初始无数据，尝试备用DOM模式")
+            dom_jobs = dom_mode(dp, keyword)
+            return dom_jobs
+
+        # 滚动加载：反复滚动左侧岗位列表，直到无新数据
+        prev_count = len(page_jobs)
+        no_new_count = 0  # 连续多少次滚动没有新数据
+
+        for scroll_idx in range(1, max_scrolls + 1):
+            # 滚动左侧岗位列表
+            _scroll_job_list(dp)
+
+            # 等待新数据加载
+            time.sleep(2)
+
+            # 提取当前所有卡片
             page_jobs = _extract_jobs_from_dom(dp)
-            log.info(f"第 {page} 页提取 {len(page_jobs)} 条数据")
-            jobs_list.extend(page_jobs)
+            current_count = len(page_jobs)
+            new_count = current_count - prev_count
 
-            # 如果本页数据少于5条，说明已到最后一页
-            if len(page_jobs) < 5:
-                log.info(f"第 {page} 页数据不足5条，已到最后一页")
+            log.info(f"第 {scroll_idx} 次滚动: "
+                     f"累计 {current_count} 条（+{new_count} 条新数据）")
+
+            # 更新数据（用去重key避免重复）
+            seen_keys = set()
+            for job in jobs_list:
+                seen_keys.add(make_dedup_key(job.get('公司名称',''), job.get('岗位名称',''), job.get('城市','')))
+
+            for job in page_jobs:
+                key = make_dedup_key(
+                    job.get('公司名称', ''),
+                    job.get('岗位名称', ''),
+                    job.get('城市', '')
+                )
+                if key not in seen_keys:
+                    jobs_list.append(job)
+                    seen_keys.add(key)
+
+            # 判断是否继续滚动
+            if new_count <= 0:
+                no_new_count += 1
+                if no_new_count >= 2:
+                    log.info(f"连续 {no_new_count} 次无新数据，停止滚动")
+                    break
+            else:
+                no_new_count = 0
+                prev_count = current_count
+
+            # 到底了检查
+            if current_count > 0 and _is_at_bottom(dp):
+                log.info("已到达页面底部，停止滚动")
                 break
 
-            # 页间延迟
-            time.sleep(1)
-
-        log.info(f"共获取 {len(jobs_list)} 条数据（{max_pages} 页）")
+        log.info(f"共获取 {len(jobs_list)} 条数据（{scroll_idx} 次滚动）")
 
     except Exception as e:
         log.error(f"提取异常: {e}")
 
-    # 无数据时回退到备用DOM模式
     if not jobs_list:
-        log.warning("DOM模式无数据，回退到 DOM 模式")
+        log.warning("滚动模式无数据，回退到 DOM 模式")
         jobs_list = dom_mode(dp, keyword)
 
     return jobs_list
+
+
+def _scroll_job_list(dp):
+    """
+    滚动左侧岗位列表容器，触发懒加载
+    BOSS直聘是左右分栏布局：左侧是岗位列表（可滚动），右侧是详情
+    """
+    # 方案1：滚动整个页面（会同时滚动左右两侧）
+    dp.run_js('window.scrollBy(0, window.innerHeight)')
+    time.sleep(0.5)
+
+    # 方案2：尝试滚动左侧列表容器
+    # 查找左侧岗位列表的滚动容器
+    scroll_containers = [
+        '.job-list-box',
+        '.job-list-container',
+        '[class*="job-list"]',
+        '.job-card-box',
+    ]
+
+    for selector in scroll_containers:
+        try:
+            el = dp.ele(f'css:{selector}', timeout=2)
+            if el and el.is_displayed():
+                # 检查元素是否可以滚动
+                scroll_height = dp.run_js('return arguments[0].scrollHeight', el)
+                client_height = dp.run_js('return arguments[0].clientHeight', el)
+                if scroll_height > client_height:
+                    # 在元素内滚动
+                    current_top = dp.run_js('return arguments[0].scrollTop', el)
+                    dp.run_js('arguments[0].scrollTop = arguments[0].scrollTop + arguments[0].clientHeight', el)
+                    new_top = dp.run_js('return arguments[0].scrollTop', el)
+                    if new_top > current_top:
+                        return  # 滚动成功
+        except Exception:
+            continue
+
+    # 方案3：继续滚动整个页面
+    dp.run_js('window.scrollBy(0, window.innerHeight)')
+    time.sleep(0.5)
+
+
+def _is_at_bottom(dp):
+    """检查是否已滚动到页面底部"""
+    try:
+        scroll_y = dp.run_js('return window.scrollY')
+        scroll_height = dp.run_js('return document.documentElement.scrollHeight')
+        inner_height = dp.run_js('return window.innerHeight')
+        # 底部误差容许100px
+        return (scroll_y + inner_height) >= (scroll_height - 100)
+    except Exception:
+        return False
 
 
 def _extract_jobs_from_dom(dp):
