@@ -1,0 +1,41 @@
+[2026-03-23 17:00:58] [INFO] [boss_spider] ======================================================================
+[2026-03-23 17:00:58] [INFO] [boss_spider] BOSS Zhipin Data Collection v6.0 - Acceptance Test Version
+[2026-03-23 17:00:58] [INFO] [boss_spider] ======================================================================
+[2026-03-23 17:00:58] [INFO] [boss_spider] Keywords: ['软件开发']
+[2026-03-23 17:00:58] [INFO] [boss_spider] City: 101280100
+[2026-03-23 17:00:58] [INFO] [boss_spider] Job Type: Part-time
+[2026-03-23 17:00:58] [INFO] [boss_spider] Loaded 2 historical records
+[2026-03-23 17:00:58] [INFO] [boss_spider] Found 2 historical records
+[2026-03-23 17:00:58] [INFO] [boss_spider] Starting browser...
+[2026-03-23 17:00:58] [INFO] [boss_spider] Using Chrome profile: C:/Users/HardCore/AppData/Local/Google/Chrome/User Data/Default
+[2026-03-23 17:00:59] [INFO] [boss_spider] Browser started
+[2026-03-23 17:01:02] [INFO] [boss_spider] Current URL: https://www.zhipin.com/web/geek/jobs
+[2026-03-23 17:01:02] [INFO] [boss_spider] ==================================================
+[2026-03-23 17:01:02] [INFO] [boss_spider] Collecting keyword: 软件开发
+[2026-03-23 17:01:02] [INFO] [boss_spider] ==================================================
+[2026-03-23 17:01:02] [INFO] [boss_spider] Start collecting: 软件开发
+[2026-03-23 17:01:11] [INFO] [boss_spider] Scroll 1: total 30 (+30 new)
+[2026-03-23 17:01:18] [INFO] [boss_spider] Scroll 2: total 30 (+0 new)
+[2026-03-23 17:01:24] [INFO] [boss_spider]   [1/30] Processing: 广州晟锐达 - 软件测试实习生
+[2026-03-23 17:01:24] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/cab4fe29e376ffb703Jy2d29E1c~.html?from=top-card
+[2026-03-23 17:01:31] [DEBUG] [boss_spider] Navigating to company: https://www.zhipin.com/gongsi/cab4fe29e376ffb703Jy2d29E1c~.html
+[2026-03-23 17:01:57] [DEBUG] [boss_spider] Page text length: 1728
+[2026-03-23 17:01:57] [DEBUG] [boss_spider] CreditCode context: '统一社会信用代码：\n91440106MAK7G4FE8T \n核准日期：\n2026-03-13 \n曾用名：\n-\n登记机关：\n广州市天河区市场监督管理局\n所属行业：'
+[2026-03-23 17:01:57] [DEBUG] [boss_spider] LegalRep context: '法定代表人：\n胡道兴 \n成立时间：\n2026-03-13 \n企业类型：\n有限责任公司（自然人独资） \n经营状态：\n开业 \n注册资本：\n30万元 \n注册地址：\n广'
+[2026-03-23 17:02:17] [DEBUG] [boss_spider] Company fields: ['GongSiMingCheng', 'TongYiSheHuiXinYongDaiMa', 'FaDingDaiBiaoRen', 'ZhuCeZiBen', 'ChengLiRiQi', 'JingYingZhuangTai', 'GongSiLeiXing', 'GongSiDiZhi']
+[2026-03-23 17:02:21] [DEBUG] [boss_spider] Returned to job list: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 17:02:25] [DEBUG] [boss_spider] Company fields: ['GongSiMingCheng', 'TongYiSheHuiXinYongDaiMa', 'FaDingDaiBiaoRen', 'ZhuCeZiBen', 'ChengLiRiQi', 'JingYingZhuangTai', 'GongSiLeiXing', 'GongSiDiZhi']
+[2026-03-23 17:02:25] [INFO] [boss_spider]     Detail: 职位描述 测试工作经验 性能测试 boss工作周期：长期兼职 提交测试报告，整理测试过程中的相关文档； 任职要求： 1、对软件测试工作有基本了解，具备一定的计算...
+[2026-03-23 17:02:25] [INFO] [boss_spider]     Publisher: 胡道兴 老板 Phone: 
+[2026-03-23 17:02:28] [DEBUG] [boss_spider] Refreshed: 15 cards, next: card 2
+[2026-03-23 17:02:32] [DEBUG] [boss_spider] Clicked card 2 to update right panel
+[2026-03-23 17:02:32] [INFO] [boss_spider] Detail collection done: 1 records
+[2026-03-23 17:02:32] [INFO] [boss_spider] Keyword '软件开发': got 1 records, 0 new
+[2026-03-23 17:02:32] [INFO] [boss_spider] CSV file closed
+[2026-03-23 17:02:33] [INFO] [boss_spider] Browser closed
+[2026-03-23 17:02:33] [INFO] [boss_spider] ==================================================
+[2026-03-23 17:02:33] [INFO] [boss_spider] Collection complete
+[2026-03-23 17:02:33] [INFO] [boss_spider] Output: H:\AllWorkSpase\boss-zp\data_boss_test.csv
+[2026-03-23 17:02:33] [INFO] [boss_spider] New records: 0
+[2026-03-23 17:02:33] [INFO] [boss_spider] Historical: 2, Skipped: 1
+[2026-03-23 17:02:33] [INFO] [boss_spider] ==================================================

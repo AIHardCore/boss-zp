@@ -12,10 +12,6 @@ import os
 # 搜索关键词列表（支持多个）
 SEARCH_QUERIES = [
     '软件开发',
-    '云服务',
-    '短视频运营',
-    '会展活动',
-    '咨询培训',
 ]
 
 # 城市配置
@@ -34,10 +30,10 @@ JOB_TYPE = 'parttime'  # fulltime:全职 | parttime:兼职
 MAX_SCROLLS = 5
 
 # 详情页获取数量（太多会很慢）
-MAX_DETAIL_COUNT = 10
+MAX_DETAIL_COUNT = 3
 
 # 输出文件名
-BOSS_OUTPUT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data_boss.csv')
+BOSS_OUTPUT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data_boss_test.csv')
 
 # ==================== 企查查爬虫配置 ====================
 

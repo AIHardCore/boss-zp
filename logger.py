@@ -50,6 +50,8 @@ def get_logger(module_name: str) -> logging.Logger:
         console_handler = logging.StreamHandler(sys.stdout)
         console_handler.setLevel(logging.DEBUG)
         console_handler.setFormatter(fmt)
+        # Use replace to avoid GBK encoding errors on Windows console
+        console_handler.stream.reconfigure(encoding='utf-8', errors='replace')
         logger.addHandler(console_handler)
 
     # ---- 文件输出 ----
