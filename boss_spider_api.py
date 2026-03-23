@@ -334,6 +334,69 @@ def _extract_list_fields(card):
 
 
 
+def _clean_job_detail(text):
+    """Clean job detail text by removing BOSS platform garbage content.
+
+    Removes:
+    - App download prompts: 去App, 与BOSS随时沟通, 前往App
+    - BOSS/kanzhun font artifacts and branding
+    - Address/location UI elements
+    - Publisher info mixed into detail text
+    - Content tags mixed into text (远程办公, etc.)
+    - Private Use Area characters (kanzhun font obfuscation)
+    - Kangxi radicals that display as regular chars (kanzhun font artifacts)
+    - Consecutive whitespace
+    """
+    if not text:
+        return ''
+
+    # Remove kanzhun PUA font characters (U+E000 - U+F8FF range)
+    text = re.sub(r'[\uE000-\uF8FF]', '', text)
+
+    # Normalize kanzhun font Kangxi radicals (U+2F00-U+2FD5) to regular chars
+    # U+2F2F->工, U+2F45->方, U+2F47->日 (confirmed from debug of real data)
+    if any(chr(0x2F00) <= c <= chr(0x2FD5) for c in text):
+        _KR = {'\u2F2F': '工', '\u2F45': '方', '\u2F47': '日'}
+        text = text.translate(str.maketrans(_KR))
+
+    # Remove app download / chat prompts (exact phrases)
+    for p in ('去App', '与BOSS随时沟通', '前往App', '立即沟通',
+              '微信扫码', '点击查看地图', '查看更多信息',
+              '来自BOSS直聘', 'boss直聘', 'BOSS直聘', 'kanzhun', 'Kanzhun'):
+        text = text.replace(p, '')
+
+    # Remove standalone boss/kanzhun
+    text = re.sub(r'\bboss\b', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bkanzhun\b', '', text, flags=re.IGNORECASE)
+
+    # Remove 'boss' when followed by Chinese chars (obfuscation artifact)
+    text = re.sub(r'boss(?=[\u4e00-\u9fff])', '', text, flags=re.IGNORECASE)
+
+    # Remove publisher info + all trailing UI elements
+    text = re.sub(r'纪玉青 刚刚活跃.*$', '', text)
+    text = re.sub(r'[\u4e00-\u9fff]{1,10}\s*(刚刚活跃|今日活跃|昨日活跃)\s*.*$', '', text)
+
+    # Remove app CTA blocks
+    text = re.sub(r'去App', '', text)
+    text = re.sub(r'与BOSS随时沟通', '', text)
+    text = re.sub(r'前往App', '', text)
+
+    # Remove remote tag
+    text = re.sub(r'(?<=职位描述)\s*远程办公', '', text)
+    text = re.sub(r'^远程办公\s*', '', text)
+
+    # Remove remaining UI elements
+    text = re.sub(r'查看更多信息.*$', '', text)
+    text = re.sub(r'工作地址\s*[\u4e00-\u9fff0-9a-zA-Z·\-.,。]{3,100}$', '', text)
+    text = re.sub(r'收藏\s*|\s*举报', '', text)
+
+    # Collapse whitespace and clean up
+    text = re.sub(r'\s+', ' ', text).strip()
+    text = re.sub(r'[\s,，.。··]+$', '', text)
+
+    return text
+
+
 def _decode_kanzhun_salary(text):
     """Decode BOSS直聘's kanzhun-mix font PUA chars to actual digits.
     
@@ -412,6 +475,8 @@ def _extract_detail_panel(dp, card):
                         clean_text = re.sub(r'\bboss\b', '', clean_text, flags=re.IGNORECASE)
                         # Collapse whitespace
                         clean_text = re.sub(r'\s+', ' ', clean_text).strip()
+                        # Apply comprehensive cleaning
+                        clean_text = _clean_job_detail(clean_text)
                         info['GangWeiXiangQing'] = clean_text[:5000]
             except Exception:
                 pass
