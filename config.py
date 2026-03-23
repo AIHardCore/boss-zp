@@ -12,6 +12,10 @@ import os
 # 搜索关键词列表（支持多个）
 SEARCH_QUERIES = [
     '软件开发',
+    '云服务',
+    '短视频运营',
+    '会展活动',
+    '咨询培训',
 ]
 
 # 城市配置
@@ -74,7 +78,7 @@ REQUEST_DELAY = 2
 USE_LLLM_ANALYSIS = False
 
 # ==================== 增量更新配置 ====================
-INCREMENTAL_MODE = False  # 临时关闭，测试用
+INCREMENTAL_MODE = True  # 开启增量更新，自动跳过已采集记录
 
 # ==================== 日志配置 ====================
 LOG_ENABLED = True                    # 是否启用日志（True/False）
