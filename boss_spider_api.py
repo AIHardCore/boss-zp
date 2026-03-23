@@ -345,6 +345,7 @@ def _clean_job_detail(text):
     - Content tags mixed into text (远程办公, etc.)
     - Private Use Area characters (kanzhun font obfuscation)
     - Kangxi radicals that display as regular chars (kanzhun font artifacts)
+    - Kanzhun mid-word font obfuscation artifacts ('直聘'/'来自' insert points)
     - Consecutive whitespace
     """
     if not text:
@@ -358,6 +359,14 @@ def _clean_job_detail(text):
     if any(chr(0x2F00) <= c <= chr(0x2FD5) for c in text):
         _KR = {'\u2F2F': '工', '\u2F45': '方', '\u2F47': '日'}
         text = text.translate(str.maketrans(_KR))
+
+    # Remove kanzhun font obfuscation artifacts: '直聘' and '来自' are
+    # inserted mid-word by the kanzhun font, breaking words like:
+    # 工作周期 -> 工直聘作周期, 长期兼职 -> 长期来自兼职,
+    # 无要求 -> 无要直聘求, 每周工期 -> 每来自周工期, etc.
+    # These two substrings only appear as mid-word insert points, never as
+    # standalone legitimate words in the detail text.
+    text = text.replace('直聘', '').replace('来自', '')
 
     # Remove app download / chat prompts (exact phrases)
     for p in ('去App', '与BOSS随时沟通', '前往App', '立即沟通',
