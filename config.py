@@ -69,7 +69,7 @@ CHROME_BROWSER_PATH = 'C:/Program Files/Google/Chrome/Application/chrome.exe'
 CHROME_USER_DATA_PATH = 'C:/Users/HardCore/AppData/Local/Google/Chrome/User Data/Default'
 
 # API 模式最大翻页数（每页约15条）
-MAX_API_PAGES = 3
+MAX_API_PAGES = 50
 
 # 请求间隔（秒）
 REQUEST_DELAY = 2

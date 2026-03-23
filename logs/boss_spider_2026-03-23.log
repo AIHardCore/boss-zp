@@ -1,0 +1,641 @@
+[2026-03-23 19:23:31] [INFO] [boss_spider] ======================================================================
+[2026-03-23 19:23:31] [INFO] [boss_spider] BOSS Zhipin Data Collection v6.0 - Acceptance Test Version
+[2026-03-23 19:23:31] [INFO] [boss_spider] ======================================================================
+[2026-03-23 19:23:31] [INFO] [boss_spider] Keywords: ['软件开发', '云服务', '短视频运营', '会展活动', '咨询培训']
+[2026-03-23 19:23:31] [INFO] [boss_spider] City: 101280100
+[2026-03-23 19:23:31] [INFO] [boss_spider] Job Type: Part-time
+[2026-03-23 19:23:31] [INFO] [boss_spider] Loaded 6 historical records
+[2026-03-23 19:23:31] [INFO] [boss_spider] Found 6 historical records
+[2026-03-23 19:23:31] [INFO] [boss_spider] Starting browser...
+[2026-03-23 19:23:31] [INFO] [boss_spider] Using Chrome profile: C:/Users/HardCore/AppData/Local/Google/Chrome/User Data/Default
+[2026-03-23 19:23:32] [INFO] [boss_spider] Browser started
+[2026-03-23 19:23:35] [INFO] [boss_spider] Current URL: https://www.zhipin.com/web/user/?ka=header-login
+[2026-03-23 19:23:35] [INFO] [boss_spider] ==================================================
+[2026-03-23 19:23:35] [INFO] [boss_spider] Collecting keyword: 软件开发
+[2026-03-23 19:23:35] [INFO] [boss_spider] ==================================================
+[2026-03-23 19:23:35] [INFO] [boss_spider] Start collecting: 软件开发
+[2026-03-23 19:23:51] [INFO] [boss_spider] Scroll 1: total 15 (+15 new)
+[2026-03-23 19:23:57] [INFO] [boss_spider] Scroll 2: total 30 (+15 new)
+[2026-03-23 19:24:03] [INFO] [boss_spider]   [1/30] Processing: 中软国际 - 后端开发-湛江
+[2026-03-23 19:24:03] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/c272ec369ff11e6a03V82d29EFE~.html?from=top-card
+[2026-03-23 19:24:10] [DEBUG] [boss_spider] Original tab: F03F4C5937CEA8A8296A8488D0A7B641, opening: https://www.zhipin.com/gongsi/c272ec369ff11e6a03V82d29EFE~.html
+[2026-03-23 19:24:25] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs
+[2026-03-23 19:24:28] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs
+[2026-03-23 19:24:28] [INFO] [boss_spider]     Detail: 职位描述 Java 不接受居家办公 分布式经验 微服务经验 SpringCloud MySQL 1、计算机相关专业本科及以上学历 2、精通Java，编码能力强，...
+[2026-03-23 19:24:28] [INFO] [boss_spider]     Publisher: 郑女士 招聘专员 Phone: 
+[2026-03-23 19:24:31] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 2
+[2026-03-23 19:24:36] [DEBUG] [boss_spider] Clicked card 2 to update right panel
+[2026-03-23 19:24:42] [INFO] [boss_spider]   [2/30] Processing: 湛江国联水产 - 软件开发工程师
+[2026-03-23 19:24:42] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/66f9c61d50ec88080n143Ny8.html?from=top-card
+[2026-03-23 19:24:51] [DEBUG] [boss_spider] Original tab: F03F4C5937CEA8A8296A8488D0A7B641, opening: https://www.zhipin.com/gongsi/66f9c61d50ec88080n143Ny8.html
+[2026-03-23 19:25:23] [DEBUG] [boss_spider] _extract_company_detail failed: 
+与页面的连接已断开。
+版本: 4.1.1.2
+[2026-03-23 19:25:23] [INFO] [boss_spider]     Detail: 职位描述 Java MySQL MongoDB Spring 工作职责： 1、CRM系统开发： 1）与业务进行开发需求确认分析及技术设计实现； 2）熟悉CRM系...
+[2026-03-23 19:25:23] [INFO] [boss_spider]     Publisher: 花春贵 招聘经理 Phone: 
+[2026-03-23 19:58:37] [INFO] [boss_spider] Detail collection done: 2 records
+[2026-03-23 19:58:37] [INFO] [boss_spider] Keyword '软件开发': got 2 records, 2 new
+[2026-03-23 19:58:37] [INFO] [boss_spider] Wrote 2 records to CSV
+[2026-03-23 19:58:37] [INFO] [boss_spider] ==================================================
+[2026-03-23 19:58:37] [INFO] [boss_spider] Collecting keyword: 云服务
+[2026-03-23 19:58:37] [INFO] [boss_spider] ==================================================
+[2026-03-23 19:58:37] [INFO] [boss_spider] Start collecting: 云服务
+[2026-03-23 19:58:37] [INFO] [boss_spider] CSV file closed
+[2026-03-23 19:58:37] [INFO] [boss_spider] Browser closed
+[2026-03-23 19:58:37] [ERROR] [boss_spider] Unhandled exception: 
+与页面的连接已断开。
+版本: 4.1.1.2
+[2026-03-23 21:22:02] [INFO] [boss_spider] ======================================================================
+[2026-03-23 21:22:02] [INFO] [boss_spider] BOSS Zhipin Data Collection v6.0 - Acceptance Test Version
+[2026-03-23 21:22:02] [INFO] [boss_spider] ======================================================================
+[2026-03-23 21:22:02] [INFO] [boss_spider] Keywords: ['软件开发', '云服务', '短视频运营', '会展活动', '咨询培训']
+[2026-03-23 21:22:02] [INFO] [boss_spider] City: 101280100
+[2026-03-23 21:22:02] [INFO] [boss_spider] Job Type: Part-time
+[2026-03-23 21:22:02] [INFO] [boss_spider] Loaded 8 historical records
+[2026-03-23 21:22:02] [INFO] [boss_spider] Found 8 historical records
+[2026-03-23 21:22:02] [INFO] [boss_spider] Starting browser...
+[2026-03-23 21:22:02] [INFO] [boss_spider] Using Chrome profile: C:/Users/HardCore/AppData/Local/Google/Chrome/User Data/Default
+[2026-03-23 21:22:02] [INFO] [boss_spider] Browser started
+[2026-03-23 21:22:06] [INFO] [boss_spider] Current URL: https://www.zhipin.com/web/geek/jobs
+[2026-03-23 21:22:06] [INFO] [boss_spider] ==================================================
+[2026-03-23 21:22:06] [INFO] [boss_spider] Collecting keyword: 软件开发
+[2026-03-23 21:22:06] [INFO] [boss_spider] ==================================================
+[2026-03-23 21:22:06] [INFO] [boss_spider] Start collecting: 软件开发
+[2026-03-23 21:22:14] [INFO] [boss_spider] Scroll 1: total 30 (+30 new)
+[2026-03-23 21:22:21] [INFO] [boss_spider] Scroll 2: total 30 (+0 new)
+[2026-03-23 21:22:27] [INFO] [boss_spider]   [1/30] Processing: 广州晟锐达 - 软件测试实习生
+[2026-03-23 21:22:27] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/cab4fe29e376ffb703Jy2d29E1c~.html?from=top-card
+[2026-03-23 21:22:37] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/cab4fe29e376ffb703Jy2d29E1c~.html
+[2026-03-23 21:22:51] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:22:54] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:22:54] [INFO] [boss_spider]     Detail: 职位描述 测试工作经验 性能测试 工作周期：长期兼职 每周工期：5天及以上 工作时间：09:00-16:00 工作时段：不限 结算方式：日结 招聘截⽌时间：20...
+[2026-03-23 21:22:54] [INFO] [boss_spider]     Publisher: 胡道兴 老板 Phone: 
+[2026-03-23 21:22:57] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 2
+[2026-03-23 21:23:02] [DEBUG] [boss_spider] Clicked card 2 to update right panel
+[2026-03-23 21:23:08] [INFO] [boss_spider]   [2/30] Processing: 润东通讯有限公司 - 软件测试助理
+[2026-03-23 21:23:08] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/fea328f4710c73381n1_29y-FFE~.html?from=top-card
+[2026-03-23 21:23:17] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/fea328f4710c73381n1_29y-FFE~.html
+[2026-03-23 21:23:32] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:23:35] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:23:35] [INFO] [boss_spider]     Detail: 职位描述 性能测试 渗透测试 压力测试 功能测试 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间：2027-...
+[2026-03-23 21:23:35] [INFO] [boss_spider]     Publisher: 洪剑威 人事专员 Phone: 
+[2026-03-23 21:23:38] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 3
+[2026-03-23 21:23:43] [DEBUG] [boss_spider] Clicked card 3 to update right panel
+[2026-03-23 21:23:49] [INFO] [boss_spider]   [3/30] Processing: 西安天勤物流有限公司 - 兼职做数据开发，日结200/300
+[2026-03-23 21:23:49] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/1e0b14bd5a2baf6503F43d2_ElY~.html?from=top-card
+[2026-03-23 21:23:58] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/1e0b14bd5a2baf6503F43d2_ElY~.html
+[2026-03-23 21:24:12] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:24:15] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:24:15] [INFO] [boss_spider]     Detail: 职位描述 接受无数据开发经验 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间：2026-05-31 工作简单...
+[2026-03-23 21:24:15] [INFO] [boss_spider]     Publisher: 高萌 运营总监 Phone: 
+[2026-03-23 21:24:18] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 4
+[2026-03-23 21:24:23] [DEBUG] [boss_spider] Clicked card 4 to update right panel
+[2026-03-23 21:24:29] [INFO] [boss_spider]   [4/30] Processing: 广州市越起网络 - 前端开发工程师(初级)
+[2026-03-23 21:24:29] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/cd770b096da83c3a03J53NW6F1Y~.html?from=top-card
+[2026-03-23 21:24:38] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/cd770b096da83c3a03J53NW6F1Y~.html
+[2026-03-23 21:24:53] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:24:56] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:24:56] [INFO] [boss_spider]     Detail: 职位描述 CSS JavaScript HTML5 Vue uniapp Node.js 接受居家办公 前端开发经验 工作周期：2个月每周工期：无要求 工作时间...
+[2026-03-23 21:24:56] [INFO] [boss_spider]     Publisher: 吴泳泽 总经理 Phone: 
+[2026-03-23 21:24:59] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 5
+[2026-03-23 21:25:04] [DEBUG] [boss_spider] Clicked card 5 to update right panel
+[2026-03-23 21:25:10] [INFO] [boss_spider]   [5/30] Processing: 河南拓优环保科技 - 兼职平面设计 剪辑 建模
+[2026-03-23 21:25:10] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/bbf7da266fbd516703V93ti1FFs~.html?from=top-card
+[2026-03-23 21:25:19] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/bbf7da266fbd516703V93ti1FFs~.html
+[2026-03-23 21:25:33] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:25:36] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:25:36] [INFO] [boss_spider]     Detail: 职位描述 1年以内平面设计经验 甲方公司 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间：2027-02-0...
+[2026-03-23 21:25:36] [INFO] [boss_spider]     Publisher: 纪玉青 设计主管 Phone: 
+[2026-03-23 21:25:39] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 6
+[2026-03-23 21:25:44] [DEBUG] [boss_spider] Clicked card 6 to update right panel
+[2026-03-23 21:25:50] [INFO] [boss_spider]   [6/30] Processing: 广州锦成 - 兼职前端开发工程师
+[2026-03-23 21:25:50] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/a7430eec72c511a51nB709W-FlE~.html?from=top-card
+[2026-03-23 21:25:59] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/a7430eec72c511a51nB709W-FlE~.html
+[2026-03-23 21:26:14] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:26:17] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:26:17] [INFO] [boss_spider]     Detail: 职位描述 工作周期：2个月 每周工期：5天及以上 工作时间：08:30-18:00 工作时段：工作日 结算方式：月结 招聘截⽌时间：2026-04-30 岗位职...
+[2026-03-23 21:26:17] [INFO] [boss_spider]     Publisher: 王霞飞 招聘者 Phone: 
+[2026-03-23 21:26:20] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 7
+[2026-03-23 21:26:25] [DEBUG] [boss_spider] Clicked card 7 to update right panel
+[2026-03-23 21:26:31] [INFO] [boss_spider]   [7/30] Processing: 房保保 - 全栈开发工程师
+[2026-03-23 21:26:31] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/71e7c411c08f35d51nZ52dm1FVM~.html?from=top-card
+[2026-03-23 21:26:38] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/71e7c411c08f35d51nZ52dm1FVM~.html
+[2026-03-23 21:26:52] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:26:55] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:26:55] [INFO] [boss_spider]     Detail: 职位描述 Java Vue PHP 全栈项目经验 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：完工结 招聘截止时间：2025...
+[2026-03-23 21:26:55] [INFO] [boss_spider]     Publisher: 李承哲 招聘者 Phone: 
+[2026-03-23 21:26:58] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 8
+[2026-03-23 21:27:03] [DEBUG] [boss_spider] Clicked card 8 to update right panel
+[2026-03-23 21:27:09] [INFO] [boss_spider]   [8/30] Processing: 佛山市森泽商贸 - 跨境电商运营副业可居家
+[2026-03-23 21:27:09] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/be24c686f6755dc303J-3ti5F1U~.html?from=top-card
+[2026-03-23 21:27:18] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/be24c686f6755dc303J-3ti5F1U~.html
+[2026-03-23 21:27:33] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:27:36] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:27:36] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：⽉结 招聘截止时间：2027-12-31 亚马逊（Amazon）是全球...
+[2026-03-23 21:27:36] [INFO] [boss_spider]     Publisher: 黎泽霖 人事主管 Phone: 
+[2026-03-23 21:27:39] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 9
+[2026-03-23 21:27:44] [DEBUG] [boss_spider] Clicked card 9 to update right panel
+[2026-03-23 21:27:50] [INFO] [boss_spider]   [9/30] Processing: 深圳市升帆科技 - 高级ios开发工程师
+[2026-03-23 21:27:50] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/3eac992676cf5a8d03F90968GVs~.html?from=top-card
+[2026-03-23 21:27:59] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/3eac992676cf5a8d03F90968GVs~.html
+[2026-03-23 21:28:13] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:28:16] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:28:16] [INFO] [boss_spider]     Detail: 职位描述 功能开发 混合开发经验 全栈开发经验 Objective-C 大型项目开发经验 Swift Flutter 技术升级 独立开发且上线经验 工作周期：长...
+[2026-03-23 21:28:16] [INFO] [boss_spider]     Publisher: 姚先生 总经理 Phone: 
+[2026-03-23 21:28:19] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 10
+[2026-03-23 21:28:24] [DEBUG] [boss_spider] Clicked card 10 to update right panel
+[2026-03-23 21:28:30] [INFO] [boss_spider]   [10/30] Processing: 有戏 - 初级java开发工程师
+[2026-03-23 21:28:30] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/19692310f9db13b71nx90t29E1E~.html?from=top-card
+[2026-03-23 21:28:39] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/19692310f9db13b71nx90t29E1E~.html
+[2026-03-23 21:28:54] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:28:57] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:28:57] [INFO] [boss_spider]     Detail: 职位描述 Java MySQL Spring 工作周期：1个月每周工期：3-4天 工作时间：不限 工作时段：工作日 结算方式：完工结 招聘截⽌时间：2026-0...
+[2026-03-23 21:28:57] [INFO] [boss_spider]     Publisher: 符智精 技术总监 Phone: 
+[2026-03-23 21:29:00] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 11
+[2026-03-23 21:29:05] [DEBUG] [boss_spider] Clicked card 11 to update right panel
+[2026-03-23 21:29:11] [INFO] [boss_spider]   [11/30] Processing: 好多素教 - 广州番禺·兼职公办小学兴趣课程老师
+[2026-03-23 21:29:11] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/7232f236cf9536231nd42NS_GFs~.html?from=top-card
+[2026-03-23 21:29:20] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/7232f236cf9536231nd42NS_GFs~.html
+[2026-03-23 21:29:34] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:29:37] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:29:37] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：1-2天 工作时间：不限 工作时段：工作日 结算方式：月结 招聘截止时间：2026-05-09 [招聘兼职⽼师] 工作时...
+[2026-03-23 21:29:37] [INFO] [boss_spider]     Publisher: 陈先生 招聘专员 Phone: 
+[2026-03-23 21:29:40] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 12
+[2026-03-23 21:29:45] [DEBUG] [boss_spider] Clicked card 12 to update right panel
+[2026-03-23 21:29:51] [INFO] [boss_spider]   [12/30] Processing: 广州悦龄科技有限公司 - 短视频剪辑专员
+[2026-03-23 21:29:51] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/40188f5b6f5462fc1HJ629i-FFE~.html?from=top-card
+[2026-03-23 21:29:58] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/40188f5b6f5462fc1HJ629i-FFE~.html
+[2026-03-23 21:30:13] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:30:16] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:30:16] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：1-2天 工作时间：09:00-次日06:00 工作时段：工作日 结算方式：月结 招聘截⽌时间：2026-03-28 岗...
+[2026-03-23 21:30:16] [INFO] [boss_spider]     Publisher: 熊青云 招聘者 Phone: 
+[2026-03-23 21:30:19] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 13
+[2026-03-23 21:30:24] [DEBUG] [boss_spider] Clicked card 13 to update right panel
+[2026-03-23 21:30:30] [INFO] [boss_spider]   [13/30] Processing: 壹点壹客设计 - 兼职全职效果图及施工图绘图员
+[2026-03-23 21:30:30] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/a0f85141769db2631HJy3N2_FA~~.html?from=top-card
+[2026-03-23 21:30:39] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/a0f85141769db2631HJy3N2_FA~~.html
+[2026-03-23 21:31:05] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:31:08] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:31:08] [INFO] [boss_spider]     Detail: 职位描述 有3D设计经验/技能 3-5年3D设计师经验 1-3年3D设计师经验 5年以上3D设计师经验 乙方公司 1年以下3D设计师经验 工作周期：长期兼职 每...
+[2026-03-23 21:31:08] [INFO] [boss_spider]     Publisher: 刘品言 人事专员 Phone: 
+[2026-03-23 21:31:11] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 14
+[2026-03-23 21:31:15] [DEBUG] [boss_spider] Clicked card 14 to update right panel
+[2026-03-23 21:31:21] [INFO] [boss_spider]   [14/30] Processing: 抵奥云 - 高级c/c++开发工程师（自由职业/兼职）
+[2026-03-23 21:31:21] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/0cdc44aee09f9c560XR70t-_.html?from=top-card
+[2026-03-23 21:31:31] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/0cdc44aee09f9c560XR70t-_.html
+[2026-03-23 21:31:45] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:31:48] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:31:48] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：5天及以上 工作时间：不限 工作时段：不限 结算方式：⽉结 招聘截⽌时间：2026-01-10 岗位职责： 1. 负责开...
+[2026-03-23 21:31:48] [INFO] [boss_spider]     Publisher: 周先生 总经理 Phone: 
+[2026-03-23 21:31:51] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 15
+[2026-03-23 21:31:56] [DEBUG] [boss_spider] Clicked card 15 to update right panel
+[2026-03-23 21:32:02] [INFO] [boss_spider]   [15/30] Processing: 陕西豪欣咨询服务 - 各类结构设计（在线兼职）
+[2026-03-23 21:32:02] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/ed53bb4f89d175b31HN52dm7F1I~.html?from=top-card
+[2026-03-23 21:32:11] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/ed53bb4f89d175b31HN52dm7F1I~.html
+[2026-03-23 21:32:26] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:32:29] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:32:29] [INFO] [boss_spider]     Detail: 职位描述 二级建造师 中级工程师职称 港口与航道 AutoCAD MIDAS 水利工程相关专业 力学相关专业 一级建造师 地质工程相关专业 民用建筑 Abaqu...
+[2026-03-23 21:32:29] [INFO] [boss_spider]     Publisher: 王先生 招聘者 Phone: 
+[2026-03-23 21:32:32] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 16
+[2026-03-23 21:32:36] [DEBUG] [boss_spider] Clicked card 16 to update right panel
+[2026-03-23 21:32:42] [INFO] [boss_spider]   [16/30] Processing: 虹芙网络科技 - 兼职JAVA开发
+[2026-03-23 21:32:42] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/f441d39b2a0463081Hxy392-FVo~.html?from=top-card
+[2026-03-23 21:32:52] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/f441d39b2a0463081Hxy392-FVo~.html
+[2026-03-23 21:33:06] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:33:09] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:33:09] [INFO] [boss_spider]     Detail: 职位描述 Java 微服务经验 SpringCloud MySQL MyBatis 接受居家办公 工作周期：长期兼职 每周工期：5天及以上 工作时间：不限 工作...
+[2026-03-23 21:33:09] [INFO] [boss_spider]     Publisher: 葛俊改 招聘者 Phone: 
+[2026-03-23 21:33:12] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 17
+[2026-03-23 21:33:17] [DEBUG] [boss_spider] Clicked card 17 to update right panel
+[2026-03-23 21:33:23] [INFO] [boss_spider]   [17/30] Processing: 博美智研 - Java 开发工程师（兼职 / 驻场）
+[2026-03-23 21:33:23] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/af1a4f74da5dc09f1HN73tS7FlQ~.html?from=top-card
+[2026-03-23 21:33:32] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/af1a4f74da5dc09f1HN73tS7FlQ~.html
+[2026-03-23 21:33:58] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:34:01] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:34:01] [INFO] [boss_spider]     Detail: 职位描述 Java Elasticsearch SpringCloud MySQL MyBatis 兼职 SQL Server Spring 工作周期：2个月 ...
+[2026-03-23 21:34:01] [INFO] [boss_spider]     Publisher: 陈女士 人事经理 Phone: 
+[2026-03-23 21:34:04] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 18
+[2026-03-23 21:34:08] [DEBUG] [boss_spider] Clicked card 18 to update right panel
+[2026-03-23 21:34:15] [INFO] [boss_spider]   [18/30] Processing: 中科安信 - 兼职开发
+[2026-03-23 21:34:15] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/ae2ca9260d82710f1XN92dy6EFY~.html?from=top-card
+[2026-03-23 21:34:24] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/ae2ca9260d82710f1XN92dy6EFY~.html
+[2026-03-23 21:34:38] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:34:41] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:34:41] [INFO] [boss_spider]     Detail: 职位描述 全栈 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：月结 招聘截止时间：2024-09-16 微信小程序开发，全栈 ...
+[2026-03-23 21:34:41] [INFO] [boss_spider]     Publisher: 练先生 本月活跃 HRD Phone: 
+[2026-03-23 21:34:44] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 19
+[2026-03-23 21:34:49] [DEBUG] [boss_spider] Clicked card 19 to update right panel
+[2026-03-23 21:34:55] [INFO] [boss_spider]   [19/30] Processing: 长沙惠聚有品文化传媒 - 线上兼职家教，无抗遗忘
+[2026-03-23 21:34:55] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/1e763f0a0464f8361XR73Nu9GVc~.html?from=top-card
+[2026-03-23 21:35:04] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/1e763f0a0464f8361XR73Nu9GVc~.html
+[2026-03-23 21:35:19] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:35:22] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:35:22] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：5天及以上 工作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间：2026-12-31 无抗遗忘无抗遗忘 陪练单...
+[2026-03-23 21:35:22] [INFO] [boss_spider]     Publisher: 龚女士 招聘者 Phone: 
+[2026-03-23 21:35:25] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 20
+[2026-03-23 21:35:30] [DEBUG] [boss_spider] Clicked card 20 to update right panel
+[2026-03-23 21:35:36] [INFO] [boss_spider]   [20/30] Processing: 大杨电梯 - 会计文员
+[2026-03-23 21:35:36] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/b66a751e1ab61fe71Hd93di1GA~~.html?from=top-card
+[2026-03-23 21:35:43] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/b66a751e1ab61fe71Hd93di1GA~~.html
+[2026-03-23 21:35:57] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:36:00] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:36:00] [INFO] [boss_spider]     Detail: 职位描述 税务 应收应付 结算 总账 成本 资金管理 收入账 固定资产核算 工作周期：长期兼职 每周工期：5天及以上 工作时间：不限 工作时段：不限 结算方式：...
+[2026-03-23 21:36:00] [INFO] [boss_spider]     Publisher: 徐女士 招聘者 Phone: 
+[2026-03-23 21:36:03] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 21
+[2026-03-23 21:36:08] [DEBUG] [boss_spider] Clicked card 21 to update right panel
+[2026-03-23 21:36:14] [INFO] [boss_spider]   [21/30] Processing: 广州一方数字科技 - 兼职方案编写（系统集成+软件开发方向）
+[2026-03-23 21:36:14] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/6908e601a877d34003B_29q5ElU~.html?from=top-card
+[2026-03-23 21:36:23] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/6908e601a877d34003B_29q5ElU~.html
+[2026-03-23 21:36:38] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:36:41] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:36:41] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：5天及以上 工作时间：不限 工作时段：按单安排时间 结算方式：⽉结 招聘截⽌时间：2026-05-19 岗位要求： 1....
+[2026-03-23 21:36:41] [INFO] [boss_spider]     Publisher: 李女士 招聘者 Phone: 
+[2026-03-23 21:36:44] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 22
+[2026-03-23 21:36:49] [DEBUG] [boss_spider] Clicked card 22 to update right panel
+[2026-03-23 21:36:55] [INFO] [boss_spider]   [22/30] Processing: 宁波铭呈企业管理 - 兼职项目人事经理
+[2026-03-23 21:36:55] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/73a70d42a03b2e0203d53d25GVs~.html?from=top-card
+[2026-03-23 21:37:04] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/73a70d42a03b2e0203d53d25GVs~.html
+[2026-03-23 21:37:18] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:37:21] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:37:21] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：周结 招聘截⽌时间：2027-12-05 岗位职责： 1、为企业提高营...
+[2026-03-23 21:37:21] [INFO] [boss_spider]     Publisher: 杨先生 招聘者 Phone: 
+[2026-03-23 21:37:24] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 23
+[2026-03-23 21:37:29] [DEBUG] [boss_spider] Clicked card 23 to update right panel
+[2026-03-23 21:37:35] [INFO] [boss_spider]   [23/30] Processing: 沈阳哆咪网络科技 - java混合go开发社交app后端工程师
+[2026-03-23 21:37:35] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/6ae6a759823b466c1H152tS4Elo~.html?from=top-card
+[2026-03-23 21:37:44] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/6ae6a759823b466c1H152tS4Elo~.html
+[2026-03-23 21:37:59] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:38:02] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:38:02] [INFO] [boss_spider]     Detail: 职位描述 Golang Java 后端开发经验 全栈侧重后端 前端开发经验 全栈项目经验 工作周期：长期兼职 每周工期：⽆要求 工作时间：不限 工作时段：不限 ...
+[2026-03-23 21:38:02] [INFO] [boss_spider]     Publisher: 王先生 项目经理 Phone: 
+[2026-03-23 21:38:05] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 24
+[2026-03-23 21:38:10] [DEBUG] [boss_spider] Clicked card 24 to update right panel
+[2026-03-23 21:38:16] [INFO] [boss_spider]   [24/30] Processing: 广州市天详智能设... - 兼职后端软件开发工程师
+[2026-03-23 21:38:16] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/898bc5e7185bd0e51nJ80926FlA~.html?from=top-card
+[2026-03-23 21:38:25] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/898bc5e7185bd0e51nJ80926FlA~.html
+[2026-03-23 21:38:39] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:38:42] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:38:42] [INFO] [boss_spider]     Detail: 职位描述 Java SpringCloud MySQL MyBatis Spring 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：按单安排时...
+[2026-03-23 21:38:42] [INFO] [boss_spider]     Publisher: 黄女士 人事行政经理 Phone: 
+[2026-03-23 21:38:45] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 25
+[2026-03-23 21:38:50] [DEBUG] [boss_spider] Clicked card 25 to update right panel
+[2026-03-23 21:38:56] [INFO] [boss_spider]   [25/30] Processing: 香港方达科技(亚... - C++高级软件工程师（全国）
+[2026-03-23 21:38:56] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/c71aba5d3a39727e03J73tu6GVI~.html?from=top-card
+[2026-03-23 21:39:05] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/c71aba5d3a39727e03J73tu6GVI~.html
+[2026-03-23 21:39:20] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:39:23] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:39:23] [INFO] [boss_spider]     Detail: 职位描述 编译器开发经验 C++ 分布式经验 MySQL MFC 架构设计经验 工作周期：长期兼职 每周工期：5天及以上 工作时间：不限 工作时段：不限 结算方...
+[2026-03-23 21:39:23] [INFO] [boss_spider]     Publisher: 张介溆 招聘者 Phone: 
+[2026-03-23 21:39:26] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 26
+[2026-03-23 21:39:31] [DEBUG] [boss_spider] Clicked card 26 to update right panel
+[2026-03-23 21:39:37] [INFO] [boss_spider]   [26/30] Processing: 广州数字动力信息技术 - 自由JAVA开发程序员 有AI应用开发经验
+[2026-03-23 21:39:37] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/ba5490aeb4ee178103B83NS1EVI~.html?from=top-card
+[2026-03-23 21:39:46] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/ba5490aeb4ee178103B83NS1EVI~.html
+[2026-03-23 21:40:00] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:40:03] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:40:03] [INFO] [boss_spider]     Detail: 职位描述 Golang Java 物联网经验 ai应用 SpringCloud Kafka Redis SQL Server Spring 接受居家办公 ERP...
+[2026-03-23 21:40:03] [INFO] [boss_spider]     Publisher: 钟彬 2周内活跃 行政 Phone: 
+[2026-03-23 21:40:06] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 27
+[2026-03-23 21:40:11] [DEBUG] [boss_spider] Clicked card 27 to update right panel
+[2026-03-23 21:40:17] [INFO] [boss_spider]   [27/30] Processing: 广州市成佳鑫智造科技 - 美工和视频剪辑
+[2026-03-23 21:40:17] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/f2918f9868b8ed5b03F-0966GFQ~.html?from=top-card
+[2026-03-23 21:40:26] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/f2918f9868b8ed5b03F-0966GFQ~.html
+[2026-03-23 21:40:41] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:40:44] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:40:44] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：周结 招聘截⽌时间：2026-06-30 岗位职责： 1. 独立完成电...
+[2026-03-23 21:40:44] [INFO] [boss_spider]     Publisher: 谈海燕 招聘者 Phone: 
+[2026-03-23 21:40:47] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 28
+[2026-03-23 21:40:52] [DEBUG] [boss_spider] Clicked card 28 to update right panel
+[2026-03-23 21:40:58] [INFO] [boss_spider]   [28/30] Processing: 丹琰雅器 - 珠宝设计
+[2026-03-23 21:40:58] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/b193b42364d5449a1Xx709u8EVI~.html?from=top-card
+[2026-03-23 21:41:07] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/b193b42364d5449a1Xx709u8EVI~.html
+[2026-03-23 21:41:21] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:41:24] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:41:24] [INFO] [boss_spider]     Detail: 职位描述 钛金珠宝、智能穿戴 矿物宝玉石材料 周末双休 镶嵌 金属材料 AI JewelCAD 耳环/耳钉 工作周期：长期兼职 每周工期：无要求 工作时间：不限...
+[2026-03-23 21:41:24] [INFO] [boss_spider]     Publisher: 朱维 老板 Phone: 
+[2026-03-23 21:41:27] [DEBUG] [boss_spider] Refreshed: 45 cards, next: card 29
+[2026-03-23 21:41:32] [DEBUG] [boss_spider] Clicked card 29 to update right panel
+[2026-03-23 21:41:38] [INFO] [boss_spider]   [29/45] Processing: 上合 - 软件测试
+[2026-03-23 21:41:38] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/e1ebbdeddcbf914b1nx62di7ElY~.html?from=top-card
+[2026-03-23 21:41:47] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/e1ebbdeddcbf914b1nx62di7ElY~.html
+[2026-03-23 21:42:02] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:42:05] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:42:05] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：⽉结 招聘截止时间：2026-12-25 【岗位职责】 1、软件功能分...
+[2026-03-23 21:42:05] [INFO] [boss_spider]     Publisher: 何先生 主管 Phone: 
+[2026-03-23 21:42:08] [DEBUG] [boss_spider] Refreshed: 45 cards, next: card 30
+[2026-03-23 21:42:13] [DEBUG] [boss_spider] Clicked card 30 to update right panel
+[2026-03-23 21:42:19] [INFO] [boss_spider]   [30/45] Processing: 凯盈信息 - 软件推广文案编辑
+[2026-03-23 21:42:19] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/b64b8471f9da3cbf1XV-3NS1EVQ~.html?from=top-card
+[2026-03-23 21:42:28] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/b64b8471f9da3cbf1XV-3NS1EVQ~.html
+[2026-03-23 21:42:42] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:42:45] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 21:42:45] [INFO] [boss_spider]     Detail: 职位描述 产品文案 接受居家办公 工作周期：3个月 每周工期：5天及以上 工作时间：不限 工作时段：不限 结算方式：⽉结 招聘截止时间：2026-04-30 一...
+[2026-03-23 21:42:45] [INFO] [boss_spider]     Publisher: 陈惠英 运营总监 Phone: 
+[2026-03-23 21:42:48] [DEBUG] [boss_spider] Refreshed: 45 cards, next: card 31
+[2026-03-23 21:42:53] [DEBUG] [boss_spider] Clicked card 31 to update right panel
+[2026-03-23 21:42:53] [INFO] [boss_spider] Detail collection done: 30 records
+[2026-03-23 21:42:53] [INFO] [boss_spider] Keyword '软件开发': got 30 records, 28 new
+[2026-03-23 21:42:53] [INFO] [boss_spider] Wrote 28 records to CSV
+[2026-03-23 21:42:53] [INFO] [boss_spider] ==================================================
+[2026-03-23 21:42:53] [INFO] [boss_spider] Collecting keyword: 云服务
+[2026-03-23 21:42:53] [INFO] [boss_spider] ==================================================
+[2026-03-23 21:42:53] [INFO] [boss_spider] Start collecting: 云服务
+[2026-03-23 21:43:03] [INFO] [boss_spider] Scroll 1: total 8 (+8 new)
+[2026-03-23 21:43:03] [INFO] [boss_spider] Reached bottom
+[2026-03-23 21:43:09] [INFO] [boss_spider]   [1/8] Processing: 九页设计 - Java工程师（线上兼职）
+[2026-03-23 21:43:09] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/63a3b84070b6d7c903B739m-E1Q~.html?from=top-card
+[2026-03-23 21:43:18] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/63a3b84070b6d7c903B739m-E1Q~.html
+[2026-03-23 21:43:33] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:43:36] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:43:36] [INFO] [boss_spider]     Detail: 职位描述 Java C++ C SpringCloud SQL Server Spring 接受居家办公 Python 工作周期：长期兼职 每周工期：无要求 工...
+[2026-03-23 21:43:36] [INFO] [boss_spider]     Publisher: 王先生 经理 Phone: 
+[2026-03-23 21:43:39] [DEBUG] [boss_spider] Refreshed: 8 cards, next: card 2
+[2026-03-23 21:43:43] [DEBUG] [boss_spider] Clicked card 2 to update right panel
+[2026-03-23 21:43:49] [INFO] [boss_spider]   [2/8] Processing: 广州市增城区海归... - 全栈工程师
+[2026-03-23 21:43:49] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/ea4a0681319f4e2f03Vz39m8FVA~.html?from=top-card
+[2026-03-23 21:43:59] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/ea4a0681319f4e2f03Vz39m8FVA~.html
+[2026-03-23 21:44:13] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:44:16] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:44:16] [INFO] [boss_spider]     Detail: 职位描述 计算机相关专业 英语读写能力良好 工作周期：长期兼职 每周工期：3-4天 工作时间：不限 工作时段：不限 结算方式：完工结 招聘截止时间：2025-0...
+[2026-03-23 21:44:16] [INFO] [boss_spider]     Publisher: 李文理 5月内活跃 招聘者 Phone: 
+[2026-03-23 21:44:19] [DEBUG] [boss_spider] Refreshed: 8 cards, next: card 3
+[2026-03-23 21:44:24] [DEBUG] [boss_spider] Clicked card 3 to update right panel
+[2026-03-23 21:44:30] [INFO] [boss_spider]   [3/8] Processing: 广州四叶草数码 - 广告销售
+[2026-03-23 21:44:30] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/0fde056732266b1e1H1y09W7E1M~.html?from=top-card
+[2026-03-23 21:44:39] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/0fde056732266b1e1H1y09W7E1M~.html
+[2026-03-23 21:44:54] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:44:57] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:44:57] [INFO] [boss_spider]     Detail: 职位描述 报纸/杂志/电视（媒介） MCN工作经验 线下/户外广告 户外媒介 其他海外线上广告 在校大学生，医疗业务员房地产地推经验 报纸/杂志/电视广告 其他...
+[2026-03-23 21:44:57] [INFO] [boss_spider]     Publisher: 林利纯 商务 Phone: 
+[2026-03-23 21:45:00] [DEBUG] [boss_spider] Refreshed: 8 cards, next: card 4
+[2026-03-23 21:45:04] [DEBUG] [boss_spider] Clicked card 4 to update right panel
+[2026-03-23 21:45:10] [INFO] [boss_spider]   [4/8] Processing: 北京奥盟合创科技 - AIGC自由顾问(居家办公)
+[2026-03-23 21:45:10] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/6aba62cd38f6aabb1HZ-0ti6F1U~.html?from=top-card
+[2026-03-23 21:45:18] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/6aba62cd38f6aabb1HZ-0ti6F1U~.html
+[2026-03-23 21:45:32] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:45:35] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:45:35] [INFO] [boss_spider]     Detail: 职位描述 comfyui AIGC 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：完工结 招聘截止时间：2025-11-25 ...
+[2026-03-23 21:45:35] [INFO] [boss_spider]     Publisher: 李冬 技术总监 Phone: 
+[2026-03-23 21:45:38] [DEBUG] [boss_spider] Refreshed: 8 cards, next: card 5
+[2026-03-23 21:45:43] [DEBUG] [boss_spider] Clicked card 5 to update right panel
+[2026-03-23 21:45:49] [INFO] [boss_spider]   [5/8] Processing: 广州春诵夏弦科技 - windows客户端开发工程师
+[2026-03-23 21:45:49] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/5953b5b176e69abc1XN_2Nu6FFY~.html?from=top-card
+[2026-03-23 21:45:58] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/5953b5b176e69abc1XN_2Nu6FFY~.html
+[2026-03-23 21:46:13] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:46:16] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:46:16] [INFO] [boss_spider]     Detail: 职位描述 C++ C QT 桌面开发经验 Python 工作周期：2个月 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：完工结 招聘截止时间：20...
+[2026-03-23 21:46:16] [INFO] [boss_spider]     Publisher: 霍贺成 半年前活跃 招聘者 Phone: 
+[2026-03-23 21:46:19] [DEBUG] [boss_spider] Refreshed: 8 cards, next: card 6
+[2026-03-23 21:46:23] [DEBUG] [boss_spider] Clicked card 6 to update right panel
+[2026-03-23 21:46:29] [INFO] [boss_spider]   [6/8] Processing: 广州明明德互联网 - 全栈工程师
+[2026-03-23 21:46:29] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/af5cccb5bcb98e061Hx63dW0EFA~.html?from=top-card
+[2026-03-23 21:46:39] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/af5cccb5bcb98e061Hx63dW0EFA~.html
+[2026-03-23 21:46:53] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:46:56] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:46:56] [INFO] [boss_spider]     Detail: 职位描述 Java CSS Spring/Spring Boot 后端开发经验 Vue HTML Node.js React 前端开发经验 英语读写能力良好 全...
+[2026-03-23 21:46:56] [INFO] [boss_spider]     Publisher: 王先生 半年前活跃 CEO Phone: 
+[2026-03-23 21:46:59] [DEBUG] [boss_spider] Refreshed: 8 cards, next: card 7
+[2026-03-23 21:47:04] [DEBUG] [boss_spider] Clicked card 7 to update right panel
+[2026-03-23 21:47:10] [INFO] [boss_spider]   [7/8] Processing: 贵州良窖大商酒业 - AI应用开发工程师（文本生图平台集成方向）
+[2026-03-23 21:47:10] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/764fa8b337217bc303B42dy9FVE~.html?from=top-card
+[2026-03-23 21:47:19] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/764fa8b337217bc303B42dy9FVE~.html
+[2026-03-23 21:47:34] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:47:37] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:47:37] [INFO] [boss_spider]     Detail: 职位描述 Java Nginx C++ Django MySQL Kafka PHP Redis MongoDB Oracle Python Flask 工作周...
+[2026-03-23 21:47:37] [INFO] [boss_spider]     Publisher: 张女士 本月活跃 高级运营经理 Phone: 
+[2026-03-23 21:47:40] [DEBUG] [boss_spider] Refreshed: 8 cards, next: card 8
+[2026-03-23 21:47:44] [DEBUG] [boss_spider] Clicked card 8 to update right panel
+[2026-03-23 21:47:50] [INFO] [boss_spider]   [8/8] Processing: 抵奥云 - 运维开发工程师（自由职业/兼职）
+[2026-03-23 21:47:50] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/0cdc44aee09f9c560XR70t-_.html?from=top-card
+[2026-03-23 21:48:00] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/0cdc44aee09f9c560XR70t-_.html
+[2026-03-23 21:48:14] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:48:17] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 21:48:17] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：5天及以上 工作时间：不限 工作时段：不限 结算方式：⽉结 招聘截⽌时间：2026-01-26 岗位职责: 1. 负责运...
+[2026-03-23 21:48:17] [INFO] [boss_spider]     Publisher: 周先生 总经理 Phone: 
+[2026-03-23 21:48:17] [INFO] [boss_spider] Detail collection done: 8 records
+[2026-03-23 21:48:17] [INFO] [boss_spider] Keyword '云服务': got 8 records, 33 new
+[2026-03-23 21:48:17] [INFO] [boss_spider] Wrote 5 records to CSV
+[2026-03-23 21:48:17] [INFO] [boss_spider] ==================================================
+[2026-03-23 21:48:17] [INFO] [boss_spider] Collecting keyword: 短视频运营
+[2026-03-23 21:48:17] [INFO] [boss_spider] ==================================================
+[2026-03-23 21:48:17] [INFO] [boss_spider] Start collecting: 短视频运营
+[2026-03-23 21:48:27] [INFO] [boss_spider] Scroll 1: total 30 (+30 new)
+[2026-03-23 21:48:33] [INFO] [boss_spider] Scroll 2: total 30 (+0 new)
+[2026-03-23 21:48:39] [INFO] [boss_spider]   [1/30] Processing: 安度星火 - 直播时间自由|才艺变现捷径|免费专业培训
+[2026-03-23 21:48:39] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/d3a91e68880f64f41HB80tu9GFM~.html?from=top-card
+[2026-03-23 21:48:49] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/d3a91e68880f64f41HB80tu9GFM~.html
+[2026-03-23 21:49:03] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:49:06] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:49:06] [INFO] [boss_spider]     Detail: 职位描述 收益稳定无忧 小白秒上手 居家直播免通勤 高额提成可日结 抖音语音厅主播 工作时间：不限 工作时段：不限 结算方式：日结 招聘截⽌时间：2026-07...
+[2026-03-23 21:49:06] [INFO] [boss_spider]     Publisher: 颜许 3月内活跃 资深招聘专家 Phone: 
+[2026-03-23 21:49:09] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 2
+[2026-03-23 21:49:14] [DEBUG] [boss_spider] Clicked card 2 to update right panel
+[2026-03-23 21:49:20] [INFO] [boss_spider]   [2/30] Processing: 广州至名文化 - 短视频剪辑师（居家办公）
+[2026-03-23 21:49:20] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/4d090e59a43bb8bd1XB909y_Flo~.html?from=top-card
+[2026-03-23 21:49:29] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/4d090e59a43bb8bd1XB909y_Flo~.html
+[2026-03-23 21:49:44] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:49:47] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:49:47] [INFO] [boss_spider]     Detail: 职位描述 电商视频 短视频 剪辑 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：按单安排时间 结算方式：月结 招聘截止时间：2026-05-2...
+[2026-03-23 21:49:47] [INFO] [boss_spider]     Publisher: 刘女士 人事专员 Phone: 
+[2026-03-23 21:49:50] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 3
+[2026-03-23 21:49:54] [DEBUG] [boss_spider] Clicked card 3 to update right panel
+[2026-03-23 21:50:00] [INFO] [boss_spider]   [3/30] Processing: 浅深绘意美甲用品 - 线上兼职短视频美甲师（急招）
+[2026-03-23 21:50:00] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/c16c7e275671f7320Xx8392-FQ~~.html?from=top-card
+[2026-03-23 21:50:08] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/c16c7e275671f7320Xx8392-FQ~~.html
+[2026-03-23 21:50:22] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:50:25] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:50:25] [INFO] [boss_spider]     Detail: 职位描述 剪辑/拍摄 电商平台/抖音 远程办公 美甲师 不坐班 有美甲师经验 1-3年美甲师经验 美甲款式制作 工作周期：长期兼职 每周工期：无要求 工作时间：...
+[2026-03-23 21:50:25] [INFO] [boss_spider]     Publisher: 姜女士 人事经理 Phone: 
+[2026-03-23 21:50:28] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 4
+[2026-03-23 21:50:33] [DEBUG] [boss_spider] Clicked card 4 to update right panel
+[2026-03-23 21:50:39] [INFO] [boss_spider]   [4/30] Processing: 钱星世纪 - 服装寄拍（线上 日结）
+[2026-03-23 21:50:39] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/2508280077f8609c1Hdz3Nq6F1M~.html?from=top-card
+[2026-03-23 21:50:46] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/2508280077f8609c1Hdz3Nq6F1M~.html
+[2026-03-23 21:51:01] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:51:04] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:51:04] [INFO] [boss_spider]     Detail: 职位描述 日结 兼职 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间：2026-05-21 1.会穿搭，爱分...
+[2026-03-23 21:51:04] [INFO] [boss_spider]     Publisher: 李素曼 招聘者 Phone: 
+[2026-03-23 21:51:07] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 5
+[2026-03-23 21:51:11] [DEBUG] [boss_spider] Clicked card 5 to update right panel
+[2026-03-23 21:51:17] [INFO] [boss_spider]   [5/30] Processing: 伍壹零 - 抖音运营兼职
+[2026-03-23 21:51:17] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/d698b359cab2bf8c0XZ739W_FQ~~.html?from=top-card
+[2026-03-23 21:51:27] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/d698b359cab2bf8c0XZ739W_FQ~~.html
+[2026-03-23 21:51:52] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:51:55] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:51:55] [INFO] [boss_spider]     Detail: 职位描述 公众号/朋友圈运营 短视频运营 矩阵营销 社群运营 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间...
+[2026-03-23 21:51:55] [INFO] [boss_spider]     Publisher: 许世文 hr人力资源主管 Phone: 
+[2026-03-23 21:51:58] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 6
+[2026-03-23 21:52:03] [DEBUG] [boss_spider] Clicked card 6 to update right panel
+[2026-03-23 21:52:09] [INFO] [boss_spider]   [6/30] Processing: 广东中视星访文化传播 - 兼职短视频剪辑
+[2026-03-23 21:52:09] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/0c6d91a400aef5671HVz2dm-GFc~.html?from=top-card
+[2026-03-23 21:52:18] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/0c6d91a400aef5671HVz2dm-GFc~.html
+[2026-03-23 21:52:33] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:52:36] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:52:36] [INFO] [boss_spider]     Detail: 职位描述 特效 达芬奇 Houdini AE 短视频 纪录片 剪辑 电视剧 音乐 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式...
+[2026-03-23 21:52:36] [INFO] [boss_spider]     Publisher: 范先生 市场总监兼职人事总监 Phone: 
+[2026-03-23 21:52:39] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 7
+[2026-03-23 21:52:43] [DEBUG] [boss_spider] Clicked card 7 to update right panel
+[2026-03-23 21:52:50] [INFO] [boss_spider]   [7/30] Processing: 子皮传媒 - 小红书兼职运营（可居家线上）
+[2026-03-23 21:52:50] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/79acc9b5ba7d1aa11XZ72dq6GFo~.html?from=top-card
+[2026-03-23 21:52:59] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/79acc9b5ba7d1aa11XZ72dq6GFo~.html
+[2026-03-23 21:53:13] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:53:16] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:53:16] [INFO] [boss_spider]     Detail: 职位描述 矩阵营销 短视频运营 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：按单安排时间 结算方式：⽉结 招聘截止时间：2026-05-15...
+[2026-03-23 21:53:16] [INFO] [boss_spider]     Publisher: 黄慧晶 hr Phone: 
+[2026-03-23 21:53:19] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 8
+[2026-03-23 21:53:24] [DEBUG] [boss_spider] Clicked card 8 to update right panel
+[2026-03-23 21:53:30] [INFO] [boss_spider]   [8/30] Processing: 扶光之初 - 兼职短视频剪辑
+[2026-03-23 21:53:30] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/8ecc889e3f0786e603F93t69Flc~.html?from=top-card
+[2026-03-23 21:53:39] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/8ecc889e3f0786e603F93t69Flc~.html
+[2026-03-23 21:53:54] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:53:57] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:53:57] [INFO] [boss_spider]     Detail: 职位描述 特效 合成 信息流剪辑 信息流 短视频 大健康剪辑 剪映 Final Cut Pro 剪辑 调色 音乐 日化美妆个护类 工作周期：长期兼职 每周工期：...
+[2026-03-23 21:53:57] [INFO] [boss_spider]     Publisher: 郭女士 招聘者 Phone: 
+[2026-03-23 21:54:00] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 9
+[2026-03-23 21:54:04] [DEBUG] [boss_spider] Clicked card 9 to update right panel
+[2026-03-23 21:54:10] [INFO] [boss_spider]   [9/30] Processing: 广州云鹤仙观影视传媒 - 线上兼职剪辑
+[2026-03-23 21:54:10] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/1de9a824140e056403R909S9EVM~.html?from=top-card
+[2026-03-23 21:54:20] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/1de9a824140e056403R909S9EVM~.html
+[2026-03-23 21:54:34] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:54:37] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:54:37] [INFO] [boss_spider]     Detail: 职位描述 线上 兼职 切片 短视频 剪映 剪辑 网红 工作周期：长期兼职 每周工期：5天及以上 工作时间：不限 工作时段：不限 结算方式：⽉结 招聘截⽌时间：2...
+[2026-03-23 21:54:37] [INFO] [boss_spider]     Publisher: 曾子琴 人事 Phone: 
+[2026-03-23 21:54:40] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 10
+[2026-03-23 21:54:45] [DEBUG] [boss_spider] Clicked card 10 to update right panel
+[2026-03-23 21:54:51] [INFO] [boss_spider]   [10/30] Processing: 柏肌源 - 短视频演员
+[2026-03-23 21:54:51] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/d7b4a2beabec6e8203dy39-0FlQ~.html?from=top-card
+[2026-03-23 21:54:58] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/d7b4a2beabec6e8203dy39-0FlQ~.html
+[2026-03-23 21:55:13] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:55:16] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:55:16] [INFO] [boss_spider]     Detail: 职位描述 短视频演员 短视频 工作周期：2026-03-26~2026-03-29 每周工期：3-4天 工作时间：10:00-19:00 工作时段：按单安排时间...
+[2026-03-23 21:55:16] [INFO] [boss_spider]     Publisher: 黄女士 招聘专员 Phone: 
+[2026-03-23 21:55:19] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 11
+[2026-03-23 21:55:23] [DEBUG] [boss_spider] Clicked card 11 to update right panel
+[2026-03-23 21:55:29] [INFO] [boss_spider]   [11/30] Processing: 领克数云 - 短视频口播演员
+[2026-03-23 21:55:29] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/c2dc3b298a5bd3091HVy296-Flo~.html?from=top-card
+[2026-03-23 21:55:39] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/c2dc3b298a5bd3091HVy296-Flo~.html
+[2026-03-23 21:55:53] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:55:56] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:55:56] [INFO] [boss_spider]     Detail: 职位描述 口播 口播演员 短视频演员 短视频 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间：2026-05...
+[2026-03-23 21:55:56] [INFO] [boss_spider]     Publisher: 周女士 招聘专家 Phone: 
+[2026-03-23 21:55:59] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 12
+[2026-03-23 21:56:04] [DEBUG] [boss_spider] Clicked card 12 to update right panel
+[2026-03-23 21:56:10] [INFO] [boss_spider]   [12/30] Processing: 广州宜颜生物技术 - 兼职 短视频演员
+[2026-03-23 21:56:10] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/2e19595921e536ac03B929i5FVM~.html?from=top-card
+[2026-03-23 21:56:19] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/2e19595921e536ac03B929i5FVM~.html
+[2026-03-23 21:56:45] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:56:48] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:56:48] [INFO] [boss_spider]     Detail: 职位描述 电商视频 短视频演员 短视频 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间：2026-05-22...
+[2026-03-23 21:56:48] [INFO] [boss_spider]     Publisher: 陈女士 招聘专员 Phone: 
+[2026-03-23 21:56:51] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 13
+[2026-03-23 21:56:55] [DEBUG] [boss_spider] Clicked card 13 to update right panel
+[2026-03-23 21:57:01] [INFO] [boss_spider]   [13/30] Processing: 广州振华文化创意 - 短视频剪辑兼职
+[2026-03-23 21:57:01] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/a2df8e2abedd6c3803R90tm-EVA~.html?from=top-card
+[2026-03-23 21:57:11] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/a2df8e2abedd6c3803R90tm-EVA~.html
+[2026-03-23 21:57:25] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:57:28] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:57:28] [INFO] [boss_spider]     Detail: 职位描述 学校宣传片 抖音短视频剪辑 宣传片 学校视频剪辑 剪辑 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：周结 招聘截⽌...
+[2026-03-23 21:57:28] [INFO] [boss_spider]     Publisher: 黄先生 人事 Phone: 
+[2026-03-23 21:57:31] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 14
+[2026-03-23 21:57:36] [DEBUG] [boss_spider] Clicked card 14 to update right panel
+[2026-03-23 21:57:42] [INFO] [boss_spider]   [14/30] Processing: 有米传媒 - 信息流短视频模特兼职（一次800-1000）
+[2026-03-23 21:57:42] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/81b135bbf75ad15f1nd_0t24GVo~.html?from=top-card
+[2026-03-23 21:57:51] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/81b135bbf75ad15f1nd_0t24GVo~.html
+[2026-03-23 21:58:06] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:58:09] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:58:09] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间：2026-06-30 岗位职责: 1.负责信息流短...
+[2026-03-23 21:58:09] [INFO] [boss_spider]     Publisher: 龙先生 人事主管 Phone: 
+[2026-03-23 21:58:12] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 15
+[2026-03-23 21:58:16] [DEBUG] [boss_spider] Clicked card 15 to update right panel
+[2026-03-23 21:58:22] [INFO] [boss_spider]   [15/30] Processing: 红蜓公社 - 兼职短视频 拍摄或剪辑
+[2026-03-23 21:58:22] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/2ea26fb5124868d01nN82NW5EA~~.html?from=top-card
+[2026-03-23 21:58:32] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/2ea26fb5124868d01nN82NW5EA~~.html
+[2026-03-23 21:58:46] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:58:49] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:58:49] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：⽉结 招聘截止时间：2026-05-11 兼职分两种类型： ①、纯剪辑...
+[2026-03-23 21:58:49] [INFO] [boss_spider]     Publisher: 江先生 HRBP Phone: 
+[2026-03-23 21:58:52] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 16
+[2026-03-23 21:58:57] [DEBUG] [boss_spider] Clicked card 16 to update right panel
+[2026-03-23 21:59:03] [INFO] [boss_spider]   [16/30] Processing: 广州市白云区大源... - 兼职短视频拍摄
+[2026-03-23 21:59:03] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/6238219022fbea8703Jy0t-7GVY~.html?from=top-card
+[2026-03-23 21:59:12] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/6238219022fbea8703Jy0t-7GVY~.html
+[2026-03-23 21:59:27] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:59:30] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 21:59:30] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：完工结 招聘截止时间：2027-03-23 本店主营轻奢家居服、氛围感...
+[2026-03-23 21:59:30] [INFO] [boss_spider]     Publisher: 李先生 经营者 Phone: 
+[2026-03-23 21:59:33] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 17
+[2026-03-23 21:59:37] [DEBUG] [boss_spider] Clicked card 17 to update right panel
+[2026-03-23 21:59:43] [INFO] [boss_spider]   [17/30] Processing: 深圳市蕙氏健康科技 - 短视频编辑
+[2026-03-23 21:59:43] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/effb766399da11cb1HRz2Nu7F1E~.html?from=top-card
+[2026-03-23 21:59:55] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/effb766399da11cb1HRz2Nu7F1E~.html
+[2026-03-23 22:00:09] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:00:12] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:00:12] [INFO] [boss_spider]     Detail: 职位描述 抖音 剪辑 工作周期：长期兼职 每周工期：5天及以上 工作时间：不限 工作时段：不限 结算方式：日结 招聘截⽌时间：2026-05-22 1.按照公司...
+[2026-03-23 22:00:12] [INFO] [boss_spider]     Publisher: 皮秋平 经理 Phone: 
+[2026-03-23 22:00:15] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 18
+[2026-03-23 22:00:20] [DEBUG] [boss_spider] Clicked card 18 to update right panel
+[2026-03-23 22:00:26] [INFO] [boss_spider]   [18/30] Processing: 汕头溪莉科技有限公司 - 兼职短视频剪辑
+[2026-03-23 22:00:26] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/4b1fc4a70997284603V42t21EVc~.html?from=top-card
+[2026-03-23 22:00:35] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/4b1fc4a70997284603V42t21EVc~.html
+[2026-03-23 22:00:50] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:00:53] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:00:53] [INFO] [boss_spider]     Detail: 职位描述 广告片 活动视频 宣传片 短视频 工作周期：长期兼职 每周工期：3-4天 工作时间：09:00-12:00、14:00-18:00 工作时段：工作日 ...
+[2026-03-23 22:00:53] [INFO] [boss_spider]     Publisher: 谢先生 总经理 Phone: 
+[2026-03-23 22:00:56] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 19
+[2026-03-23 22:01:00] [DEBUG] [boss_spider] Clicked card 19 to update right panel
+[2026-03-23 22:01:06] [INFO] [boss_spider]   [19/30] Processing: 佛山市恋爱有方咨询 - 短视频模特
+[2026-03-23 22:01:06] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/6e863ed1a76ff3f81H1y0tm7F1c~.html?from=top-card
+[2026-03-23 22:01:16] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/6e863ed1a76ff3f81H1y0tm7F1c~.html
+[2026-03-23 22:01:30] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:01:33] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:01:33] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间：2027-05-13 短视频拍摄，模特 日薪是30...
+[2026-03-23 22:01:33] [INFO] [boss_spider]     Publisher: 曹锶棋 ceo Phone: 
+[2026-03-23 22:01:36] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 20
+[2026-03-23 22:01:41] [DEBUG] [boss_spider] Clicked card 20 to update right panel
+[2026-03-23 22:01:47] [INFO] [boss_spider]   [20/30] Processing: 广州山影品牌管理 - 兼职短视频和图片拍摄
+[2026-03-23 22:01:47] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/bcb6c36d35b978f103Jz2tu4EFM~.html?from=top-card
+[2026-03-23 22:01:56] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/bcb6c36d35b978f103Jz2tu4EFM~.html
+[2026-03-23 22:02:10] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:02:13] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:02:13] [INFO] [boss_spider]     Detail: 职位描述 摄影摄像皆有 摄影 工作周期：长期兼职 每周工期：无要求 工作时间：10:00-18:00 工作时段：按单安排时间 结算方式：日结 招聘截止时间：20...
+[2026-03-23 22:02:13] [INFO] [boss_spider]     Publisher: 庄志颖 招聘者 Phone: 
+[2026-03-23 22:02:16] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 21
+[2026-03-23 22:02:21] [DEBUG] [boss_spider] Clicked card 21 to update right panel
+[2026-03-23 22:02:27] [INFO] [boss_spider]   [21/30] Processing: 广州纳图 - 在家办公剪辑（短视频带货）
+[2026-03-23 22:02:27] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/aeb0ea71bf0391d31nNy3d21Eg~~.html?from=top-card
+[2026-03-23 22:02:36] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/aeb0ea71bf0391d31nNy3d21Eg~~.html
+[2026-03-23 22:02:51] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:02:54] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:02:54] [INFO] [boss_spider]     Detail: 职位描述 电商视频 短视频 剪辑 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间：2026-12-11 此岗...
+[2026-03-23 22:02:54] [INFO] [boss_spider]     Publisher: 邵宝江 3日内活跃 经理 Phone: 
+[2026-03-23 22:02:57] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 22
+[2026-03-23 22:03:02] [DEBUG] [boss_spider] Clicked card 22 to update right panel
+[2026-03-23 22:03:08] [INFO] [boss_spider]   [22/30] Processing: 广州悦龄科技有限公司 - 短视频剪辑专员
+[2026-03-23 22:03:08] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/40188f5b6f5462fc1HJ629i-FFE~.html?from=top-card
+[2026-03-23 22:03:17] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/40188f5b6f5462fc1HJ629i-FFE~.html
+[2026-03-23 22:03:31] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:03:34] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:03:34] [INFO] [boss_spider]     Detail: 职位描述 工作周期：长期兼职 每周工期：1-2天 工作时间：09:00-次日06:00 工作时段：工作日 结算方式：月结 招聘截⽌时间：2026-03-28 岗...
+[2026-03-23 22:03:34] [INFO] [boss_spider]     Publisher: 熊青云 招聘者 Phone: 
+[2026-03-23 22:03:37] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 23
+[2026-03-23 22:03:42] [DEBUG] [boss_spider] Clicked card 23 to update right panel
+[2026-03-23 22:03:48] [INFO] [boss_spider]   [23/30] Processing: 千蜂传媒 - 短视频脚本文案
+[2026-03-23 22:03:48] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/1952504864b1d6301HJ909q-FVs~.html?from=top-card
+[2026-03-23 22:03:57] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/1952504864b1d6301HJ909q-FVs~.html
+[2026-03-23 22:04:12] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:04:15] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:04:15] [INFO] [boss_spider]     Detail: 职位描述 专业脚本 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：完工结 招聘截止时间：2026-04-22 【急招】小红书运...
+[2026-03-23 22:04:15] [INFO] [boss_spider]     Publisher: 叶先生 招聘者 Phone: 
+[2026-03-23 22:04:18] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 24
+[2026-03-23 22:04:23] [DEBUG] [boss_spider] Clicked card 24 to update right panel
+[2026-03-23 22:04:29] [INFO] [boss_spider]   [24/30] Processing: 广东国臻拍卖有限公司 - 短视频博主 （高佣、不坐班、接受小白）
+[2026-03-23 22:04:29] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/48ff6ae0d2ef6d0c03J60ty-Elc~.html?from=top-card
+[2026-03-23 22:04:38] [DEBUG] [boss_spider] Original tab: 0D0126B87D0E6A5FD7265189BCD72FC8, opening: https://www.zhipin.com/gongsi/48ff6ae0d2ef6d0c03J60ty-Elc~.html
+[2026-03-23 22:04:52] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:04:55] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E7%9F%AD%E8%A7%86%E9%A2%91%E8%BF%90%E8%90%A5&city=101280100&jobType=1903
+[2026-03-23 22:04:55] [INFO] [boss_spider]     Detail: 职位描述 翻身创业 加盟好项目 向上社交 在读应届 宝妈创业 网红 模特经济 房地产 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算...
+[2026-03-23 22:04:55] [INFO] [boss_spider]     Publisher: 周先生 招聘者 Phone: 
+[2026-03-23 22:04:58] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 25
+[2026-03-23 22:05:03] [DEBUG] [boss_spider] Clicked card 25 to update right panel
+[2026-03-23 22:05:09] [INFO] [boss_spider]   [25/30] Processing: 巨航钟表 - 短视频出镜达人
+[2026-03-23 22:05:09] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/3130ab45485bc08d1Hx529u0GVI~.html?from=top-card
