@@ -723,9 +723,11 @@ def _extract_company_fields_from_page(dp):
 
 
 def _extract_company_detail(dp, company_href, job_list_url):
-    """Navigate to company detail page using pre-extracted href and extract business info.
+    """Extract company business info by opening company page in a NEW TAB.
 
-    Uses dp.get() for navigation to ensure clean SPA state on return.
+    This approach avoids dp.back() which destroys SPA DOM state and breaks
+    subsequent card clicks. The original tab stays on the job list with
+    the right panel intact.
     """
     company_info = {}
     if not company_href:
@@ -739,27 +741,54 @@ def _extract_company_detail(dp, company_href, job_list_url):
         if '?' in full_url:
             full_url = full_url.split('?')[0]
 
-        log.debug(f"Navigating to company: {full_url}")
-        dp.get(full_url, timeout=15)
+        # Save original tab id BEFORE opening new tab
+        original_tab_id = dp.tab_ids[0] if dp.tab_ids else None
+        log.debug(f"Original tab: {original_tab_id}, opening: {full_url}")
+
+        # Open company page in a new tab using DrissionPage's new_tab()
+        # which properly handles tab creation and activation
+        new_tab_page = dp.new_tab(full_url, background=False)
         time.sleep(3)
 
+        # Verify we're on a valid company page (dp should now be on the new tab)
         current_url = dp.url
         if '/gongsi/' in current_url and 'ka=' not in current_url:
             company_info = _extract_company_fields_from_page(dp)
-            log.debug(f"Company fields: {list(company_info.keys())}")
+            log.debug(f"Company fields extracted: {list(company_info.keys())}")
         else:
             log.debug(f"Not a valid company page: {current_url}")
 
-        # Use dp.back() to return to job list (preserves SPA state)
-        dp.back()
-        time.sleep(4)
-        log.debug(f"Returned to job list: {dp.url}")
-        # Click job-list-box area to ensure detail panel is active/restored
+        # Close the company tab (new_tab) and switch back to original tab
         try:
-            dp.ele('css:.job-list-box', timeout=3)
-            time.sleep(1)
-        except Exception:
-            pass
+            # Use activate_tab to switch to original tab first, then close the company tab
+            if original_tab_id and original_tab_id in dp.tab_ids:
+                # Close the tab that's NOT the original (the company tab)
+                tabs_now = dp.tab_ids
+                tabs_to_close = [tid for tid in tabs_now if tid != original_tab_id]
+                for tab_to_close in tabs_to_close:
+                    dp.close_tabs(tab_to_close)
+                time.sleep(1)
+                dp.activate_tab(original_tab_id)
+                time.sleep(2)
+                log.debug(f"Switched back to original tab: {dp.url}")
+            else:
+                # Original tab gone - close all but keep first
+                tabs_now = dp.tab_ids
+                if len(tabs_now) > 1:
+                    for tid in tabs_now[1:]:
+                        dp.close_tabs(tid)
+                    time.sleep(1)
+                if dp.tab_ids:
+                    dp.activate_tab(dp.tab_ids[0])
+                    time.sleep(2)
+                log.debug(f"Emergency return, current tabs: {dp.tab_ids}")
+        except Exception as e:
+            log.debug(f"Tab switch/close error: {e}")
+            try:
+                dp.get(job_list_url, timeout=15)
+                time.sleep(3)
+            except:
+                pass
 
     except Exception as e:
         log.debug(f"_extract_company_detail failed: {e}")
