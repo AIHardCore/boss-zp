@@ -78,3 +78,160 @@
 [2026-03-23 17:11:45] [INFO] [boss_spider] Output: H:\AllWorkSpase\boss-zp\data_boss.csv
 [2026-03-23 17:11:45] [INFO] [boss_spider] New records: 1
 [2026-03-23 17:11:45] [INFO] [boss_spider] ==================================================
+[2026-03-23 17:59:37] [INFO] [boss_spider] ======================================================================
+[2026-03-23 17:59:37] [INFO] [boss_spider] BOSS Zhipin Data Collection v6.0 - Acceptance Test Version
+[2026-03-23 17:59:37] [INFO] [boss_spider] ======================================================================
+[2026-03-23 17:59:37] [INFO] [boss_spider] Keywords: ['软件开发', '云服务', '短视频运营', '会展活动', '咨询培训']
+[2026-03-23 17:59:37] [INFO] [boss_spider] City: 101280100
+[2026-03-23 17:59:37] [INFO] [boss_spider] Job Type: Part-time
+[2026-03-23 17:59:37] [INFO] [boss_spider] Loaded 0 historical records
+[2026-03-23 17:59:37] [INFO] [boss_spider] Starting browser...
+[2026-03-23 17:59:37] [INFO] [boss_spider] Using Chrome profile: C:/Users/HardCore/AppData/Local/Google/Chrome/User Data/Default
+[2026-03-23 17:59:38] [INFO] [boss_spider] Browser started
+[2026-03-23 17:59:41] [INFO] [boss_spider] Current URL: https://www.zhipin.com/web/geek/jobs
+[2026-03-23 17:59:41] [INFO] [boss_spider] ==================================================
+[2026-03-23 17:59:41] [INFO] [boss_spider] Collecting keyword: 软件开发
+[2026-03-23 17:59:41] [INFO] [boss_spider] ==================================================
+[2026-03-23 17:59:41] [INFO] [boss_spider] Start collecting: 软件开发
+[2026-03-23 17:59:50] [INFO] [boss_spider] Scroll 1: total 30 (+30 new)
+[2026-03-23 17:59:56] [INFO] [boss_spider] Scroll 2: total 30 (+0 new)
+[2026-03-23 18:00:02] [INFO] [boss_spider]   [1/30] Processing: 广州晟锐达 - 软件测试实习生
+[2026-03-23 18:00:02] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/cab4fe29e376ffb703Jy2d29E1c~.html?from=top-card
+[2026-03-23 18:00:11] [DEBUG] [boss_spider] Original tab: 9B16D9837CF68553B04F61205B2BC475, opening company in new tab: https://www.zhipin.com/gongsi/cab4fe29e376ffb703Jy2d29E1c~.html
+[2026-03-23 18:00:26] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 18:00:27] [DEBUG] [boss_spider] Original tab gone, current tabs: ['AA60D6DDE0A6D5DC356AE6C58FFB22C9']
+[2026-03-23 18:00:27] [INFO] [boss_spider]     Detail: 职位描述 测试工作经验 性能测试 工作直聘周期：长期兼直聘职 每周工期：5天及以直聘上 工作时间：09:00-16:00 工作时段：不限 结算方式：日结 招聘截...
+[2026-03-23 18:00:27] [INFO] [boss_spider]     Publisher: 胡道兴 老板 Phone: 
+[2026-03-23 18:00:30] [INFO] [boss_spider] Detail collection done: 1 records
+[2026-03-23 18:00:30] [INFO] [boss_spider] Keyword '软件开发': got 1 records, 1 new
+[2026-03-23 18:00:30] [INFO] [boss_spider] Wrote 1 records to CSV
+[2026-03-23 18:00:30] [INFO] [boss_spider] ==================================================
+[2026-03-23 18:00:30] [INFO] [boss_spider] Collecting keyword: 云服务
+[2026-03-23 18:00:30] [INFO] [boss_spider] ==================================================
+[2026-03-23 18:00:30] [INFO] [boss_spider] Start collecting: 云服务
+[2026-03-23 18:00:30] [INFO] [boss_spider] CSV file closed
+[2026-03-23 18:00:31] [INFO] [boss_spider] Browser closed
+[2026-03-23 18:00:31] [ERROR] [boss_spider] Unhandled exception: 
+与页面的连接已断开。
+版本: 4.1.1.2
+[2026-03-23 18:03:51] [INFO] [boss_spider] ======================================================================
+[2026-03-23 18:03:51] [INFO] [boss_spider] BOSS Zhipin Data Collection v6.0 - Acceptance Test Version
+[2026-03-23 18:03:51] [INFO] [boss_spider] ======================================================================
+[2026-03-23 18:03:51] [INFO] [boss_spider] Keywords: ['软件开发', '云服务', '短视频运营', '会展活动', '咨询培训']
+[2026-03-23 18:03:51] [INFO] [boss_spider] City: 101280100
+[2026-03-23 18:03:51] [INFO] [boss_spider] Job Type: Part-time
+[2026-03-23 18:03:51] [INFO] [boss_spider] Loaded 0 historical records
+[2026-03-23 18:03:51] [INFO] [boss_spider] Starting browser...
+[2026-03-23 18:03:51] [INFO] [boss_spider] Using Chrome profile: C:/Users/HardCore/AppData/Local/Google/Chrome/User Data/Default
+[2026-03-23 18:03:52] [INFO] [boss_spider] Browser started
+[2026-03-23 18:03:55] [INFO] [boss_spider] Current URL: https://www.zhipin.com/web/geek/jobs
+[2026-03-23 18:03:55] [INFO] [boss_spider] ==================================================
+[2026-03-23 18:03:55] [INFO] [boss_spider] Collecting keyword: 软件开发
+[2026-03-23 18:03:55] [INFO] [boss_spider] ==================================================
+[2026-03-23 18:03:55] [INFO] [boss_spider] Start collecting: 软件开发
+[2026-03-23 18:04:05] [INFO] [boss_spider] Scroll 1: total 30 (+30 new)
+[2026-03-23 18:04:11] [INFO] [boss_spider] Scroll 2: total 30 (+0 new)
+[2026-03-23 18:04:17] [INFO] [boss_spider]   [1/30] Processing: 河南拓优环保科技 - 兼职平面设计 剪辑 建模
+[2026-03-23 18:04:17] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/bbf7da266fbd516703V93ti1FFs~.html?from=top-card
+[2026-03-23 18:04:26] [DEBUG] [boss_spider] Original tab: 6BCC9E1759C13510EAC43D75AB0259B0, opening company in new tab: https://www.zhipin.com/gongsi/bbf7da266fbd516703V93ti1FFs~.html
+[2026-03-23 18:04:30] [DEBUG] [boss_spider] New tab: 6BCC9E1759C13510EAC43D75AB0259B0, all tabs: ['AF494EE2FB17B9ED610FF6867E092F84', '6BCC9E1759C13510EAC43D75AB0259B0']
+[2026-03-23 18:04:30] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 18:04:31] [DEBUG] [boss_spider] Closed new tab, remaining tabs: ['AF494EE2FB17B9ED610FF6867E092F84']
+[2026-03-23 18:04:31] [DEBUG] [boss_spider] Original tab gone, current tabs: ['AF494EE2FB17B9ED610FF6867E092F84']
+[2026-03-23 18:04:33] [INFO] [boss_spider]     Detail: 职位描述 1年以内平面设计经验 甲方公司 工作周期：长期兼职 每周工期：无要求 工作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间：2027-02-0...
+[2026-03-23 18:04:33] [INFO] [boss_spider]     Publisher: 纪玉青 设计主管 Phone: 
+[2026-03-23 18:04:36] [INFO] [boss_spider] Detail collection done: 1 records
+[2026-03-23 18:04:36] [INFO] [boss_spider] Keyword '软件开发': got 1 records, 1 new
+[2026-03-23 18:04:36] [INFO] [boss_spider] Wrote 1 records to CSV
+[2026-03-23 18:04:36] [INFO] [boss_spider] ==================================================
+[2026-03-23 18:04:36] [INFO] [boss_spider] Collecting keyword: 云服务
+[2026-03-23 18:04:36] [INFO] [boss_spider] ==================================================
+[2026-03-23 18:04:36] [INFO] [boss_spider] Start collecting: 云服务
+[2026-03-23 18:04:36] [INFO] [boss_spider] CSV file closed
+[2026-03-23 18:04:37] [INFO] [boss_spider] Browser closed
+[2026-03-23 18:04:37] [ERROR] [boss_spider] Unhandled exception: 
+与页面的连接已断开。
+版本: 4.1.1.2
+[2026-03-23 18:08:06] [INFO] [boss_spider] ======================================================================
+[2026-03-23 18:08:06] [INFO] [boss_spider] BOSS Zhipin Data Collection v6.0 - Acceptance Test Version
+[2026-03-23 18:08:06] [INFO] [boss_spider] ======================================================================
+[2026-03-23 18:08:06] [INFO] [boss_spider] Keywords: ['软件开发', '云服务', '短视频运营', '会展活动', '咨询培训']
+[2026-03-23 18:08:06] [INFO] [boss_spider] City: 101280100
+[2026-03-23 18:08:06] [INFO] [boss_spider] Job Type: Part-time
+[2026-03-23 18:08:06] [INFO] [boss_spider] Loaded 0 historical records
+[2026-03-23 18:08:06] [INFO] [boss_spider] Starting browser...
+[2026-03-23 18:08:06] [INFO] [boss_spider] Using Chrome profile: C:/Users/HardCore/AppData/Local/Google/Chrome/User Data/Default
+[2026-03-23 18:08:07] [INFO] [boss_spider] Browser started
+[2026-03-23 18:08:10] [INFO] [boss_spider] Current URL: https://www.zhipin.com/web/geek/jobs
+[2026-03-23 18:08:10] [INFO] [boss_spider] ==================================================
+[2026-03-23 18:08:10] [INFO] [boss_spider] Collecting keyword: 软件开发
+[2026-03-23 18:08:10] [INFO] [boss_spider] ==================================================
+[2026-03-23 18:08:10] [INFO] [boss_spider] Start collecting: 软件开发
+[2026-03-23 18:08:20] [INFO] [boss_spider] Scroll 1: total 30 (+30 new)
+[2026-03-23 18:08:25] [INFO] [boss_spider] Scroll 2: total 30 (+0 new)
+[2026-03-23 18:08:31] [INFO] [boss_spider]   [1/30] Processing: 河南拓优环保科技 - 兼职平面设计 剪辑 建模
+[2026-03-23 18:08:31] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/bbf7da266fbd516703V93ti1FFs~.html?from=top-card
+[2026-03-23 18:08:41] [DEBUG] [boss_spider] Original tab: 7596A47AEE20A0306BA84526C9E43A3C, opening: https://www.zhipin.com/gongsi/bbf7da266fbd516703V93ti1FFs~.html
+[2026-03-23 18:08:55] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 18:08:58] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 18:08:58] [INFO] [boss_spider]     Detail: 职位描述 1年以内平面设计经验 甲方公司 工直聘作周期：长期来自兼职 每周工期：无要直聘求 工来自作时间：不限 工作时段：不限 结算方式：日结 招聘截止时间：2...
+[2026-03-23 18:08:58] [INFO] [boss_spider]     Publisher: 纪玉青 设计主管 Phone: 
+[2026-03-23 18:09:01] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 2
+[2026-03-23 18:09:06] [DEBUG] [boss_spider] Clicked card 2 to update right panel
+[2026-03-23 18:09:12] [INFO] [boss_spider]   [2/30] Processing: 广州花衍科技有限公司 - 硬件结构工程师
+[2026-03-23 18:09:12] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/a2226c213aa7371503Z4396-EVM~.html?from=top-card
+[2026-03-23 18:09:21] [DEBUG] [boss_spider] Original tab: 7596A47AEE20A0306BA84526C9E43A3C, opening: https://www.zhipin.com/gongsi/a2226c213aa7371503Z4396-EVM~.html
+[2026-03-23 18:09:36] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 18:09:39] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 18:09:39] [INFO] [boss_spider]     Detail: 职位描述 兼职 工来自作周期：长期兼职 每周工期：无直聘要求 工作时间：不限 工作时段：不限 结算方式：完工结 招聘截止时间：2026-12-16 结构工程师：...
+[2026-03-23 18:09:39] [INFO] [boss_spider]     Publisher: 黄佳伟 招聘者 Phone: 
+[2026-03-23 18:09:42] [DEBUG] [boss_spider] Refreshed: 30 cards, next: card 3
+[2026-03-23 18:09:47] [DEBUG] [boss_spider] Clicked card 3 to update right panel
+[2026-03-23 18:09:53] [INFO] [boss_spider]   [3/30] Processing: 大杨电梯 - 会计文员
+[2026-03-23 18:09:53] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/b66a751e1ab61fe71Hd93di1GA~~.html?from=top-card
+[2026-03-23 18:10:02] [DEBUG] [boss_spider] Original tab: 7596A47AEE20A0306BA84526C9E43A3C, opening: https://www.zhipin.com/gongsi/b66a751e1ab61fe71Hd93di1GA~~.html
+[2026-03-23 18:10:16] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 18:10:19] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 18:10:19] [INFO] [boss_spider]     Detail: 职位描述 税务 应收应付 结算 总账 成本 资金管理 收入账 固定资产核算 工作周期：长期兼职 每周工期：5天及以上 工直聘作时间：不限 工作时段：不限 结算方...
+[2026-03-23 18:10:19] [INFO] [boss_spider]     Publisher: 徐女士 招聘者 Phone: 
+[2026-03-23 18:10:19] [INFO] [boss_spider] Detail collection done: 3 records
+[2026-03-23 18:10:19] [INFO] [boss_spider] Keyword '软件开发': got 3 records, 3 new
+[2026-03-23 18:10:19] [INFO] [boss_spider] Wrote 3 records to CSV
+[2026-03-23 18:10:19] [INFO] [boss_spider] ==================================================
+[2026-03-23 18:10:19] [INFO] [boss_spider] Collecting keyword: 云服务
+[2026-03-23 18:10:19] [INFO] [boss_spider] ==================================================
+[2026-03-23 18:10:19] [INFO] [boss_spider] Start collecting: 云服务
+[2026-03-23 18:10:28] [INFO] [boss_spider] Scroll 1: total 8 (+8 new)
+[2026-03-23 18:10:28] [INFO] [boss_spider] Reached bottom
+[2026-03-23 18:10:34] [INFO] [boss_spider]   [1/8] Processing: 广州四叶草数码 - 广告销售
+[2026-03-23 18:10:34] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/0fde056732266b1e1H1y09W7E1M~.html?from=top-card
+[2026-03-23 18:10:43] [DEBUG] [boss_spider] Original tab: 7596A47AEE20A0306BA84526C9E43A3C, opening: https://www.zhipin.com/gongsi/0fde056732266b1e1H1y09W7E1M~.html
+[2026-03-23 18:10:58] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 18:11:01] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 18:11:01] [INFO] [boss_spider]     Detail: 职位描述 报纸/杂志/电视（媒介） MCN工作经验 线下/户外广告 户外媒介 其他海外线上广告 在校大学生，医疗业务员房地产地推经验 报纸/杂志/电视广告 其他...
+[2026-03-23 18:11:01] [INFO] [boss_spider]     Publisher: 林利纯 商务 Phone: 
+[2026-03-23 18:11:04] [DEBUG] [boss_spider] Refreshed: 8 cards, next: card 2
+[2026-03-23 18:11:09] [DEBUG] [boss_spider] Clicked card 2 to update right panel
+[2026-03-23 18:11:15] [INFO] [boss_spider]   [2/8] Processing: 广州市增城区海归... - 全栈工程师
+[2026-03-23 18:11:15] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/ea4a0681319f4e2f03Vz39m8FVA~.html?from=top-card
+[2026-03-23 18:11:24] [DEBUG] [boss_spider] Original tab: 7596A47AEE20A0306BA84526C9E43A3C, opening: https://www.zhipin.com/gongsi/ea4a0681319f4e2f03Vz39m8FVA~.html
+[2026-03-23 18:11:38] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 18:11:41] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 18:11:41] [INFO] [boss_spider]     Detail: 职位描述 计算机相关专业 英语读写能力良好 工作周期：长期兼职 每来自周工期：3-4天 工作时间：不限 工作时段：不限 结算方式：完工结 招聘截止时间：2025...
+[2026-03-23 18:11:41] [INFO] [boss_spider]     Publisher: 李文理 5月内活跃 招聘者 Phone: 
+[2026-03-23 18:11:44] [DEBUG] [boss_spider] Refreshed: 8 cards, next: card 3
+[2026-03-23 18:11:49] [DEBUG] [boss_spider] Clicked card 3 to update right panel
+[2026-03-23 18:11:55] [INFO] [boss_spider]   [3/8] Processing: 北京奥盟合创科技 - AIGC自由顾问(居家办公)
+[2026-03-23 18:11:55] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/6aba62cd38f6aabb1HZ-0ti6F1U~.html?from=top-card
+[2026-03-23 18:12:04] [DEBUG] [boss_spider] Original tab: 7596A47AEE20A0306BA84526C9E43A3C, opening: https://www.zhipin.com/gongsi/6aba62cd38f6aabb1HZ-0ti6F1U~.html
+[2026-03-23 18:12:19] [DEBUG] [boss_spider] Not a valid company page: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 18:12:22] [DEBUG] [boss_spider] Switched back to original tab: https://www.zhipin.com/web/geek/jobs?query=%E4%BA%91%E6%9C%8D%E5%8A%A1&city=101280100&jobType=1903
+[2026-03-23 18:12:22] [INFO] [boss_spider]     Detail: 职位描述 comfyui AIGC 工作周来自期：长期兼职 每周工期：无要来自求 工作时间：不限 工作时段：不限 结算方式：完工结 招聘截止时间：2025-11...
+[2026-03-23 18:12:22] [INFO] [boss_spider]     Publisher: 李冬 技术总监 Phone: 
+[2026-03-23 18:12:22] [INFO] [boss_spider] Detail collection done: 3 records
+[2026-03-23 18:12:22] [INFO] [boss_spider] Keyword '云服务': got 3 records, 6 new
+[2026-03-23 18:12:22] [INFO] [boss_spider] Wrote 3 records to CSV
+[2026-03-23 18:12:22] [INFO] [boss_spider] ==================================================
+[2026-03-23 18:12:22] [INFO] [boss_spider] Collecting keyword: 短视频运营
+[2026-03-23 18:12:22] [INFO] [boss_spider] ==================================================
+[2026-03-23 18:12:22] [INFO] [boss_spider] Start collecting: 短视频运营

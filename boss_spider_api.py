@@ -183,6 +183,16 @@ def create_csv(output_file, mode='w'):
     dir_path = os.path.dirname(output_file)
     if dir_path and not os.path.exists(dir_path):
         os.makedirs(dir_path, exist_ok=True)
+    # Ensure UTF-8 BOM is present when appending to existing file
+    if mode == 'a' and os.path.exists(output_file):
+        with open(output_file, 'rb') as bf:
+            has_bom = bf.read(3) == b'\xef\xbb\xbf'
+        if not has_bom:
+            with open(output_file, 'rb') as bf:
+                content = bf.read()
+            with open(output_file, 'wb') as bf:
+                bf.write(b'\xef\xbb\xbf')
+                bf.write(content)
     f = open(file=output_file, mode=mode, encoding='utf-8-sig', newline='')
     csv_writer = csv.DictWriter(f, fieldnames=CSV_HEADERS)
     if mode == 'w':
