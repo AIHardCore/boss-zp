@@ -39,3 +39,42 @@
 [2026-03-23 17:02:33] [INFO] [boss_spider] New records: 0
 [2026-03-23 17:02:33] [INFO] [boss_spider] Historical: 2, Skipped: 1
 [2026-03-23 17:02:33] [INFO] [boss_spider] ==================================================
+[2026-03-23 17:10:09] [INFO] [boss_spider] ======================================================================
+[2026-03-23 17:10:09] [INFO] [boss_spider] BOSS Zhipin Data Collection v6.0 - Acceptance Test Version
+[2026-03-23 17:10:09] [INFO] [boss_spider] ======================================================================
+[2026-03-23 17:10:09] [INFO] [boss_spider] Keywords: ['软件开发']
+[2026-03-23 17:10:09] [INFO] [boss_spider] City: 101280100
+[2026-03-23 17:10:09] [INFO] [boss_spider] Job Type: Part-time
+[2026-03-23 17:10:09] [INFO] [boss_spider] Starting browser...
+[2026-03-23 17:10:09] [INFO] [boss_spider] Using Chrome profile: C:/Users/HardCore/AppData/Local/Google/Chrome/User Data/Default
+[2026-03-23 17:10:10] [INFO] [boss_spider] Browser started
+[2026-03-23 17:10:13] [INFO] [boss_spider] Current URL: https://www.zhipin.com/web/geek/jobs
+[2026-03-23 17:10:13] [INFO] [boss_spider] ==================================================
+[2026-03-23 17:10:13] [INFO] [boss_spider] Collecting keyword: 软件开发
+[2026-03-23 17:10:13] [INFO] [boss_spider] ==================================================
+[2026-03-23 17:10:13] [INFO] [boss_spider] Start collecting: 软件开发
+[2026-03-23 17:10:21] [INFO] [boss_spider] Scroll 1: total 30 (+30 new)
+[2026-03-23 17:10:28] [INFO] [boss_spider] Scroll 2: total 30 (+0 new)
+[2026-03-23 17:10:34] [INFO] [boss_spider]   [1/30] Processing: 河南拓优环保科技 - 兼职平面设计 剪辑 建模
+[2026-03-23 17:10:34] [DEBUG] [boss_spider] Company href: https://www.zhipin.com/gongsi/bbf7da266fbd516703V93ti1FFs~.html?from=top-card
+[2026-03-23 17:10:43] [DEBUG] [boss_spider] Navigating to company: https://www.zhipin.com/gongsi/bbf7da266fbd516703V93ti1FFs~.html
+[2026-03-23 17:11:10] [DEBUG] [boss_spider] Page text length: 1951
+[2026-03-23 17:11:10] [DEBUG] [boss_spider] CreditCode context: '统一社会信用代码：\n91410611MA9GLXCE3U \n核准日期：\n2026-03-06 \n曾用名：\n-\n登记机关：\n鹤壁市市场监督管理局淇滨分局\n所属行业'
+[2026-03-23 17:11:10] [DEBUG] [boss_spider] LegalRep context: '法定代表人：\n王文茂 \n成立时间：\n2021-04-08 \n企业类型：\n有限责任公司（自然人投资或控股） \n经营状态：\n存续 \n注册资本：\n500万人民币 \n注'
+[2026-03-23 17:11:29] [DEBUG] [boss_spider] Company fields: ['GongSiMingCheng', 'TongYiSheHuiXinYongDaiMa', 'FaDingDaiBiaoRen', 'ZhuCeZiBen', 'ChengLiRiQi', 'JingYingZhuangTai', 'GongSiLeiXing', 'GongSiDiZhi']
+[2026-03-23 17:11:33] [DEBUG] [boss_spider] Returned to job list: https://www.zhipin.com/web/geek/jobs?query=%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91&city=101280100&jobType=1903
+[2026-03-23 17:11:37] [DEBUG] [boss_spider] Company fields: ['GongSiMingCheng', 'TongYiSheHuiXinYongDaiMa', 'FaDingDaiBiaoRen', 'ZhuCeZiBen', 'ChengLiRiQi', 'JingYingZhuangTai', 'GongSiLeiXing', 'GongSiDiZhi']
+[2026-03-23 17:11:37] [INFO] [boss_spider]     Detail: 职位描述 远程办公 1年以内平面设计经验 甲方公司 工作周期：来自长期兼职 每周工期：boss无要求 工作时间：不限 ⼯作时段：不限 结算⽅式：⽇结 招聘截止时...
+[2026-03-23 17:11:37] [INFO] [boss_spider]     Publisher: 纪玉青 设计主管 Phone: 
+[2026-03-23 17:11:40] [DEBUG] [boss_spider] Refreshed: 15 cards, next: card 2
+[2026-03-23 17:11:44] [DEBUG] [boss_spider] Clicked card 2 to update right panel
+[2026-03-23 17:11:44] [INFO] [boss_spider] Detail collection done: 1 records
+[2026-03-23 17:11:44] [INFO] [boss_spider] Keyword '软件开发': got 1 records, 1 new
+[2026-03-23 17:11:44] [INFO] [boss_spider] Wrote 1 records to CSV
+[2026-03-23 17:11:44] [INFO] [boss_spider] CSV file closed
+[2026-03-23 17:11:45] [INFO] [boss_spider] Browser closed
+[2026-03-23 17:11:45] [INFO] [boss_spider] ==================================================
+[2026-03-23 17:11:45] [INFO] [boss_spider] Collection complete
+[2026-03-23 17:11:45] [INFO] [boss_spider] Output: H:\AllWorkSpase\boss-zp\data_boss.csv
+[2026-03-23 17:11:45] [INFO] [boss_spider] New records: 1
+[2026-03-23 17:11:45] [INFO] [boss_spider] ==================================================
