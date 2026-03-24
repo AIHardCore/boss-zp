@@ -43,15 +43,35 @@ _global_csv_file = None
 _global_csv_writer = None
 _global_all_jobs = []
 
+
+def _safe_flush_csv():
+    """安全刷新CSV文件，处理文件被占用的情况（如被Excel打开）"""
+    max_retries = 5
+    for attempt in range(1, max_retries + 1):
+        try:
+            _global_csv_file.flush()
+            os.fsync(_global_csv_file.fileno())
+            return True
+        except PermissionError as e:
+            if attempt < max_retries:
+                log.warning(f"CSV文件被占用（第{attempt}次重试），"
+                            f"请确认文件未被Excel或其他程序打开，{attempt*2}秒后重试...")
+                time.sleep(attempt * 2)
+            else:
+                log.error(f"CSV文件写入失败（文件被占用）: {e}")
+                raise
+    return False
+
 # CSV中文表头
 CSV_HEADERS = [
-    '公司名称', '统一社会信用代码', '法定代表人', '注册资本',
+    '公司名称', '企业名称', '统一社会信用代码', '法定代表人', '注册资本',
     '成立日期', '经营状态', '公司类型', '公司规模', '公司阶段',
     '公司人数', '公司简介', '公司地址', '公司官网',
     '岗位名称', '薪资', '地区', '区域', '商圈',
     '经验要求', '学历要求', '领域', '技能标签', '福利标签',
     '岗位详情', '发布日期',
     '发布人名称', '发布人职称', '发布人电话', '发布人活跃状态',
+    '公司详情页URL',
 ]
 
 # info字段到CSV列的映射
@@ -85,6 +105,7 @@ INFO_KEY_TO_CSV = {
     'FaBuRenZhiCheng': '发布人职称',
     'FaBuRenDianHua': '发布人电话',
     'FaBuRenHuoYueZhuangTai': '发布人活跃状态',
+    '_company_href': '公司详情页URL',
 }
 
 
@@ -99,14 +120,14 @@ def _signal_handler(signum, frame):
 
 
 def _emergency_save():
+    """紧急保存（Ctrl+C时调用）"""
     global _global_csv_file, _global_all_jobs
     if _global_csv_file:
         try:
-            _global_csv_file.flush()
-            os.fsync(_global_csv_file.fileno())
-            log.info(f"Emergency save: {len(_global_all_jobs)} records")
+            _safe_flush_csv()
+            log.info(f"紧急保存完成: {len(_global_all_jobs)} 条记录")
         except Exception as e:
-            log.error(f"Emergency save failed: {e}")
+            log.error(f"紧急保存失败: {e}")
 
 
 if os.name == 'nt':
@@ -180,24 +201,78 @@ def load_existing_records(csv_file):
 
 
 def create_csv(output_file, mode='w'):
+    """创建CSV文件，支持文件被占用时自动重试。始终保留表头行。"""
     dir_path = os.path.dirname(output_file)
     if dir_path and not os.path.exists(dir_path):
         os.makedirs(dir_path, exist_ok=True)
-    # Ensure UTF-8 BOM is present when appending to existing file
+
+    # 如果文件已存在，检查是否有表头；没有则重建文件
     if mode == 'a' and os.path.exists(output_file):
-        with open(output_file, 'rb') as bf:
-            has_bom = bf.read(3) == b'\xef\xbb\xbf'
-        if not has_bom:
-            with open(output_file, 'rb') as bf:
-                content = bf.read()
-            with open(output_file, 'wb') as bf:
-                bf.write(b'\xef\xbb\xbf')
-                bf.write(content)
-    f = open(file=output_file, mode=mode, encoding='utf-8-sig', newline='')
+        _retry_file_operation(lambda: _ensure_bom(output_file))
+        # 读取现有内容，检查第一行是否为有效的CSV头（包含"公司名称"）
+        try:
+            with open(output_file, 'r', encoding='utf-8-sig') as check_f:
+                first_line = check_f.readline().strip()
+                # 如果第一行不是表头（不含公司名称），则重建文件
+                if '公司名称' not in first_line:
+                    log.warning(f"CSV缺少表头行，将重建文件（现有{sum(1 for _ in open(output_file,encoding='utf-8-sig'))-1}条数据将被保留）")
+                    # 读取所有现有数据
+                    existing_rows = []
+                    reader = csv.DictReader(open(output_file, 'r', encoding='utf-8-sig'))
+                    for row in reader:
+                        existing_rows.append(row)
+                    # 重建文件（write模式，会覆盖）
+                    mode = 'w'
+                    f = _retry_file_operation(lambda: open(file=output_file, mode=mode, encoding='utf-8-sig', newline=''))
+                    csv_writer = csv.DictWriter(f, fieldnames=CSV_HEADERS)
+                    csv_writer.writeheader()
+                    # 重新写入已有数据
+                    for row in existing_rows:
+                        csv_writer.writerow({k: row.get(k, '') for k in CSV_HEADERS})
+                    f.flush()
+                    os.fsync(f.fileno())
+                    return f, csv_writer
+        except Exception as e:
+            log.debug(f"检查CSV表头异常: {e}，按追加模式继续")
+
+    # 打开文件（可能被Excel等占用，支持重试）
+    f = _retry_file_operation(lambda: open(file=output_file, mode=mode, encoding='utf-8-sig', newline=''))
     csv_writer = csv.DictWriter(f, fieldnames=CSV_HEADERS)
     if mode == 'w':
         csv_writer.writeheader()
     return f, csv_writer
+
+
+def _ensure_bom(output_file):
+    """确保文件带有UTF-8 BOM"""
+    with open(output_file, 'rb') as bf:
+        has_bom = bf.read(3) == b'\xef\xbb\xbf'
+    if not has_bom:
+        with open(output_file, 'rb') as bf:
+            content = bf.read()
+        with open(output_file, 'wb') as bf:
+            bf.write(b'\xef\xbb\xbf')
+            bf.write(content)
+
+
+def _retry_file_operation(operation, max_retries=5, initial_delay=2):
+    """通用文件操作重试封装（处理文件被占用）"""
+    last_err = None
+    for attempt in range(1, max_retries + 1):
+        try:
+            return operation()
+        except PermissionError as e:
+            last_err = e
+            if attempt < max_retries:
+                log.warning(f"文件操作被拒绝（第{attempt}/{max_retries}次重试）"
+                            f"，{attempt * initial_delay}秒后重试...（请关闭Excel等程序）")
+                time.sleep(attempt * initial_delay)
+            else:
+                log.error(f"文件操作失败（已达最大重试次数）: {e}")
+                raise PermissionError(f"文件被占用，无法写入: {e}") from e
+        except Exception as e:
+            raise
+    raise last_err
 
 
 def build_search_url(keyword):
@@ -237,7 +312,7 @@ def wait_for_captcha(dp):
             return True
         start_time = time.time()
         while time.time() - start_time < CAPTCHA_TIMEOUT:
-            time.sleep(5)
+            time.sleep(3)
             captcha_found, _ = check_captcha(dp)
             if not captcha_found:
                 return True
@@ -245,6 +320,34 @@ def wait_for_captcha(dp):
         return True
     else:
         return True
+
+
+def _get_company_href(card):
+    """从卡片中提取公司href"""
+    try:
+        card_links = card.eles('css:a[href*="/gongsi/"]', timeout=2)
+        for cl in card_links:
+            href = cl.attr('href') or ''
+            if '/gongsi/' in href and 'ka=' not in href and 'from=' not in href:
+                return href
+        if card_links:
+            return card_links[0].attr('href')
+    except:
+        pass
+    return None
+
+
+def _get_company_name_from_panel(dp):
+    """从右侧面板获取公司名称"""
+    try:
+        company_el = dp.ele('css:.job-company .company-name', timeout=2)
+        if not company_el:
+            company_el = dp.ele('css:.boss-info-company', timeout=2)
+        if company_el:
+            return company_el.text.strip()
+    except:
+        pass
+    return ''
 
 
 def _get_job_cards(dp):
@@ -262,7 +365,7 @@ def _get_job_cards(dp):
 def _extract_list_fields(card):
     info = {k: '' for k in INFO_KEY_TO_CSV.keys()}
 
-    # Job title
+    # 岗位名称
     try:
         el = card.ele('css:.job-name', timeout=2)
         if el:
@@ -270,14 +373,14 @@ def _extract_list_fields(card):
     except Exception:
         pass
 
-    # Salary - decode PUA chars from kanzhun-mix font
+    # 薪资（需要解码kanzhun混排字体的PUA字符）
     try:
         el = card.ele('css:.job-salary', timeout=2)
         if el:
             salary_text = el.text.strip()
             if not salary_text or all(ord(c) > 0x1FFFF for c in salary_text):
                 salary_text = (el.attr('title') or '').strip()
-            # Always try to decode PUA chars (BOSS salary often has mixed encoding)
+            # 始终尝试解码PUA字符（BOSS薪资经常混合编码）
             decoded = _decode_kanzhun_salary(salary_text)
             if decoded and decoded != salary_text:
                 info['XinChou'] = decoded
@@ -286,7 +389,7 @@ def _extract_list_fields(card):
     except Exception:
         pass
 
-    # Company name
+    # 公司名称
     try:
         el = card.ele('css:.boss-name', timeout=2)
         if el:
@@ -294,7 +397,7 @@ def _extract_list_fields(card):
     except Exception:
         pass
 
-    # City.District.Business district
+    # 城市.区域.商圈
     try:
         el = card.ele('css:.company-location', timeout=2)
         if el:
@@ -309,7 +412,7 @@ def _extract_list_fields(card):
     except Exception:
         pass
 
-    # Experience/Education
+    # 经验/学历
     try:
         tag_list = card.ele('css:.tag-list', timeout=2)
         if tag_list:
@@ -321,7 +424,7 @@ def _extract_list_fields(card):
     except Exception:
         pass
 
-    # Skill tags
+    # 技能标签
     try:
         skill_elems = card.eles('css:.tag-list > span', timeout=2)
         if skill_elems:
@@ -329,7 +432,7 @@ def _extract_list_fields(card):
     except Exception:
         pass
 
-    # Welfare tags
+    # 福利标签
     try:
         welfare_elems = card.eles('css:.welfare-tag', timeout=2)
         if not welfare_elems:
@@ -345,71 +448,70 @@ def _extract_list_fields(card):
 
 
 def _clean_job_detail(text):
-    """Clean job detail text by removing BOSS platform garbage content.
+    """清洗岗位详情文本，移除BOSS平台噪音内容。
 
-    Removes:
-    - App download prompts: 去App, 与BOSS随时沟通, 前往App
-    - BOSS/kanzhun font artifacts and branding
-    - Address/location UI elements
-    - Publisher info mixed into detail text
-    - Content tags mixed into text (远程办公, etc.)
-    - Private Use Area characters (kanzhun font obfuscation)
-    - Kangxi radicals that display as regular chars (kanzhun font artifacts)
-    - Kanzhun mid-word font obfuscation artifacts ('直聘'/'来自' insert points)
-    - Consecutive whitespace
+    清洗内容：
+    - App下载提示：去App、与BOSS随时沟通、前往App
+    - BOSS/kanzhun字体混淆残留
+    - 地址/位置等UI元素
+    - 混入详情文本的发布人信息
+    - 混入职位的标签（远程办公等）
+    - Unicode私密区域（PUA）字符（kanzhun字体混淆）
+    - Kangxi部首被混淆显示为普通汉字（kanzhun字体混淆）
+    - kanzhun字体在词中间插入的混淆字符（'直聘'/'来自'）
+    - 连续空白符
     """
     if not text:
         return ''
 
-    # Remove kanzhun PUA font characters (U+E000 - U+F8FF range)
+    # 移除kanzhun字体混淆的PUA字符（U+E000 - U+F8FF范围）
     text = re.sub(r'[\uE000-\uF8FF]', '', text)
 
-    # Normalize kanzhun font Kangxi radicals (U+2F00-U+2FD5) to regular chars
-    # U+2F2F->工, U+2F45->方, U+2F47->日 (confirmed from debug of real data)
+    # 将kanzhun字体混淆的Kangxi部首还原为普通汉字
+    # U+2F2F->工, U+2F45->方, U+2F47->日（从真实数据调试中确认）
     if any(chr(0x2F00) <= c <= chr(0x2FD5) for c in text):
         _KR = {'\u2F2F': '工', '\u2F45': '方', '\u2F47': '日'}
         text = text.translate(str.maketrans(_KR))
 
-    # Remove kanzhun font obfuscation artifacts: '直聘' and '来自' are
-    # inserted mid-word by the kanzhun font, breaking words like:
+    # 移除kanzhun字体混淆在词中间插入的'直聘'和'来自'
+    # 这些字符被kanzhun字体插入到词中间破坏词语，如：
     # 工作周期 -> 工直聘作周期, 长期兼职 -> 长期来自兼职,
-    # 无要求 -> 无要直聘求, 每周工期 -> 每来自周工期, etc.
-    # These two substrings only appear as mid-word insert points, never as
-    # standalone legitimate words in the detail text.
+    # 无要求 -> 无要直聘求, 每周工期 -> 每来自周工期
+    # 这两个字符串只在混淆插入点出现，不会作为独立合法词出现
     text = text.replace('直聘', '').replace('来自', '')
 
-    # Remove app download / chat prompts (exact phrases)
+    # 移除App下载/聊天提示（精确匹配）
     for p in ('去App', '与BOSS随时沟通', '前往App', '立即沟通',
               '微信扫码', '点击查看地图', '查看更多信息',
               '来自BOSS直聘', 'boss直聘', 'BOSS直聘', 'kanzhun', 'Kanzhun'):
         text = text.replace(p, '')
 
-    # Remove standalone boss/kanzhun
+    # 移除单独的boss/kanzhun
     text = re.sub(r'\bboss\b', '', text, flags=re.IGNORECASE)
     text = re.sub(r'\bkanzhun\b', '', text, flags=re.IGNORECASE)
 
-    # Remove 'boss' when followed by Chinese chars (obfuscation artifact)
+    # 移除后面紧跟汉字的boss（混淆残留，如"boss工作周期"）
     text = re.sub(r'boss(?=[\u4e00-\u9fff])', '', text, flags=re.IGNORECASE)
 
-    # Remove publisher info + all trailing UI elements
+    # 移除发布人信息及所有尾部UI元素
     text = re.sub(r'纪玉青 刚刚活跃.*$', '', text)
     text = re.sub(r'[\u4e00-\u9fff]{1,10}\s*(刚刚活跃|今日活跃|昨日活跃)\s*.*$', '', text)
 
-    # Remove app CTA blocks
+    # 移除App操作按钮
     text = re.sub(r'去App', '', text)
     text = re.sub(r'与BOSS随时沟通', '', text)
     text = re.sub(r'前往App', '', text)
 
-    # Remove remote tag
+    # 移除远程办公标签
     text = re.sub(r'(?<=职位描述)\s*远程办公', '', text)
     text = re.sub(r'^远程办公\s*', '', text)
 
-    # Remove remaining UI elements
+    # 移除剩余UI元素
     text = re.sub(r'查看更多信息.*$', '', text)
     text = re.sub(r'工作地址\s*[\u4e00-\u9fff0-9a-zA-Z·\-.,。]{3,100}$', '', text)
     text = re.sub(r'收藏\s*|\s*举报', '', text)
 
-    # Collapse whitespace and clean up
+    # 合并空白符并清理
     text = re.sub(r'\s+', ' ', text).strip()
     text = re.sub(r'[\s,，.。··]+$', '', text)
 
@@ -417,30 +519,30 @@ def _clean_job_detail(text):
 
 
 def _decode_kanzhun_salary(text):
-    """Decode BOSS直聘's kanzhun-mix font PUA chars to actual digits.
-    
-    BOSS uses Private Use Area characters from U+E031 to U+E03A range
-    for digits 0-9. Each PUA char encodes a digit.
-    
-    Known mappings (verified from debug):
+    """解码BOSS直聘kanzhun混排字体中的PUA字符为真实数字。
+
+    BOSS使用Unicode私密区域（PUA）字符U+E031到U+E03A来表示数字0-9。
+    每个PUA字符对应一个数字。
+
+    已确认的映射关系：
     U+E031 -> 0, U+E033 -> 2, U+E034 -> 3, U+E035 -> 4,
     U+E036 -> 5, U+E037 -> 6, U+E038 -> 7, U+E039 -> 8, U+E03A -> 9
-    
-    Also handles E032 (used for digit 1) and E03B.
-    Uses formula: digit = (code - 0xE031) % 10 for E031-E03A range.
+
+    同时处理E032（对应数字1）和E03B。
+    转换公式：数字 = (字符码 - 0xE031) % 10（适用于E031-E03A范围）。
     """
     if not text:
         return ''
     result = []
     for c in text:
         cp = ord(c)
-        # Handle PUA digits E031-E03A (mapped to 0-9)
+        # 处理PUA数字字符E031-E03A（对应数字0-9）
         if 0xE031 <= cp <= 0xE03A:
             digit = (cp - 0xE031) % 10
             result.append(str(digit))
-        # Handle E03B (encodes some special chars or digit)
+        # 处理E03B（编码特殊字符或数字）
         elif cp == 0xE03B:
-            # E03B maps to 1 based on pattern
+            # 根据规律，E03B对应数字1
             result.append('1')
         elif cp <= 0xFFFF:
             result.append(c)
@@ -448,59 +550,57 @@ def _decode_kanzhun_salary(text):
     return decoded
 
 def _extract_detail_panel(dp, card):
-    """Click job card to open right panel and extract job detail + publisher info.
-    
-    Uses preventDefault on <a> tags to prevent full page navigation,
-    allowing the SPA to update the right panel in place.
+    """点击职位卡片打开右侧面板，提取岗位详情+发布人信息。
+
+    使用自然点击方式，让SPA自行处理右侧面板更新。
     """
     info = {}
 
     for attempt in range(3):
         try:
-            # Click the job card - let the SPA handle the click naturally
+            # 点击职位卡片（Playwright actions.click，不导航，不滚屏）
             try:
-                card.click()
+                card.scroll.to_see()
+                time.sleep(0.5)
+                dp.actions.click(card)
             except Exception:
                 pass
-            time.sleep(3)
-
-            # === Job detail: use CSS selector (more reliable than regex) ===
-            # The box text includes salary (with PUA chars), location, requirements + description
-            # We strip the leading non-description part (salary info + location + requirements)
+            # === 岗位详情：使用CSS选择器（比正则更可靠）===
+            # 面板文本包含薪资（带PUA字符）、地点、要求+描述
+            # 我们去掉前面的非描述部分（薪资+地点+要求）
             try:
                 box_elem = dp.ele('css:.job-detail-box', timeout=3)
                 if box_elem:
                     text = box_elem.text.strip()
                     if text:
-                        # Strip the leading part: job_name salary location requirements
-                        # Find "职位描述" marker to get clean job description
+                        # 找到"职位描述"标记，取其后的内容作为岗位描述
                         desc_marker = '职位描述'
                         if desc_marker in text:
                             idx = text.find(desc_marker)
-                            clean_text = text[idx:]  # Keep from "职位描述" onwards
+                            clean_text = text[idx:]  # 从"职位描述"开始保留
                         else:
-                            # Fallback: strip first 100 chars (salary+location+requirements)
+                            # 备用方案：去掉前100个字符（薪资+地点+要求）
                             clean_text = text[100:]
-                        # Remove UI elements
+                        # 移除UI元素
                         for ui_pattern in ['收藏', '举报', '微信扫码', '立即沟通']:
                             clean_text = clean_text.replace(ui_pattern, '')
-                        # Remove BOSS直聘 / kanzhun / boss font artifacts from job detail
+                        # 移除BOSS直聘/kanzhun/boss字体混淆残留
                         clean_text = re.sub(r'BOSS直聘', '', clean_text)
                         clean_text = re.sub(r'kanzhun', '', clean_text, flags=re.IGNORECASE)
-                        # Remove 'boss' between ASCII letter and Chinese (boss工作周期 -> b工作周期)
+                        # 移除汉字前面插入的boss（如"boss工作周期" -> "b工作周期"）
                         clean_text = re.sub(r'[a-zA-Z]boss(?=[\u4e00-\u9fff])', lambda m: m.group()[0], clean_text, flags=re.IGNORECASE)
-                        # Remove standalone boss/kanzhun
+                        # 移除单独的boss/kanzhun
                         clean_text = re.sub(r'\bkanzhun\b', '', clean_text, flags=re.IGNORECASE)
                         clean_text = re.sub(r'\bboss\b', '', clean_text, flags=re.IGNORECASE)
-                        # Collapse whitespace
+                        # 合并空白符
                         clean_text = re.sub(r'\s+', ' ', clean_text).strip()
-                        # Apply comprehensive cleaning
+                        # 执行综合清洗
                         clean_text = _clean_job_detail(clean_text)
                         info['GangWeiXiangQing'] = clean_text[:5000]
             except Exception:
                 pass
 
-            # === Salary: use CSS selector + PUA decode ===
+            # === 薪资：使用CSS选择器+PUA解码 ===
             try:
                 sal_el = dp.ele('css:.job-salary', timeout=3)
                 if sal_el:
@@ -509,7 +609,7 @@ def _extract_detail_panel(dp, card):
                         decoded = _decode_kanzhun_salary(raw_text)
                         if decoded:
                             info['XinChou'] = decoded
-                    # Fallback: try title attr
+                    # 备用：尝试从title属性获取
                     if not info.get('XinChou'):
                         title = sal_el.attr('title')
                         if title:
@@ -519,11 +619,10 @@ def _extract_detail_panel(dp, card):
             except Exception:
                 pass
 
-            # === Publisher info: use CSS selectors with fallbacks ===
+            # === 发布人信息：使用CSS选择器（有多级备用） ===
             panel = dp.ele('css:.job-boss-info', timeout=3)
             if panel:
-                # Active status FIRST (before extracting name, since name el includes active text)
-                # <span class="boss-online-tag">在线</span>
+                # 优先提取活跃状态（在提取姓名之前，因为name元素包含状态文本）
                 for sel in ['css:.boss-online-tag', 'css:.boss-active-time', 'css:.online-tag']:
                     try:
                         active_el = panel.ele(sel, timeout=2)
@@ -535,19 +634,17 @@ def _extract_detail_panel(dp, card):
                     except Exception:
                         continue
 
-                # Publisher name: <h2 class="name"> contains boss name + active tag
-                # The h2 includes both text nodes, so we need to get just the name part
-                # Use JS to get first text node, or strip known suffixes
+                # 发布人姓名：<h2 class="name"> 同时包含姓名和活跃状态
+                # 需要从完整文本中提取纯姓名部分
                 for sel in ['css:.name', 'css:h2.name', 'css:h2']:
                     try:
                         name_el = panel.ele(sel, timeout=2)
                         if name_el:
-                            # Get full text (includes active status as sibling/child)
+                            # 获取完整文本（含活跃状态）
                             name_text = name_el.text.strip()
                             if name_text:
-                                # The h2.name element contains "陈女士 在线" - we need just "陈女士"
-                                # Try to get just the first part before any status indicator
-                                # Patterns: "姓名 在线", "姓名 刚刚活跃", "姓名 已读"
+                                # h2.name元素如"陈女士 在线"，需要只保留姓名部分
+                                # 去掉常见状态后缀
                                 name_text = re.sub(r'\s+(在线|刚刚活跃|已读|1分钟前|5分钟前|今日活跃|昨日活跃).*$', '', name_text)
                                 name_text = re.sub(r'\s*[·•·]\s*(在线|活跃|已读).*$', '', name_text)
                                 if name_text.strip():
@@ -556,7 +653,7 @@ def _extract_detail_panel(dp, card):
                     except Exception:
                         continue
 
-                # Boss title from .boss-info-attr: "公司 · 职称" format
+                # HR职称：格式为"公司 · 职称"
                 for sel in ['css:.boss-info-attr', 'css:.boss-title', 'css:.title']:
                     try:
                         attr_el = panel.ele(sel, timeout=2)
@@ -564,14 +661,14 @@ def _extract_detail_panel(dp, card):
                             attr_text = attr_el.text.strip()
                             if attr_text and ' · ' in attr_text:
                                 parts = attr_text.split(' · ', 1)
-                                # parts[0] = company name, parts[1] = boss title
+                                # parts[0]=公司名, parts[1]=HR职称
                                 if len(parts) > 1 and parts[1].strip():
                                     info['FaBuRenZhiCheng'] = parts[1].strip()
                                 if parts[0].strip() and not info.get('GongSiMingCheng'):
                                     info['GongSiMingCheng'] = parts[0].strip()
                                 break
                             elif attr_text:
-                                # No separator, might be just title or company name
+                                # 无分隔符，可能是纯职称或公司名
                                 if len(attr_text) < 50 and not info.get('FaBuRenZhiCheng'):
                                     info['FaBuRenZhiCheng'] = attr_text
                                 elif not info.get('GongSiMingCheng'):
@@ -586,7 +683,7 @@ def _extract_detail_panel(dp, card):
                 break
 
         except Exception as e:
-            log.debug(f"Extract detail panel attempt {attempt+1} failed: {e}")
+            log.debug(f"提取详情面板第{attempt+1}次失败: {e}")
             time.sleep(1)
 
     return info
@@ -594,94 +691,105 @@ def _extract_detail_panel(dp, card):
 
 
 def _extract_company_fields_from_page(dp):
-    """Extract company business registration info from company detail page.
+    """从公司详情页提取工商注册信息（纯DOM解析，不过API）。
 
-    Uses regex extraction as the primary method, supplemented by CSS selectors.
+    提取策略（优先级从高到低）：
+    1. 正则全文搜索（最可靠，BOSS页面文本里必有这些字段）
+    2. ka属性选择器（52pojie帖子揭示：BOSS用ka属性定位元素）
+    3. CSS类名选择器（兜底）
+    4. 信息列表结构化提取
+
+    ka属性参考（52pojie帖子揭示的BOSS内部元素定位）：
+    - job-detail-company_custompage: 公司名
+    - job-detail-brandindustry: 行业
+    - job-detail-stage: 融资阶段
+    - job-detail-scale: 公司规模
+    - 公司工商信息Tab里有：统一社会信用代码、法定代表人、注册资本等
     """
     info = {}
 
-    # 1. Company name - multiple selectors
-    for sel in ['css:.company-name', 'css:.info-header .name', 'css:.company-title .name',
-                'css:h1[class*="company"]', 'css:.base-info .company-name', 'css:.company-tab-info h1']:
-        try:
-            el = dp.ele(sel, timeout=2)
-            if el:
-                text = el.text.strip()
-                if text and len(text) < 200:
-                    info['GongSiMingCheng'] = text
-                    break
-        except:
-            continue
-    if not info.get('GongSiMingCheng'):
-        try:
-            el = dp.ele('css:h1', timeout=2)
-            if el:
-                text = el.text.strip()
-                if text and len(text) < 200:
-                    info['GongSiMingCheng'] = text
-        except:
-            pass
-
-    # 2. Regex extraction from page text (most reliable)
-    # dp.text may return the page's text; try multiple text sources
+    # 获取页面全文（用于正则提取）
+    all_text = None
     try:
-        # Try dp.text first, then JS innerText as fallback
-        all_text = None
+        all_text = dp.text
+    except:
+        pass
+    if not all_text:
         try:
-            if dp.text:
-                all_text = dp.text
+            all_text = dp.run_js("return document.body.innerText")
         except:
             pass
-        if not all_text:
-            try:
-                all_text = dp.run_js("return document.body.innerText")
-            except:
-                pass
-        
-        if all_text:
-            log.debug(f"Page text length: {len(all_text)}")
-            # Show a snippet around key fields
-            if '统一社会信用代码' in all_text:
-                idx = all_text.find('统一社会信用代码')
-                log.debug(f"CreditCode context: {repr(all_text[idx:idx+80])}")
-            if '法定代表人' in all_text:
-                idx = all_text.find('法定代表人')
-                log.debug(f"LegalRep context: {repr(all_text[idx:idx+80])}")
-            
-            regex_patterns = [
-                ('TongYiSheHuiXinYongDaiMa', r'统一社会信用代码[：:\s]*([A-Z0-9]{18})'),
-                ('FaDingDaiBiaoRen', r'法定代表人[：:\s]*([^\s，,。\r\n]{2,30})'),
-                ('ZhuCeZiBen', r'注册资本[：:\s]*([^\s，,。\r\n]{2,60})'),
-                ('ChengLiRiQi', r'(?:成立时间|成立日期)[：:\s]*([^\s，,。\r\n]{4,30})'),
-                ('JingYingZhuangTai', r'经营状态[：:\s]*([^\s，,。\r\n]{2,20})'),
-                ('GongSiLeiXing', r'企业类型[：:\s]*([^\s，,。\r\n]{2,60})'),
-                ('GongSiGuiMo', r'公司规模[：:\s]*([^\s，,。\r\n]{2,30})'),
-                ('GongSiDiZhi', r'(?:公司地址|注册地址)[：:\s]*([^\r\n]{5,300})'),
-                ('GongSiGuanWang', r'公司官网[：:\s]*(https?://[^\s，,。\r\n]+)'),
-            ]
-            for field, pattern in regex_patterns:
-                if field not in info:
-                    m = re.search(pattern, all_text)
-                    if m:
-                        info[field] = m.group(1).strip()
-        else:
-            log.debug("Could not get page text for regex extraction")
-    except Exception as e:
-        log.debug(f"Regex extraction error: {e}")
 
-    # 3. CSS selector extraction
+    # ==================== 1. 正则全文提取（最可靠） ====================
+    if all_text:
+        log.debug(f"公司页文本长度: {len(all_text)}")
+
+        regex_patterns = [
+            # 字段名: 正则模式
+            # 统一社会信用代码可能是18位数字+大写字母，也可能包含小写字母
+            ('TongYiSheHuiXinYongDaiMa', r'统一社会信用代码[：:\s]*([A-Za-z0-9]{18})'),
+            ('FaDingDaiBiaoRen', r'法定代表人[：:\s]*([^\s，,。\r\n]{2,30})'),
+            ('ZhuCeZiBen', r'注册资本[：:\s]*([^\s，,。\r\n]{2,60})'),
+            ('ChengLiRiQi', r'(?:成立时间|成立日期)[：:\s]*([^\s，,。\r\n]{4,30})'),
+            ('JingYingZhuangTai', r'经营状态[：:\s]*([^\s，,。\r\n]{2,20})'),
+            ('GongSiLeiXing', r'(?:企业类型|公司类型)[：:\s]*([^\s，,。\r\n]{2,60})'),
+            ('GongSiGuiMo', r'公司规模[：:\s]*([^\s，,。\r\n]{2,30})'),
+            ('GongSiJieDuan', r'(?:融资阶段|发展阶段)[：:\s]*([^\s，,。\r\n]{2,30})'),
+            ('GongSiRenShu', r'员工人数[：:\s]*([^\s，,。\r\n]{2,30})'),
+            ('GongSiDiZhi', r'(?:公司地址|注册地址)[：:\s]*([^\r\n]{5,300})'),
+            ('GongSiGuanWang', r'公司官网[：:\s]*(https?://[^\s，,。\r\n]+)'),
+            ('NaShuiRenBieHao', r'纳税人识别号[：:\s]*([A-Za-z0-9]{20,24})'),
+            ('ZuZhiJiGouDaiMa', r'组织机构代码[：:\s]*([A-Za-z0-9]{8}-?[A-Za-z0-9]|[A-Za-z0-9]{9})'),
+            ('YingYeZhiZhaoHao', r'营业执照[号]?[：:\s]*([A-Za-z0-9]{13,18})'),
+        ]
+
+        for field, pattern in regex_patterns:
+            if field not in info or not info[field]:
+                m = re.search(pattern, all_text)
+                if m:
+                    val = m.group(1).strip()
+                    if val:
+                        info[field] = val
+                        log.debug(f"正则提取: {field} = {val}")
+    else:
+        log.debug("无法获取页面文本进行正则提取")
+
+    # ==================== 2. ka属性选择器（52pojie揭示的BOSS内部定位方式） ====================
+    ka_selectors = [
+        ('job-detail-company_custompage', 'GongSiMingCheng'),
+        ('job-detail-brandindustry', 'LingYu'),
+        ('job-detail-stage', 'GongSiJieDuan'),
+        ('job-detail-scale', 'GongSiGuiMo'),
+    ]
+    for ka_val, field_key in ka_selectors:
+        if field_key in info and info[field_key]:
+            continue
+        try:
+            sel = f'xpath://*[@ka="{ka_val}"]'
+            el = dp.ele(sel, timeout=1)
+            if el:
+                val = el.text.strip()
+                if val and len(val) < 100:
+                    info[field_key] = val
+                    log.debug(f"ka属性提取: {field_key} = {val}")
+        except:
+            pass
+
+    # ==================== 3. CSS类名选择器兜底 ====================
     css_map = [
-        ('FaDingDaiBiaoRen', ['css:.legal-person-name', 'css:.fr', 'css:[class*="legal"]']),
-        ('ZhuCeZiBen', ['css:.registered-capital', 'css:.reg-capital', 'css:.capital', 'css:[class*="capital"]']),
+        ('GongSiMingCheng', ['css:.company-name', 'css:.info-header .name', 'css:.company-title .name',
+                             'css:.base-info .company-name', 'css:.company-tab-info h1', 'css:h1']),
+        ('FaDingDaiBiaoRen', ['css:.legal-person-name', 'css:.fr', 'css:.legalPerson']),
+        ('ZhuCeZiBen', ['css:.registered-capital', 'css:.reg-capital', 'css:.capital']),
         ('ChengLiRiQi', ['css:.establish-date', 'css:.start-date', 'css:.found-date']),
         ('JingYingZhuangTai', ['css:.business-status', 'css:.company-status', 'css:.status']),
         ('GongSiLeiXing', ['css:.company-type', 'css:.company-nature', 'css:.nature']),
         ('GongSiGuiMo', ['css:.company-size', 'css:.company-scale', 'css:.scale', 'css:.size']),
         ('GongSiJieDuan', ['css:.company-stage', 'css:.financing-stage', 'css:.stage']),
         ('GongSiRenShu', ['css:.employee-count', 'css:.staff-count', 'css:.count']),
-        ('GongSiJianJie', ['css:.company-intro', 'css:.company-desc', 'css:.company-about', 'css:.intro-text']),
-        ('GongSiDiZhi', ['css:.company-address', 'css:.company-addr', 'css:.address', 'css:.addr']),
-        ('GongSiGuanWang', ['css:.company-website', 'css:.website', 'css:.company-url']),
+        ('GongSiJianJie', ['css:.company-intro', 'css:.company-desc', 'css:.company-about']),
+        ('GongSiDiZhi', ['css:.company-address', 'css:.company-addr', 'css:.address']),
+        ('GongSiGuanWang', ['css:.company-website', 'css:.website']),
     ]
     for field, selectors in css_map:
         if field in info and info[field]:
@@ -691,126 +799,82 @@ def _extract_company_fields_from_page(dp):
                 el = dp.ele(sel, timeout=1)
                 if el:
                     val = el.text.strip()
-                    if val and len(val) > 1:
-                        skip = ['公司规模', '融资阶段', '营业执照', '天眼查', '附近公司', '查看更多']
-                        if any(p in val for p in skip):
+                    if val and len(val) > 1 and len(val) < 200:
+                        skip_vals = ['公司规模', '融资阶段', '营业执照', '天眼查', '附近公司',
+                                     '查看更多', 'Boss', 'BOSS', 'k', '职位', '招聘', '收藏']
+                        if any(p in val for p in skip_vals):
                             continue
                         info[field] = val[:2000] if field == 'GongSiJianJie' else val[:500]
                         break
             except:
                 continue
 
-    # 4. Info-list / info-grid extraction
+    # ==================== 4. 结构化信息列表提取（BOSS公司页标准布局） ====================
     try:
-        items = dp.eles('css:.info-list .item, css:.info-list li, css:.base-info .row, css:.company-info .item', timeout=2)
-        for item in items:
-            try:
-                t = item.text.strip()
-                if not t or len(t) < 5:
-                    continue
-                for sep in ['：', ':', '——', '-']:
-                    if sep in t:
-                        parts = t.split(sep, 1)
-                        if len(parts) == 2:
-                            label, value = parts[0].strip(), parts[1].strip()
-                            if not value or len(value) < 2:
-                                continue
-                            lm = {
-                                '统一社会信用代码': 'TongYiSheHuiXinYongDaiMa',
-                                '法定代表人': 'FaDingDaiBiaoRen',
-                                '注册资本': 'ZhuCeZiBen',
-                                '成立日期': 'ChengLiRiQi',
-                                '经营状态': 'JingYingZhuangTai',
-                                '公司类型': 'GongSiLeiXing',
-                                '公司规模': 'GongSiGuiMo',
-                                '公司人数': 'GongSiRenShu',
-                                '融资阶段': 'GongSiJieDuan',
-                                '公司地址': 'GongSiDiZhi',
-                                '官网': 'GongSiGuanWang',
-                            }
-                            for lbl, fld in lm.items():
-                                if lbl in label and fld not in info:
-                                    info[fld] = value[:500]
-                            break
-            except:
+        list_selectors = [
+            'css:.base-info tr',
+            'css:.info-list .item',
+            'css:.company-info .row',
+            'css:.detail-info li',
+            'css:.reg-info li',
+        ]
+        for list_sel in list_selectors:
+            items = dp.eles(list_sel, timeout=2)
+            if not items:
                 continue
-    except:
-        pass
-
-    return info
-
-
-
-def _extract_company_detail(dp, company_href, job_list_url):
-    """Extract company business info by navigating to company page.
-
-    Uses dp.get() + dp.back() approach. Company info extraction is best-effort.
-    If anti-bot redirects, company info will be skipped.
-    """
-    company_info = {}
-    if not company_href:
-        return {}
-
-    try:
-        if company_href.startswith('http'):
-            full_url = company_href
-        else:
-            full_url = 'https://www.zhipin.com' + company_href
-        if '?' in full_url:
-            full_url = full_url.split('?')[0]
-
-        log.debug(f"Navigating to company: {full_url}")
-        dp.get(full_url, timeout=15)
-        time.sleep(4)
-
-        current_url = dp.url
-        log.debug(f"Company page URL: {current_url}")
-
-        # Extract if on valid company page
-        if '/gongsi/' in current_url and 'zhipin.com/web/geek/jobs' not in current_url:
-            company_info = _extract_company_fields_from_page(dp)
-            log.debug(f"Company fields: {list(company_info.keys())}")
-        else:
-            log.debug(f"Not a valid company page (anti-bot redirect?), skipping")
-
-        # Return to job list
-        dp.back()
-        time.sleep(2)
-
+            for item in items:
+                try:
+                    t = item.text.strip()
+                    if not t or len(t) < 5:
+                        continue
+                    for sep in ['：', ':', '——', '-', '─']:
+                        if sep in t:
+                            parts = t.split(sep, 1)
+                            if len(parts) == 2:
+                                label = parts[0].strip()
+                                value = parts[1].strip()
+                                if not value or len(value) < 1:
+                                    continue
+                                lm = {
+                                    '统一社会信用代码': 'TongYiSheHuiXinYongDaiMa',
+                                    '法定代表人': 'FaDingDaiBiaoRen',
+                                    '注册资本': 'ZhuCeZiBen',
+                                    '成立时间': 'ChengLiRiQi',
+                                    '成立日期': 'ChengLiRiQi',
+                                    '经营状态': 'JingYingZhuangTai',
+                                    '企业类型': 'GongSiLeiXing',
+                                    '公司类型': 'GongSiLeiXing',
+                                    '公司规模': 'GongSiGuiMo',
+                                    '公司阶段': 'GongSiJieDuan',
+                                    '融资阶段': 'GongSiJieDuan',
+                                    '员工人数': 'GongSiRenShu',
+                                    '所属行业': 'LingYu',
+                                    '公司地址': 'GongSiDiZhi',
+                                    '注册地址': 'GongSiDiZhi',
+                                    '公司官网': 'GongSiGuanWang',
+                                }
+                                if label in lm and (lm[label] not in info or not info[lm[label]]):
+                                    info[lm[label]] = value[:500]
+                                    log.debug(f"列表提取: {lm[label]} = {value}")
+                            break
+                except:
+                    continue
+            if any(info.get(v) for v in info):
+                break
     except Exception as e:
-        log.debug(f"_extract_company_detail failed: {e}")
-        try:
-            dp.back()
-            time.sleep(2)
-        except:
-            pass
+        log.debug(f"结构化列表提取异常: {e}")
 
-    return company_info
+    # 后处理：清理提取值中的换行符和尾部噪音
+    for key in info:
+        if info[key]:
+            # 移除换行符和多余空白
+            info[key] = re.sub(r'[\r\n\t]+', '', info[key])
+            # 移除常见的尾部噪音
+            info[key] = re.sub(r'[\s,，.。]*(收藏|举报|分享|立即沟通|查看更多).*$', '', info[key])
+            info[key] = info[key].strip()
 
-
-
-
-
-
-def _scroll_job_list(dp):
-    dp.run_js('window.scrollBy(0, window.innerHeight)')
-    time.sleep(0.5)
-
-    for selector in ['.job-list-box', '.job-list-container', '[class*="job-list"]', '.job-card-box']:
-        try:
-            el = dp.ele(f'css:{selector}', timeout=2)
-            if el and el.is_displayed():
-                scroll_h = dp.run_js('return arguments[0].scrollHeight', el)
-                client_h = dp.run_js('return arguments[0].clientHeight', el)
-                if scroll_h > client_h:
-                    dp.run_js('arguments[0].scrollTop = arguments[0].scrollTop + arguments[0].clientHeight', el)
-                    return
-        except Exception:
-            continue
-
-    dp.run_js('window.scrollBy(0, window.innerHeight)')
-    time.sleep(0.5)
-
+    log.debug(f"公司页最终提取字段: {[(k, (v[:50] if v else '')) for k, v in info.items()]}")
+    return info
 
 def _is_at_bottom(dp):
     try:
@@ -822,181 +886,90 @@ def _is_at_bottom(dp):
         return False
 
 
-def collect_job_details(dp, cards, existing_keys, max_detail=5):
-    all_jobs = []
-    seen_keys = set(existing_keys)
+def scroll_and_collect(dp, keyword, max_detail=None):
+    """采集所有可见卡片，实时检测新数据加载，直到列表末尾。
 
-    # Record job list URL before any navigation (used for returning from company pages)
-    job_list_url = dp.url
-
-    for i, card in enumerate(cards[:max_detail]):
-        try:
-            info = _extract_list_fields(card)
-            if not info.get('GangWeiMingCheng'):
-                continue
-
-            key = make_dedup_key(
-                info.get('GongSiMingCheng', ''),
-                info.get('GangWeiMingCheng', ''),
-                info.get('ChengShi', '')
-            )
-
-            if key in seen_keys:
-                log.debug(f"Skip duplicate: {info.get('GangWeiMingCheng')} - {info.get('GangWeiMingCheng')}")
-                continue
-
-            log.info(f"  [{i+1}/{len(cards)}] Processing: {info.get('GongSiMingCheng')} - {info.get('GangWeiMingCheng')}")
-
-            # Step 1: Extract company href from card BEFORE clicking for job detail
-            company_href = None
-            try:
-                card_links = card.eles('css:a[href*="/gongsi/"]', timeout=2)
-                for cl in card_links:
-                    href = cl.attr('href') or ''
-                    if '/gongsi/' in href and 'ka=' not in href and 'from=' not in href:
-                        company_href = href
-                        break
-                if not company_href:
-                    for cl in card_links:
-                        href = cl.attr('href') or ''
-                        if '/gongsi/' in href and 'ka=' not in href:
-                            company_href = href
-                            break
-                if company_href:
-                    log.debug(f"Company href: {company_href}")
-            except Exception as e:
-                log.debug(f"Error extracting company href: {e}")
-
-            # Extract detail from right panel (job description, publisher info)
-            detail_info = _extract_detail_panel(dp, card)
-            info.update(detail_info)
-
-            # Try to get company info from the right panel (no navigation yet)
-            try:
-                company_el = dp.ele('css:.job-company .company-name', timeout=2)
-                if not company_el:
-                    company_el = dp.ele('css:.boss-info-company', timeout=2)
-                if company_el:
-                    text = company_el.text.strip()
-                    if text and not info.get('GongSiMingCheng'):
-                        info['GongSiMingCheng'] = text
-            except Exception:
-                pass
-
-            # Step 3: Navigate to company detail page to extract business registration info
-            if company_href:
-                try:
-                    company_detail_info = _extract_company_detail(dp, company_href, job_list_url)
-                    if company_detail_info:
-                        # Only fill in missing fields
-                        for k, v in company_detail_info.items():
-                            if v and not info.get(k):
-                                info[k] = v
-                        log.debug(f"Company fields: {list(company_detail_info.keys())}")
-                except Exception as e:
-                    log.debug(f"Company detail failed: {e}")
-            else:
-                log.debug("No company href available")
-
-            seen_keys.add(key)
-            all_jobs.append(info)
-
-            job_desc = info.get('GangWeiXiangQing', '')[:80].replace('\n', ' ')
-            log.info(f"    Detail: {job_desc}...")
-            log.info(f"    Publisher: {info.get('FaBuRenMingCheng')} {info.get('FaBuRenZhiCheng')} Phone: {info.get('FaBuRenDianHua')}")
-
-            # Re-get cards after company page navigation to avoid stale references
-            if i + 1 < len(cards[:max_detail]):
-                try:
-                    time.sleep(3)
-                    fresh_cards = _get_job_cards(dp)
-                    if fresh_cards and len(fresh_cards) > i + 1:
-                        cards = fresh_cards
-                        log.debug(f"Refreshed: {len(fresh_cards)} cards, next: card {i+2}")
-                        # Scroll the target card into view and re-click to force right panel update
-                        try:
-                            target_card = cards[i + 1]
-                            target_card.scroll.to_see()
-                            time.sleep(1)
-                            # First remove any persistent <a> interceptors from previous clicks
-                            target_card.run_js('''
-                                var links = this.querySelectorAll('a');
-                                links.forEach(function(link) {
-                                    // Clone and replace to remove all event listeners
-                                    var clone = link.cloneNode(true);
-                                    link.parentNode.replaceChild(clone, link);
-                                });
-                            ''')
-                            time.sleep(0.5)
-                            # Now click - <a> tags will work normally
-                            target_card.click()
-                            time.sleep(3)
-                            log.debug(f"Clicked card {i+2} to update right panel")
-                        except Exception as e2:
-                            log.debug(f"Re-click card {i+2} failed: {e2}")
-                except Exception as e:
-                    log.debug(f"Card refresh failed: {e}")
-
-        except Exception as e:
-            log.debug(f"Process card {i} failed: {e}")
-            continue
-
-    return all_jobs
-
-
-def scroll_and_collect(dp, keyword, max_scrolls=3, max_detail=5):
+    流程：
+    1. 点击卡片获取岗位信息
+    2. 点击后检查DOM中卡片数量，没有下一个卡片则等待新数据
+    3. 等待后仍无新数据则停止
+    """
     jobs_list = []
+    seen_keys = set()
+    job_list_url = build_search_url(keyword)
 
     log.info(f"Start collecting: {keyword}")
-    url = build_search_url(keyword)
-    dp.get(url, timeout=30)
+    dp.get(job_list_url, timeout=30)
     time.sleep(3)
 
-    captcha_passed = wait_for_captcha(dp)
-    if not captcha_passed:
+    if not wait_for_captcha(dp):
         log.warning("CAPTCHA not passed, may get partial data")
 
-    prev_count = 0
-    no_new_count = 0
+    cards = _get_job_cards(dp)
+    if not cards:
+        log.info("无卡片，停止采集")
+        return jobs_list
 
-    for scroll_idx in range(1, max_scrolls + 1):
-        _scroll_job_list(dp)
-        time.sleep(random.uniform(2, 4))
-
-        cards = _get_job_cards(dp)
-        current_count = len(cards)
-        new_count = current_count - prev_count
-
-        log.info(f"Scroll {scroll_idx}: total {current_count} (+{new_count} new)")
-
-        if new_count <= 0:
-            no_new_count += 1
-            if no_new_count >= 2:
-                log.info(f"No new data for {no_new_count} scrolls, stopping")
-                break
-        else:
-            no_new_count = 0
-            prev_count = current_count
-
-        if current_count > 0 and _is_at_bottom(dp):
-            log.info("Reached bottom")
+    i = 0
+    total_processed = 0
+    while i < len(cards):
+        if max_detail and total_processed >= max_detail:
+            log.info(f"已达到本次最大处理数量 {max_detail}，停止采集")
             break
 
-        if scroll_idx >= max_scrolls:
-            break
+        card = cards[i]
+        # 提取公司href（点击前就要拿到）
+        company_href = _get_company_href(card)
 
-    if cards:
-        detail_jobs = collect_job_details(dp, cards, set(), max_detail=max_detail)
-        jobs_list.extend(detail_jobs)
-        log.info(f"Detail collection done: {len(detail_jobs)} records")
+        # 点击卡片触发详情面板
+        try:
+            card.scroll.to_see()
+            dp.actions.click(card)
+        except:
+            pass
+
+        # 提取岗位信息
+        info = _extract_list_fields(card)
+        info.update(_extract_detail_panel(dp, card))
+
+        # 补充公司名称
+        if not info.get('GongSiMingCheng'):
+            info['GongSiMingCheng'] = _get_company_name_from_panel(dp)
+
+        key = make_dedup_key(
+            info.get('GongSiMingCheng', ''),
+            info.get('GangWeiMingCheng', ''),
+            info.get('ChengShi', '')
+        )
+
+        if key not in seen_keys:
+            seen_keys.add(key)
+            if company_href:
+                info['_company_href'] = company_href
+            jobs_list.append(info)
+            total_processed += 1
+            log.info(f"  [{i+1}/{len(cards)}] {info.get('GongSiMingCheng')} - {info.get('GangWeiMingCheng')}")
+
+        # 只有当前卡片是当前cards列表的最后一条时，才检查是否加载了新数据
+        if i == len(cards) - 1:
+            current_count = len(dp.eles('css:.job-card-box', timeout=0))
+            if current_count <= len(cards):
+                dp.scroll.to_bottom()
+                log.info("没有新数据，滚动到底部，重试一遍")
+                time.sleep(1.5)
+                current_count = len(dp.eles('css:.job-card-box', timeout=0))
+                if current_count <= len(cards):
+                    log.info("无新数据，列表已到末尾，停止采集")
+                    break
+            log.info(f"检测到新数据，加载后共 {current_count} 张卡片")
+            cards = _get_job_cards(dp)
+
+        i += 1
 
     if not jobs_list:
-        log.warning("No data, fallback to list extraction")
-        cards = _get_job_cards(dp)
-        for card in cards[:max_detail]:
-            info = _extract_list_fields(card)
-            if info.get('GangWeiMingCheng'):
-                jobs_list.append(info)
+        log.warning("无数据")
+    else:
+        log.info(f"本次共采集 {len(jobs_list)} 条记录")
 
     return jobs_list
 
@@ -1005,11 +978,11 @@ def main():
     global _global_csv_file, _global_csv_writer, _global_all_jobs
 
     log.info("=" * 70)
-    log.info("BOSS Zhipin Data Collection v6.0 - Acceptance Test Version".center(50))
+    log.info("BOSS直聘数据采集工具 v6.0".center(50))
     log.info("=" * 70)
-    log.info(f"Keywords: {config.SEARCH_QUERIES}")
-    log.info(f"City: {config.CITY_CODE}")
-    log.info(f"Job Type: {'Part-time' if config.JOB_TYPE == 'parttime' else 'Full-time'}")
+    log.info(f"关键词: {config.SEARCH_QUERIES}")
+    log.info(f"城市: {config.CITY_CODE}")
+    log.info(f"职位类型: {'兼职' if config.JOB_TYPE == 'parttime' else '全职'}")
 
     existing_keys = set()
     total_previous = 0
@@ -1017,12 +990,12 @@ def main():
         existing_keys = load_existing_records(config.BOSS_OUTPUT_FILE)
         total_previous = len(existing_keys)
         if total_previous > 0:
-            log.info(f"Found {total_previous} historical records")
+            log.info(f"发现 {total_previous} 条历史记录")
 
     csv_mode = ('a' if INCREMENTAL_MODE and os.path.exists(config.BOSS_OUTPUT_FILE) else 'w')
     _global_csv_file, _global_csv_writer = create_csv(config.BOSS_OUTPUT_FILE, mode=csv_mode)
 
-    log.info("Starting browser...")
+    log.info("启动浏览器...")
     try:
         co = ChromiumOptions()
         co.set_argument('--disable-blink-features=AutomationControlled')
@@ -1036,21 +1009,21 @@ def main():
         if chrome_user_data:
             user_data = chrome_user_data.rstrip('\\/')
             co.set_user_data_path(user_data)
-            log.info(f"Using Chrome profile: {chrome_user_data}")
+            log.info(f"使用Chrome配置: {chrome_user_data}")
 
         chrome_browser_path = getattr(config, 'CHROME_BROWSER_PATH', '')
         if chrome_browser_path:
             co.set_browser_path(chrome_browser_path)
 
         dp = ChromiumPage(addr_or_opts=co)
-        log.info("Browser started")
+        log.info("浏览器启动成功")
 
         dp.get("https://www.zhipin.com/web/geek/job", timeout=30)
         time.sleep(3)
-        log.info(f"Current URL: {dp.url}")
+        log.info(f"当前URL: {dp.url}")
 
     except Exception as e:
-        log.error(f"Browser start failed: {e}")
+        log.error(f"浏览器启动失败: {e}")
         return
 
     all_jobs = []
@@ -1060,10 +1033,10 @@ def main():
     try:
         for keyword in config.SEARCH_QUERIES:
             log.info(f"{'=' * 50}")
-            log.info(f"Collecting keyword: {keyword}")
+            log.info(f"正在采集关键词: {keyword}")
             log.info(f"{'=' * 50}")
 
-            jobs = scroll_and_collect(dp, keyword, max_scrolls=2, max_detail=config.MAX_DETAIL_COUNT)
+            jobs = scroll_and_collect(dp, keyword, max_detail=config.MAX_DETAIL_COUNT)
 
             for job in jobs:
                 key = make_dedup_key(
@@ -1078,14 +1051,15 @@ def main():
                 all_jobs.append(job)
                 new_count += 1
 
-            log.info(f"Keyword '{keyword}': got {len(jobs)} records, {new_count} new")
+            log.info(f"关键词'{keyword}': 采集到{len(jobs)}条记录, 新增{new_count}条")
 
             if all_jobs:
                 for job_item in all_jobs:
-                    _global_csv_writer.writerow(_job_to_csv_row(job_item))
-                _global_csv_file.flush()
-                os.fsync(_global_csv_file.fileno())
-                log.info(f"Wrote {len(all_jobs)} records to CSV")
+                    _retry_file_operation(
+                        lambda: _global_csv_writer.writerow(_job_to_csv_row(job_item))
+                    )
+                _safe_flush_csv()
+                log.info(f"已写入{len(all_jobs)}条记录到CSV")
                 all_jobs = []
 
             if INCREMENTAL_MODE and len(jobs) > 0:
@@ -1099,26 +1073,26 @@ def main():
                 save_progress_state(state)
 
     except KeyboardInterrupt:
-        log.warning("Ctrl+C - saving progress")
+        log.warning("Ctrl+C中断 - 正在保存进度")
 
     finally:
         try:
             _global_csv_file.close()
-            log.info("CSV file closed")
+            log.info("CSV文件已关闭")
         except Exception:
             pass
         try:
             dp.quit()
-            log.info("Browser closed")
+            log.info("浏览器已关闭")
         except Exception:
             pass
 
     log.info("=" * 50)
-    log.info("Collection complete")
-    log.info(f"Output: {config.BOSS_OUTPUT_FILE}")
-    log.info(f"New records: {new_count}")
+    log.info("采集完成")
+    log.info(f"输出文件: {config.BOSS_OUTPUT_FILE}")
+    log.info(f"新增记录: {new_count}条")
     if INCREMENTAL_MODE:
-        log.info(f"Historical: {total_previous}, Skipped: {skip_count}")
+        log.info(f"历史记录: {total_previous}条, 跳过: {skip_count}条")
     log.info("=" * 50)
 
 
@@ -1126,8 +1100,8 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        log.warning("Program interrupted")
+        log.warning("程序被中断")
     except Exception as e:
-        log.error(f"Unhandled exception: {e}")
+        log.error(f"未处理的异常: {e}")
         import traceback
         traceback.print_exc()
