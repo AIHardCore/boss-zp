@@ -18,6 +18,14 @@ SEARCH_QUERIES = [
     '咨询培训',
 ]
 
+SEARCH_QUERIES1 = [
+    '软件开发',
+    '云服务',
+    '短视频运营',
+    '会展活动',
+    '咨询培训',
+]
+
 # 城市配置
 # 100010000 - 北京
 # 101020100 - 上海
@@ -31,10 +39,10 @@ CITY_CODE = '101280100'  # 广州
 JOB_TYPE = 'parttime'  # fulltime:全职 | parttime:兼职
 
 # 滚动次数（每次滚动会加载约15条数据）
-MAX_SCROLLS = 5
+MAX_SCROLLS = 99999
 
-# 详情页获取数量（太多会很慢）
-MAX_DETAIL_COUNT = 3
+# 每轮详情页获取数量（太多会很慢）
+MAX_DETAIL_COUNT = 99999
 
 # 输出文件名
 BOSS_OUTPUT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data_boss.csv')
@@ -60,13 +68,13 @@ HEADLESS = False  # 是否无头模式运行
 # Chrome 程序路径（留空则让 DrissionPage 自动查找，可能找到 CentBrowser 等其他 Chromium 内核浏览器）
 # Windows 示例：CHROME_BROWSER_PATH = 'C:/Program Files/Google/Chrome/Application/chrome.exe'
 #              CHROME_BROWSER_PATH = 'D:/CentBrowser/Application/chrome.exe'
-CHROME_BROWSER_PATH = 'C:/Program Files/Google/Chrome/Application/chrome.exe'
+CHROME_BROWSER_PATH = 'C:/Users/HardCore/.agent-browser/browsers/chrome-146.0.7680.80/chrome-win64/chrome.exe'
 
 # Chrome 配置文件路径（留空则使用匿名模式，浏览器不保存任何数据）
 # 设置后使用本地 Chrome 已登录状态，无需每次扫码登录
 # 示例（Windows）：CHROME_USER_DATA_PATH = 'C:/Users/HardCore/AppData/Local/Google/Chrome/User Data/Default'
 # 注意：使用配置文件时 Chrome 不能正在运行，请先关闭所有 Chrome 窗口
-CHROME_USER_DATA_PATH = 'C:/Users/HardCore/AppData/Local/Google/Chrome/User Data/Default'
+CHROME_USER_DATA_PATH = 'C:/Users/HardCore/.agent-browser/profile/Default'
 
 # API 模式最大翻页数（每页约15条）
 MAX_API_PAGES = 50

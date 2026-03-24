@@ -6,8 +6,10 @@
 __pycache__/
 *.pyc
 .venv/
-.logs/
+logs/
 venv/
+.claude
+
 
 # OS
 .DS_Store
@@ -20,3 +22,5 @@ venv/
 *.csv
 !data.csv.example
 boss_progress.json
+test_company_api.py
+test_listen_company.py
